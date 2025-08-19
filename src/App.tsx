@@ -6,14 +6,20 @@ import { Benefits } from './components/Benefits';
 import { Testimonials } from './components/Testimonials';
 import { Resources } from './components/Resources';
 import { Footer } from './components/Footer';
+import { GoalSelector } from './components/GoalSelector';
+import { ResourceCards } from './components/ResourceCards';
+
+
 export function App() {
   return <div className="min-h-screen w-full bg-gray-50">
       <Header />
       <main>
         <Hero />
-        <MortgageOptions />
+        <GoalSelector />
+        <ResourceCards />
+        {/* <MortgageOptions />
         <Benefits />
-        <Testimonials />
+        <Testimonials /> */}
         <Resources />
       </main>
       <Footer />

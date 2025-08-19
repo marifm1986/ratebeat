@@ -1,63 +1,69 @@
 import React from 'react';
-import { ChevronRightIcon } from 'lucide-react';
-import { Button } from './ui/Button';
-import { Input } from './ui/Input';
-import { Select } from './ui/Select';
-import { Card, CardContent } from './ui/Card';
+import { ArrowRight } from 'lucide-react';
+
 export const Hero = () => {
-  return <div className="bg-gray-100 py-16 md:py-24">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
-        <div className="lg:grid lg:grid-cols-12 lg:gap-12">
-          <div className="lg:col-span-8">
-            <h1 className="text-4xl font-extrabold tracking-tight text-gray-800 sm:text-5xl md:text-6xl">
-              <span className="block mb-2">Find the perfect</span>
-              <span className="block text-orange-500">mortgage rate</span>
+  return (
+    <div className="bg-white py-6 lg:py-12 w-full">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-1 items-stretch min-h-[400px] lg:min-h-[600px]">
+          <div
+            className="col-span-1 lg:col-span-2 flex flex-col justify-center space-y-6 lg:space-y-10 rounded-3xl p-6 lg:p-8"
+            style={{ backgroundColor: "#f7f7f7" }}
+          >
+            <p className="text-sm text-green-600 font-medium">Rate Shopping?</p>
+            
+            <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight">
+              Get your low rate
             </h1>
-            <p className="mt-5 text-base text-gray-600 sm:mt-6 sm:text-lg md:mt-6 md:text-xl max-w-3xl">
-              Get a personalized rate quote in minutes. RateBeat makes the
-              mortgage process simple and straightforward.
-            </p>
-            <div className="mt-10 sm:mt-12">
-              <Card className="p-8">
-                <CardContent className="p-0">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    <div>
-                      <Select id="purpose" name="purpose" label="What's your goal?" className="mt-2 w-full rounded-md">
-                        <option>Buy a home</option>
-                        <option>Refinance</option>
-                        <option>Cash-out refinance</option>
-                      </Select>
-                    </div>
-                    <div>
-                      <label htmlFor="zipcode" className="block text-sm font-medium text-gray-700 mb-3">
-                        Property Zip Code
-                      </label>
-                      <Input type="text" name="zipcode" id="zipcode" className="w-full" placeholder="Enter zip code" />
-                    </div>
-                    <div>
-                      <Select id="credit-score" name="credit-score" label="Credit Score Range" className="mt-2 w-full rounded-md">
-                        <option>Excellent (740+)</option>
-                        <option>Good (700-739)</option>
-                        <option>Fair (660-699)</option>
-                        <option>Below Average (620-659)</option>
-                        <option>Poor (below 620)</option>
-                      </Select>
+            
+            <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 max-w-full">
+              <div className="space-y-4 flex-1">
+                <div className="bg-white rounded-2xl p-6 border-2 border-transparent hover:border-gray-300 transition-all cursor-pointer group shadow-sm">
+                  <div className="flex items-center justify-between lg:justify-between">
+                    <span className="text-lg font-medium text-gray-900">I'm buying</span>
+                    <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center transition-colors">
+                      <ArrowRight className="h-6 w-6 text-gray-600" />
                     </div>
                   </div>
-                  <Button type="submit" className="w-full bg-gray-800 hover:bg-gray-900 text-white py-3">
-                    See My Rates
-                    <ChevronRightIcon className="ml-2 h-4 w-4" />
-                  </Button>
-                </CardContent>
-              </Card>
+                </div>
+                
+                <div className="bg-white rounded-2xl p-6 border-2 border-transparent hover:border-gray-300 transition-all cursor-pointer group shadow-sm">
+                  <div className="flex items-center justify-between lg:justify-between">
+                    <div>
+                      <div className="text-lg font-medium text-gray-900">Estimate my monthly</div>
+                      <div className="text-lg font-medium text-gray-900">payment</div>
+                    </div>
+                    <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center transition-colors">
+                      <ArrowRight className="h-6 w-6 text-gray-600" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex-1">
+                <div className="bg-white rounded-2xl p-6 h-full border-2 border-transparent hover:border-gray-300 transition-all cursor-pointer group flex flex-col justify-between shadow-sm">
+                  <div className="text-lg font-medium text-gray-900">See today's rates</div>
+                  <div className="flex justify-end lg:justify-start lg:items-center">
+                    <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center transition-colors lg:mr-3">
+                      <ArrowRight className="h-6 w-6 text-gray-600" />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="mt-14 relative lg:mt-0 lg:col-span-4">
-            <div className="bg-gray-200 rounded-2xl overflow-hidden h-full flex items-center justify-center">
-              <img className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Happy family in front of new home" />
+          
+          <div className="hidden lg:flex lg:col-span-1 relative lg:ml-8 items-center h-full">
+            <div className="rounded-3xl overflow-hidden w-full h-full drop-shadow-xl">
+              <img 
+                src="/hero.webp"
+                alt="Woman holding wicker basket in front of house" 
+                className="w-full h-full object-cover rounded-3xl"
+              />
             </div>
           </div>
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
