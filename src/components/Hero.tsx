@@ -1,69 +1,52 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ArrowRightIcon } from 'lucide-react';
 
 export const Hero = () => {
   return (
-    <div className="bg-white py-6 lg:py-12 w-full">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-1 items-stretch min-h-[400px] lg:min-h-[600px]">
-          <div
-            className="col-span-1 lg:col-span-2 flex flex-col justify-center space-y-6 lg:space-y-10 rounded-3xl p-6 lg:p-8"
-            style={{ backgroundColor: "#f7f7f7" }}
-          >
-            <p className="text-sm text-green-600 font-medium">Rate Shopping?</p>
-            
-            <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight">
+    <div className="w-full bg-gray-200 py-12">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col md:flex-row items-center">
+          <div className="w-full md:w-1/2 pr-0 md:pr-12 mb-10 md:mb-0">
+            <p className="text-green-500 mb-4">Rate Shopping?</p>
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-10">
               Get your low rate
             </h1>
-            
-            <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 max-w-full">
-              <div className="space-y-4 flex-1">
-                <div className="bg-white rounded-2xl p-6 border-2 border-transparent hover:border-gray-300 transition-all cursor-pointer group shadow-sm">
-                  <div className="flex items-center justify-between lg:justify-between">
-                    <span className="text-lg font-medium text-gray-900">I'm buying</span>
-                    <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center transition-colors">
-                      <ArrowRight className="h-6 w-6 text-gray-600" />
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-white rounded-2xl p-6 border-2 border-transparent hover:border-gray-300 transition-all cursor-pointer group shadow-sm">
-                  <div className="flex items-center justify-between lg:justify-between">
-                    <div>
-                      <div className="text-lg font-medium text-gray-900">Estimate my monthly</div>
-                      <div className="text-lg font-medium text-gray-900">payment</div>
-                    </div>
-                    <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center transition-colors">
-                      <ArrowRight className="h-6 w-6 text-gray-600" />
-                    </div>
-                  </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-800 font-medium">I'm buying</span>
+                  <ArrowRightIcon className="h-5 w-5 text-gray-600" />
                 </div>
               </div>
-              
-              <div className="flex-1">
-                <div className="bg-white rounded-2xl p-6 h-full border-2 border-transparent hover:border-gray-300 transition-all cursor-pointer group flex flex-col justify-between shadow-sm">
-                  <div className="text-lg font-medium text-gray-900">See today's rates</div>
-                  <div className="flex justify-end lg:justify-start lg:items-center">
-                    <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center transition-colors lg:mr-3">
-                      <ArrowRight className="h-6 w-6 text-gray-600" />
-                    </div>
-                  </div>
+              <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-800 font-medium">
+                    See today's rates
+                  </span>
+                  <ArrowRightIcon className="h-5 w-5 text-gray-600" />
+                </div>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow md:col-span-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-800 font-medium">
+                    Estimate my monthly payment
+                  </span>
+                  <ArrowRightIcon className="h-5 w-5 text-gray-600" />
                 </div>
               </div>
             </div>
           </div>
-          
-          <div className="hidden lg:flex lg:col-span-1 relative lg:ml-8 items-center h-full">
-            <div className="rounded-3xl overflow-hidden w-full h-full drop-shadow-xl">
-              <img 
+          <div className="w-full">
+            <div className="rounded-2xl overflow-hidden ml-auto h-full w-1/2">
+              <img
                 src="/hero.webp"
-                alt="Woman holding wicker basket in front of house" 
-                className="w-full h-full object-cover rounded-3xl"
+                alt="Woman with basket"
+                className="w-full h-auto object-cover"
               />
             </div>
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 };
