@@ -1,7 +1,8 @@
-import React from 'react';
-import { ArrowRight, ArrowRightIcon } from 'lucide-react';
+import { ArrowRightIcon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export const Hero = () => {
+  const navigate = useNavigate()
   return (
     <div className="w-full bg-gray-200 py-12">
       <div className="container mx-auto px-4">
@@ -12,7 +13,7 @@ export const Hero = () => {
               Get your low rate
             </h1>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow" onClick={() => navigate('/buying')}>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-800 font-medium">I'm buying</span>
                   <ArrowRightIcon className="h-5 w-5 text-gray-600" />
