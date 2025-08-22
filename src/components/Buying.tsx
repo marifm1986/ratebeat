@@ -688,11 +688,11 @@ export function Buying() {
                                     </div>
                                 )}
                             </div>
-                            <div className="flex flex-col space-y-3">
+                            <div className="flex items-center gap-6">
                                 <button
                                     onClick={handleHomeFoundContinue}
                                     disabled={!homeFound}
-                                    className={`w-full py-3 rounded-full mb-4 transition-all ${!homeFound ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-black text-white active:scale-95'}`}
+                                    className={`w-full py-3 rounded-full transition-all ${!homeFound ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-black text-white active:scale-95'}`}
                                 >
                                     Next
                                 </button>
@@ -736,7 +736,7 @@ export function Buying() {
                                     <img
                                         src="/buy.webp"
                                         alt="House images"
-                                        className="mx-auto mb-6"
+                                        className="mx-auto mb-6 w-1/2"
                                     />
                                 )}
                                 <h1 className="text-3xl font-bold mb-2">
@@ -757,11 +757,11 @@ export function Buying() {
                             {/* Current step content */}
                             {formSteps[currentStep].content}
                             {/* Navigation buttons */}
-                            <div className="flex flex-col space-y-3">
+                            <div className="flex items-center gap-6">
                                 <button
                                     onClick={handleContinue}
                                     disabled={currentStep > 0 && !hasSelection()}
-                                    className={`w-full py-3 rounded-full mb-4 transition-all ${currentStep > 0 && !hasSelection() ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-black text-white active:scale-95'}`}
+                                    className={`w-full py-3 rounded-full  transition-all ${currentStep > 0 && !hasSelection() ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-black text-white active:scale-95'}`}
                                 >
                                     Continue
                                 </button>
