@@ -10,7 +10,7 @@ export const Hero = () => {
           <div className="lg:col-span-3 pr-0 lg:pr-8 mb-8 lg:mb-0">
             <p className="text-green-500 mb-3 text-sm font-medium">Rate Shopping?</p>
             <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-6 lg:mb-8 leading-tight">
-              Get your low rate
+              Grab today’s low rate
             </h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="bg-white p-4 lg:p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer" onClick={() => navigate('/buying')}>

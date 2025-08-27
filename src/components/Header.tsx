@@ -5,11 +5,13 @@ export const Header = () => {
     <header className="w-full py-4 px-[48px] flex items-center justify-between">
       <div className="flex items-center">
         <div className="mr-10">
-          <img
-            src="/ratebeat-logo.png"
-            alt="Ratebeat Logo"
-            className="h-12"
-          />
+          <a href="/">
+            <img
+              src="/ratebeat-logo.png"
+              alt="Ratebeat Logo"
+              className="h-12"
+            />
+          </a>
         </div>
         <nav className="hidden md:flex space-x-8 font-medium">
           <a href="#" className="text-gray-800 hover:text-gray-600">
