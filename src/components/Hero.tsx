@@ -13,12 +13,12 @@ export const Hero = () => {
               Grab today’s low rate
             </h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div className="bg-white p-4 lg:p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer" onClick={() => navigate('/buying')}>
+              <a className="bg-white p-4 lg:p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer" target='_blank' href='https://ratebeat.floify.com/apply-now'>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-800 font-medium text-sm lg:text-base">I'm buying</span>
                   <ArrowRightIcon className="h-4 w-4 lg:h-5 lg:w-5 text-gray-600" />
                 </div>
-              </div>
+              </a>
               <div className="bg-white p-4 lg:p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer">
                 <div className="flex justify-between items-center">
                   <span className="text-gray-800 font-medium text-sm lg:text-base">
@@ -40,7 +40,7 @@ export const Hero = () => {
           <div className="lg:col-span-2 hidden lg:block">
             <div className="rounded-2xl overflow-hidden aspect-[4/3] w-full">
               <img
-                src="/hero.jpg"
+                src="/hero.webp"
                 alt="Family at home"
                 className="w-full h-full object-cover"
               />
