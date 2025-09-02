@@ -33,7 +33,7 @@ export const OnlineFeatures = () => {
             <div className="relative bg-black rounded-[3rem] p-2 shadow-2xl max-w-sm mx-auto">
               <div className="rounded-[2.5rem] overflow-hidden">
                 <img
-                  src="/mobile.jpg"
+                  src="/mobile.webp"
                   alt="Mobile app interface showcasing rates and calculators"
                   className="w-full h-auto object-cover max-h-[500px]"
                 />

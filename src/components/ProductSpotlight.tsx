@@ -10,7 +10,7 @@ export const ProductSpotlight = () => {
         <h2 className="text-center text-4xl lg:text-5xl font-bold text-gray-900 mb-8 lg:mb-12 leading-snug">
           Product Spotlight
         </h2>
-        
+
         <div className="space-y-16">
           {/* One Day Mortgage section */}
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -30,28 +30,28 @@ export const ProductSpotlight = () => {
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
-            
+
             {/* Right Content: Image */}
             <div className="rounded-2xl overflow-hidden shadow-xl">
-              <img 
-                src="/2.jpg"
+              <img
+                src="/oneDay.webp"
                 alt="One Day Mortgage"
                 className="w-full h-auto object-cover"
               />
             </div>
           </div>
-          
+
           {/* Better HELOC section */}
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Left Content: Image */}
             <div className="order-2 lg:order-1 rounded-2xl overflow-hidden shadow-xl">
-              <img 
-                src="/1.jpg"
+              <img
+                src="/Better.webp"
                 alt="Better HELOC"
                 className="w-full h-auto object-cover"
               />
             </div>
-            
+
             {/* Right Content: Text */}
             <div className="order-1 lg:order-2 space-y-6">
               <div className="inline-block bg-gradient-to-r from-purple-500 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium">
