@@ -623,3 +623,12 @@ export function Buying() {
         </div>
     )
 }
+
+
+/* 
+Mortgage Payment Calculator (P&I, Taxes, Insurance)
+Affordability Calculator / Purchase Funnel
+Refinance Savings Funnel (Cash-Out / Rate & Term)
+Rent vs Buy Funnel
+Comparison / Rate Shopping Funnel (Amortization or Loan Options)
+*/
