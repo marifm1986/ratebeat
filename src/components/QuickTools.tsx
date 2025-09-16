@@ -93,7 +93,7 @@ export const QuickTools: React.FC<{ items?: Tool[] }> = ({ items }) => {
               ].join(' ')}
             >
               <div className="flex items-start gap-4">
-                <Icon className={['w-6 h-6', variant.icon].join(' ')} />
+                {/* <Icon className={['w-6 h-6', variant.icon].join(' ')} /> */}
 
                 <p className={['text-left text-base md:text-lg font-medium leading-snug', variant.textColor].join(' ')}>
                   {name}
