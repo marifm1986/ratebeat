@@ -1,8 +1,7 @@
 import { ArrowRightIcon } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 
 export const Hero = () => {
-  const navigate = useNavigate()
+
   return (
     <div className="w-full bg-gray-200 py-8 lg:py-12">
       <div className="container mx-auto px-4">
@@ -19,22 +18,22 @@ export const Hero = () => {
                   <ArrowRightIcon className="h-4 w-4 lg:h-5 lg:w-5 text-gray-600" />
                 </div>
               </a>
-              <div className="bg-white p-4 lg:p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+              <a className="bg-white p-4 lg:p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer" target='_blank' href='/rate'>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-800 font-medium text-sm lg:text-base">
                     See today's rates
                   </span>
                   <ArrowRightIcon className="h-4 w-4 lg:h-5 lg:w-5 text-gray-600" />
                 </div>
-              </div>
-              <div className="bg-white p-4 lg:p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer sm:col-span-2">
+              </a>
+              {/* <div className="bg-white p-4 lg:p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer sm:col-span-2">
                 <div className="flex justify-between items-center">
                   <span className="text-gray-800 font-medium text-sm lg:text-base">
                     Estimate my monthly payment
                   </span>
                   <ArrowRightIcon className="h-4 w-4 lg:h-5 lg:w-5 text-gray-600" />
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="lg:col-span-2 hidden lg:block">

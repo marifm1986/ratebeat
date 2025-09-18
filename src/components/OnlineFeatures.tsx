@@ -24,7 +24,7 @@ export const OnlineFeatures = () => {
   ];
 
   return (
-    <div className="bg-white rounded-3xl w-full py-10 lg:py-18 shadow-lg">
+    <div className="bg-white w-full py-10 lg:py-18 ">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
           {/* Left: Phone / image block */}
@@ -73,11 +73,14 @@ export const OnlineFeatures = () => {
               })}
             </div>
 
-            <div className="mt-12">
+              {/* this cta of for temporary  */}
+
+            {/* <div className="mt-12">
               <button className="bg-gray-900 text-white px-8 py-3 rounded-full font-medium hover:bg-gray-800 transition-colors">
                 Start my approval
               </button>
-            </div>
+            </div> */}
+
           </div>
         </div>
       </div>
