@@ -1,3 +1,4 @@
+import Calculator from './components/Calculator';
 import { Footer } from './components/Footer';
 import { GoalSelector } from './components/GoalSelector';
 import { Header } from './components/Header';
@@ -17,6 +18,7 @@ export function App() {
       <ResourceCards />
       <TrustAndHook />
       <OnlineFeatures />
+      <Calculator />
       <QuickTools />
       {/* <MortgageOptions />
         <Benefits />
