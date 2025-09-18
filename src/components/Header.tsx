@@ -393,9 +393,9 @@ export const Header: React.FC<NavigationProps> = ({
           <div className="flex-shrink-0 mx-auto lg:mx-0">
             <a href="/" className="flex items-center">
               <img
-                src="https://prod.rockmedialibrary.com/api/public/content/R4M-RocketMortgageLogoStacked?v=81fe94e4"
+                src="./ratebeat-logo.png"
                 alt="Rocket Mortgage Logo"
-                width={140}
+                width={100}
                 className="h-auto"
               />
             </a>
