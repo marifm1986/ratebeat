@@ -1,5 +1,4 @@
-import React from 'react';
-import { PhoneIcon, MailIcon, MapPinIcon, FacebookIcon, TwitterIcon, InstagramIcon, LinkedinIcon } from 'lucide-react';
+import { FacebookIcon, MailIcon, MapPinIcon, PhoneIcon } from 'lucide-react';
 export const Footer = () => {
   return <footer className="bg-gray-800 text-gray-300">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
