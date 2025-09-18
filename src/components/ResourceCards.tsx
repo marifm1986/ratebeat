@@ -65,7 +65,7 @@ export const ResourceCards = () => {
     <section className="bg-white rounded-3xl px-10 py-10 lg:px-28 lg:py-18 shadow-lg">
       {/* unified horizontal padding so content doesn’t feel boxed */}
       <div>
-<h2 className="text-center text-2xl lg:text-3xl font-bold text-gray-900 mb-8 lg:mb-12">
+        <h2 className="text-center text-2xl lg:text-3xl font-bold text-gray-900 mb-8 lg:mb-12">
           Confidence comes with learning
         </h2>
 

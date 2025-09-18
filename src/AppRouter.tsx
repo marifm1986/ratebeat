@@ -5,7 +5,7 @@ export function AppRouter() {
   return <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} />
-      <Route path="/buying" element={<Buying />} />
+      <Route path="/rate" element={<Buying />} />
     </Routes>
   </BrowserRouter>;
 }
