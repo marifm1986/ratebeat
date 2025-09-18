@@ -1,5 +1,4 @@
-import React from 'react';
-import { PhoneIcon, MailIcon, MapPinIcon, FacebookIcon, TwitterIcon, InstagramIcon, LinkedinIcon } from 'lucide-react';
+import { FacebookIcon, MailIcon, MapPinIcon, PhoneIcon } from 'lucide-react';
 export const Footer = () => {
   return <footer className="bg-gray-800 text-gray-300">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -7,37 +6,38 @@ export const Footer = () => {
         <div>
           <h3 className="text-xl font-bold text-white mb-4">RateBeat</h3>
           <p className="mb-4">
-            Making mortgage simple, fast, and affordable for everyone.
+            Ratebeat is an independent mortgage lender based in California and originates a range of mortgage products in California, New Jersey, Texas and Connecticut.
           </p>
           <div className="flex space-x-4">
-            <a href="#" className="text-gray-400 hover:text-white">
+            <a href="https://www.facebook.com/RatebeatM/" target='_blank' className="text-gray-400 hover:text-white">
               <FacebookIcon className="h-5 w-5" />
             </a>
-            <a href="#" className="text-gray-400 hover:text-white">
-              <TwitterIcon className="h-5 w-5" />
+            <a href="https://twitter.com/ratebeatm" target='_blank' className="text-gray-400 hover:text-white">
+              <svg width={18} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill='#fff' className='fill-gray-400 hover:fill-white'>
+                <path d="M357.2 48L427.8 48 273.6 224.2 455 464 313 464 201.7 318.6 74.5 464 3.8 464 168.7 275.5-5.2 48 140.4 48 240.9 180.9 357.2 48zM332.4 421.8l39.1 0-252.4-333.8-42 0 255.3 333.8z" /></svg>
             </a>
-            <a href="#" className="text-gray-400 hover:text-white">
+            {/* <a href="#" className="text-gray-400 hover:text-white">
               <InstagramIcon className="h-5 w-5" />
             </a>
             <a href="#" className="text-gray-400 hover:text-white">
               <LinkedinIcon className="h-5 w-5" />
-            </a>
+            </a> */}
           </div>
         </div>
         <div>
           <h3 className="text-lg font-semibold text-white mb-4">Products</h3>
-          <ul className="space-y-2">
+          <ul className="space-y-2 flex flex-col gap-2">
             <li>
-              <a href="#" className="hover:text-white">
-                Home Purchase
+              <a href="https://ratebeat.floify.com/apply-now" className="hover:text-white">
+                Buy
               </a>
             </li>
             <li>
-              <a href="#" className="hover:text-white">
+              <a href="https://nmann-refinance-site-8566-mRX46H3p.itclix.com" className="hover:text-white">
                 Refinance
               </a>
             </li>
-            <li>
+            {/*  <li>
               <a href="#" className="hover:text-white">
                 Cash-Out Refinance
               </a>
@@ -56,10 +56,10 @@ export const Footer = () => {
               <a href="#" className="hover:text-white">
                 USDA Loans
               </a>
-            </li>
+            </li> */}
           </ul>
         </div>
-        <div>
+        {/* <div>
           <h3 className="text-lg font-semibold text-white mb-4">Resources</h3>
           <ul className="space-y-2">
             <li>
@@ -93,12 +93,12 @@ export const Footer = () => {
               </a>
             </li>
           </ul>
-        </div>
+        </div> */}
         <div>
           <h3 className="text-lg font-semibold text-white mb-4">
             Contact Us
           </h3>
-          <ul className="space-y-2">
+          <ul className="space-y-2 flex flex-col gap-2">
             <li className="flex items-start">
               <PhoneIcon className="h-5 w-5 mr-2 mt-0.5" />
               <span>(877) 877 7575</span>
@@ -126,11 +126,11 @@ export const Footer = () => {
           <div className="mt-4 md:mt-0">
             <ul className="flex space-x-6 text-sm">
               <li>
-                <a href="#" className="hover:text-white">
+                <a href="https://ratebeat.com/pdf/privacy-policy.pdf" target='_blank' className="hover:text-white">
                   Privacy Policy
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a href="#" className="hover:text-white">
                   Terms of Service
                 </a>
@@ -144,7 +144,7 @@ export const Footer = () => {
                 <a href="#" className="hover:text-white">
                   Sitemap
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>
