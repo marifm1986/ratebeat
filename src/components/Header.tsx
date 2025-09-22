@@ -361,6 +361,10 @@ export const Header: React.FC<NavigationProps> = ({
     //     },
     //   },
     // },
+    {
+      label: 'Blog',
+      href: '/blog',
+    },
   ]
   const handleMouseEnter = (label: string) => {
     setActiveDropdown(label)

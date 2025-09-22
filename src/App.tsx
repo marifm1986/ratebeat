@@ -1,4 +1,5 @@
 import Calculator from './components/Calculator';
+import { BlogSection } from './components/BlogSection';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
@@ -18,6 +19,7 @@ export function App() {
       <TrustAndHook />
       <OnlineFeatures />
       <Calculator />
+      <BlogSection />
       {/* <QuickTools /> */}
       {/* <MortgageOptions />
         <Benefits />
