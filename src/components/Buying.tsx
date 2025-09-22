@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Header } from '../components/Header'
-import { ArrowLeftIcon } from 'lucide-react'
 export function Buying() {
     const [currentStep, setCurrentStep] = useState(0)
     const [showHomeFoundQuestion, setShowHomeFoundQuestion] = useState(false)
