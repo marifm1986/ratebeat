@@ -5,6 +5,7 @@ interface NavigationProps {
 }
 export const Header: React.FC<NavigationProps> = ({
   'data-id': dataId,
+
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
@@ -395,13 +396,18 @@ export const Header: React.FC<NavigationProps> = ({
           </button>
           {/* Logo */}
           <div className="flex-shrink-0 mx-auto lg:mx-0">
-            <a href="/" className="flex items-center">
-              <img
-                src="./ratebeat-logo.png"
+
+            {/* <img
+                src={logo}
                 alt="Rocket Mortgage Logo"
                 width={100}
                 className="h-auto"
-              />
+              /> */}
+            <a href="/" className="flex items-center">
+              <img  src={`${import.meta.env.BASE_URL}ratebeat-logo.png`} alt="Rocket Mortgage Logo"
+                width={100}
+                className="h-auto" />
+
             </a>
           </div>
           {/* Desktop Navigation */}
