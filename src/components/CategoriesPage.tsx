@@ -1,69 +1,55 @@
-import { EditIcon, PlusIcon, SearchIcon, TrashIcon, XIcon } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
+import {
+  PlusIcon,
+  SearchIcon,
+  EditIcon,
+  TrashIcon,
+  XIcon,
+  LoaderIcon,
+} from 'lucide-react'
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  query,
+  where,
+  orderBy,
+  serverTimestamp,
+  getDoc,
+} from 'firebase/firestore'
+import { db } from '../firebase/config'
 // Define types for categories and tags
 interface Category {
-  id: number
+  id: number | string
   name: string
   slug: string
+  createdAt?: any
+  updatedAt?: any
 }
 interface Tag {
-  id: number
+  id: number | string
   name: string
   slug: string
+  createdAt?: any
+  updatedAt?: any
 }
 // Form data type for category and tag forms
 interface FormData {
-  id?: number
+  id?: number | string
   name: string
   slug: string
 }
 export const CategoriesPage = () => {
-  // Sample categories data
-  const [categories, setCategories] = useState<Category[]>([
-    {
-      id: 1,
-      name: 'Technology',
-      slug: 'technology',
-    },
-    {
-      id: 2,
-      name: 'Travel',
-      slug: 'travel',
-    },
-    {
-      id: 3,
-      name: 'Food',
-      slug: 'food',
-    },
-    {
-      id: 4,
-      name: 'Lifestyle',
-      slug: 'lifestyle',
-    },
-  ])
-  // Sample tags data
-  const [tags, setTags] = useState<Tag[]>([
-    {
-      id: 1,
-      name: 'Programming',
-      slug: 'programming',
-    },
-    {
-      id: 2,
-      name: 'Adventure',
-      slug: 'adventure',
-    },
-    {
-      id: 3,
-      name: 'Recipes',
-      slug: 'recipes',
-    },
-    {
-      id: 4,
-      name: 'Wellness',
-      slug: 'wellness',
-    },
-  ])
+  // State for categories and tags
+  const [categories, setCategories] = useState<Category[]>([])
+  const [tags, setTags] = useState<Tag[]>([])
+  // Loading and error states
+  const [categoriesLoading, setCategoriesLoading] = useState(true)
+  const [tagsLoading, setTagsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   // Search states
   const [categorySearch, setCategorySearch] = useState('')
   const [tagSearch, setTagSearch] = useState('')
@@ -84,6 +70,56 @@ export const CategoriesPage = () => {
     name: '',
     slug: '',
   })
+  // Fetch categories and tags from Firestore
+  useEffect(() => {
+    const fetchCategories = async () => {
+      setCategoriesLoading(true)
+      try {
+        const categoriesCollection = collection(db, 'categories')
+        const categoryQuery = query(
+          categoriesCollection,
+          orderBy('name', 'asc'),
+        )
+        const snapshot = await getDocs(categoryQuery)
+        const fetchedCategories = snapshot.docs.map(
+          (doc) =>
+            ({
+              id: doc.id,
+              ...doc.data(),
+            }) as Category,
+        )
+        setCategories(fetchedCategories)
+      } catch (err) {
+        console.error('Error fetching categories:', err)
+        setError('Failed to load categories. Please try again later.')
+      } finally {
+        setCategoriesLoading(false)
+      }
+    }
+    const fetchTags = async () => {
+      setTagsLoading(true)
+      try {
+        const tagsCollection = collection(db, 'tags')
+        const tagQuery = query(tagsCollection, orderBy('name', 'asc'))
+        const snapshot = await getDocs(tagQuery)
+        const fetchedTags = snapshot.docs.map(
+          (doc) =>
+            ({
+              id: doc.id,
+              ...doc.data(),
+            }) as Tag,
+        )
+        setTags(fetchedTags)
+      } catch (err) {
+        console.error('Error fetching tags:', err)
+        setError('Failed to load tags. Please try again later.')
+      } finally {
+        setTagsLoading(false)
+      }
+    }
+    fetchCategories()
+    fetchTags()
+  }, [])
   // Filter categories and tags based on search
   const filteredCategories = categories.filter((cat) =>
     cat.name.toLowerCase().includes(categorySearch.toLowerCase()),
@@ -170,60 +206,99 @@ export const CategoriesPage = () => {
     setTagModalOpen(true)
   }
   // Handle category save
-  const handleSaveCategory = (e: React.FormEvent) => {
+  const handleSaveCategory = async (e: React.FormEvent) => {
     e.preventDefault()
     if (categoryFormData.name.trim() === '') return
-    if (categoryFormData.id) {
-      // Update existing category
-      setCategories(
-        categories.map((cat) =>
-          cat.id === categoryFormData.id
-            ? {
+    try {
+      if (categoryFormData.id) {
+        // Update existing category in Firestore
+        const categoryRef = doc(db, 'categories', categoryFormData.id as string)
+        await updateDoc(categoryRef, {
+          name: categoryFormData.name,
+          slug: categoryFormData.slug,
+          updatedAt: serverTimestamp(),
+        })
+        // Update state
+        setCategories(
+          categories.map((cat) =>
+            cat.id === categoryFormData.id
+              ? {
                 ...cat,
                 name: categoryFormData.name,
                 slug: categoryFormData.slug,
               }
-            : cat,
-        ),
-      )
-    } else {
-      // Create new category
-      const newCategory = {
-        id: Math.max(0, ...categories.map((c) => c.id)) + 1,
-        name: categoryFormData.name,
-        slug: categoryFormData.slug,
+              : cat,
+          ),
+        )
+      } else {
+        // Create new category in Firestore
+        const newCategoryData = {
+          name: categoryFormData.name,
+          slug: categoryFormData.slug,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
+        }
+        const docRef = await addDoc(
+          collection(db, 'categories'),
+          newCategoryData,
+        )
+        const newCategory = {
+          id: docRef.id,
+          ...newCategoryData,
+        }
+        setCategories([...categories, newCategory])
       }
-      setCategories([...categories, newCategory])
+      setCategoryModalOpen(false)
+    } catch (err) {
+      console.error('Error saving category:', err)
+      setError('Failed to save category. Please try again.')
     }
-    setCategoryModalOpen(false)
   }
   // Handle tag save
-  const handleSaveTag = (e: React.FormEvent) => {
+  const handleSaveTag = async (e: React.FormEvent) => {
     e.preventDefault()
     if (tagFormData.name.trim() === '') return
-    if (tagFormData.id) {
-      // Update existing tag
-      setTags(
-        tags.map((tag) =>
-          tag.id === tagFormData.id
-            ? {
+    try {
+      if (tagFormData.id) {
+        // Update existing tag in Firestore
+        const tagRef = doc(db, 'tags', tagFormData.id as string)
+        await updateDoc(tagRef, {
+          name: tagFormData.name,
+          slug: tagFormData.slug,
+          updatedAt: serverTimestamp(),
+        })
+        // Update state
+        setTags(
+          tags.map((tag) =>
+            tag.id === tagFormData.id
+              ? {
                 ...tag,
                 name: tagFormData.name,
                 slug: tagFormData.slug,
               }
-            : tag,
-        ),
-      )
-    } else {
-      // Create new tag
-      const newTag = {
-        id: Math.max(0, ...tags.map((t) => t.id)) + 1,
-        name: tagFormData.name,
-        slug: tagFormData.slug,
+              : tag,
+          ),
+        )
+      } else {
+        // Create new tag in Firestore
+        const newTagData = {
+          name: tagFormData.name,
+          slug: tagFormData.slug,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
+        }
+        const docRef = await addDoc(collection(db, 'tags'), newTagData)
+        const newTag = {
+          id: docRef.id,
+          ...newTagData,
+        }
+        setTags([...tags, newTag])
       }
-      setTags([...tags, newTag])
+      setTagModalOpen(false)
+    } catch (err) {
+      console.error('Error saving tag:', err)
+      setError('Failed to save tag. Please try again.')
     }
-    setTagModalOpen(false)
   }
   // Handle category delete
   const handleDeleteCategory = (category: Category) => {
@@ -234,18 +309,62 @@ export const CategoriesPage = () => {
     setTagToDelete(tag)
   }
   // Confirm category delete
-  const confirmDeleteCategory = () => {
+  const confirmDeleteCategory = async () => {
     if (categoryToDelete) {
-      setCategories(categories.filter((cat) => cat.id !== categoryToDelete.id))
-      setCategoryToDelete(null)
+      try {
+        // Delete from Firestore
+        await deleteDoc(doc(db, 'categories', categoryToDelete.id as string))
+        // Update state
+        setCategories(
+          categories.filter((cat) => cat.id !== categoryToDelete.id),
+        )
+        setCategoryToDelete(null)
+      } catch (err) {
+        console.error('Error deleting category:', err)
+        setError('Failed to delete category. Please try again.')
+      }
     }
   }
   // Confirm tag delete
-  const confirmDeleteTag = () => {
+  const confirmDeleteTag = async () => {
     if (tagToDelete) {
-      setTags(tags.filter((tag) => tag.id !== tagToDelete.id))
-      setTagToDelete(null)
+      try {
+        // Delete from Firestore
+        await deleteDoc(doc(db, 'tags', tagToDelete.id as string))
+        // Update state
+        setTags(tags.filter((tag) => tag.id !== tagToDelete.id))
+        setTagToDelete(null)
+      } catch (err) {
+        console.error('Error deleting tag:', err)
+        setError('Failed to delete tag. Please try again.')
+      }
     }
+  }
+  // Display error message if there's an error
+  if (error) {
+    return (
+      <div className="max-w-7xl mx-auto">
+        <div
+          className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6"
+          role="alert"
+        >
+          <strong className="font-bold">Error: </strong>
+          <span className="block sm:inline">{error}</span>
+          <button
+            className="absolute top-0 bottom-0 right-0 px-4 py-3"
+            onClick={() => setError(null)}
+          >
+            <XIcon size={20} />
+          </button>
+        </div>
+        <button
+          onClick={() => window.location.reload()}
+          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+        >
+          Retry
+        </button>
+      </div>
+    )
   }
   return (
     <div className="max-w-7xl mx-auto">
@@ -276,7 +395,11 @@ export const CategoriesPage = () => {
             />
           </div>
           <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-            {filteredCategories.length === 0 ? (
+            {categoriesLoading ? (
+              <div className="p-8 flex justify-center">
+                <LoaderIcon size={24} className="animate-spin text-blue-600" />
+              </div>
+            ) : filteredCategories.length === 0 ? (
               <div className="p-4 text-center text-gray-500">
                 No categories found
               </div>
@@ -334,7 +457,11 @@ export const CategoriesPage = () => {
             />
           </div>
           <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-            {filteredTags.length === 0 ? (
+            {tagsLoading ? (
+              <div className="p-8 flex justify-center">
+                <LoaderIcon size={24} className="animate-spin text-blue-600" />
+              </div>
+            ) : filteredTags.length === 0 ? (
               <div className="p-4 text-center text-gray-500">No tags found</div>
             ) : (
               filteredTags.map((tag) => (
