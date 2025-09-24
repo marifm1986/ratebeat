@@ -8,6 +8,7 @@ import { TrustAndHook } from './components/trust-hook';
 import { GoalSelector } from './components/GoalSelector';
 import { ResourceCards } from './components/ResourceCards';
 import { QuickTools } from './components/QuickTools';
+import { Outlet } from 'react-router-dom';
 
 
 export function App() {
@@ -16,7 +17,7 @@ export function App() {
     <main>
       <Hero />
       {/* below sections temporary off */}
-      
+
       <GoalSelector />
       <ResourceCards />
       <TrustAndHook />
@@ -30,5 +31,6 @@ export function App() {
       {/* <Resources /> */}
     </main>
     <Footer />
+    <Outlet />
   </div>;
 }
