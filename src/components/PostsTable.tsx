@@ -1,28 +1,36 @@
-import {
-    AlertTriangleIcon,
-    CopyIcon,
-    EditIcon,
-    EyeIcon,
-    FacebookIcon,
-    LinkedinIcon,
-    MoreHorizontalIcon,
-    ShareIcon,
-    TrashIcon,
-    TwitterIcon,
-} from 'lucide-react'
 import React, {
-    useEffect,
-    useRef,
-    useState
+  useEffect,
+  useState,
+  useRef,
+  createElement,
+  Component,
 } from 'react'
+import {
+  EditIcon,
+  TrashIcon,
+  EyeIcon,
+  ShareIcon,
+  CopyIcon,
+  TwitterIcon,
+  LinkedinIcon,
+  FacebookIcon,
+  MoreHorizontalIcon,
+  AlertTriangleIcon,
+} from 'lucide-react'
 import { PostPreview } from './PostPreview'
 import { BlogPost } from './models/BlogPost'
 interface PostsTableProps {
   posts: BlogPost[]
   onEdit: (post: BlogPost) => void
   onDelete: (postId: number | string) => void
+  canEdit: boolean
 }
-export const PostsTable = ({ posts, onEdit, onDelete }: PostsTableProps) => {
+export const PostsTable = ({
+  posts,
+  onEdit,
+  onDelete,
+  canEdit,
+}: PostsTableProps) => {
   // State to track which post is being deleted
   const [deletePostId, setDeletePostId] = useState<number | string | null>(null)
   const [postToDelete, setPostToDelete] = useState<BlogPost | null>(null)
@@ -271,20 +279,24 @@ export const PostsTable = ({ posts, onEdit, onDelete }: PostsTableProps) => {
                 </td>
                 <td className="py-4">
                   <div className="flex space-x-3">
-                    <button
-                      onClick={() => onEdit(post)}
-                      className="text-blue-600 hover:text-blue-800 flex items-center"
-                    >
-                      <EditIcon size={16} className="mr-1" />
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDeleteClick(post)}
-                      className="text-red-600 hover:text-red-800 flex items-center"
-                    >
-                      <TrashIcon size={16} className="mr-1" />
-                      Delete
-                    </button>
+                    {canEdit && (
+                      <>
+                        <button
+                          onClick={() => onEdit(post)}
+                          className="text-blue-600 hover:text-blue-800 flex items-center"
+                        >
+                          <EditIcon size={16} className="mr-1" />
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => handleDeleteClick(post)}
+                          className="text-red-600 hover:text-red-800 flex items-center"
+                        >
+                          <TrashIcon size={16} className="mr-1" />
+                          Delete
+                        </button>
+                      </>
+                    )}
                     <button
                       onClick={() => handlePreview(post)}
                       className="text-gray-600 hover:text-gray-800 flex items-center"

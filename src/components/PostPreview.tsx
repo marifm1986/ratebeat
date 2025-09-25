@@ -1,8 +1,8 @@
 import React from 'react'
 import { ArrowLeftIcon, ClockIcon } from 'lucide-react'
-import { BlogPost } from '../types'
+import { BlogPost } from './models/BlogPost'
 interface PostPreviewProps {
-    post: BlogPost
+    post: any
     onClose: () => void
 }
 export const PostPreview = ({ post, onClose }: PostPreviewProps) => {
@@ -35,7 +35,7 @@ export const PostPreview = ({ post, onClose }: PostPreviewProps) => {
                 {/* Tags */}
                 {post.tags && post.tags.length > 0 && (
                     <div className="flex flex-wrap gap-2 mb-4">
-                        {post.tags.map((tag) => (
+                        {post.tags.map((tag:any) => (
                             <span
                                 key={tag.id}
                                 className="bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full text-xs"
@@ -93,7 +93,7 @@ export const PostPreview = ({ post, onClose }: PostPreviewProps) => {
                     )}
                     {post.content ? (
                         <div className="text-gray-700 leading-relaxed">
-                            {post.content.split('\n').map((paragraph, index) =>
+                            {post.content.split('\n').map((paragraph:any, index:number) =>
                                 paragraph ? (
                                     <p key={index} className="mb-4">
                                         {paragraph}
@@ -110,27 +110,7 @@ export const PostPreview = ({ post, onClose }: PostPreviewProps) => {
                     )}
                 </div>
                 {/* Sharable URL section */}
-                {post.sharableUrl && (
-                    <div className="mt-8 p-4 border border-gray-200 rounded-lg bg-gray-50">
-                        <h3 className="font-medium mb-2">Shareable Link:</h3>
-                        <div className="flex">
-                            <input
-                                type="text"
-                                readOnly
-                                value={post.sharableUrl}
-                                className="flex-grow px-3 py-2 bg-white border border-gray-300 rounded-l-md focus:outline-none"
-                            />
-                            <button
-                                onClick={() => {
-                                    navigator.clipboard.writeText(post.sharableUrl || '')
-                                }}
-                                className="bg-blue-600 text-white px-4 py-2 rounded-r-md hover:bg-blue-700"
-                            >
-                                Copy
-                            </button>
-                        </div>
-                    </div>
-                )}
+               
             </div>
         </div>
     )
