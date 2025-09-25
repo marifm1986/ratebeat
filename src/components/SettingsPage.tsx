@@ -170,7 +170,7 @@ export const SettingsPage = () => {
         role: formData.role,
         accessAreas: formData.accessAreas,
         createdAt: editingUser ? editingUser.createdAt : Date.now(),
-        photoURL: formData.photoURL || null
+        photoURL: formData.photoURL || ''
       };
       if (editingUser) {
         // Update existing user
