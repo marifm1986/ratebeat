@@ -5,6 +5,7 @@ interface NavigationProps {
 }
 export const Header: React.FC<NavigationProps> = ({
   'data-id': dataId,
+
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
@@ -300,67 +301,71 @@ export const Header: React.FC<NavigationProps> = ({
         },
       },
     },
-    // {
-    //   label: 'Loan options',
-    //   href: '#',
-    //   dropdown: {
-    //     tabs: ['All home loans'],
-    //     content: {
-    //       'All home loans': {
-    //         mainLink: {
-    //           label: 'All home loans',
-    //           href: '/home-loans',
-    //         },
-    //         links: [
-    //           {
-    //             label: '15-year fixed',
-    //             href: '/home-loans/15-year-mortgage',
-    //           },
-    //           {
-    //             label: '30-year fixed',
-    //             href: '/home-loans/30-year-mortgage',
-    //           },
-    //           {
-    //             label: 'Adjustable-rate mortgage (ARM)',
-    //             href: '/home-loans/adjustable-rate-mortgage',
-    //           },
-    //           {
-    //             label: 'Bridge loan',
-    //             href: '/home-loans/bridge-loan',
-    //           },
-    //           {
-    //             label: 'Cash-out refinance',
-    //             href: '/home-loans/refinance-cash-out',
-    //           },
-    //           {
-    //             label: 'FHA loan',
-    //             href: '/home-loans/fha-loan',
-    //           },
-    //           {
-    //             label: 'Home Equity Loan',
-    //             href: '/home-loans/home-equity-loan',
-    //           },
-    //           {
-    //             label: 'HomeReady® and Home Possible®',
-    //             href: '/home-loans/homeready-and-home-possible',
-    //           },
-    //           {
-    //             label: 'Jumbo Smart',
-    //             href: '/home-loans/jumbo-loan',
-    //           },
-    //           {
-    //             label: 'ONE+ by Rocket Mortgage®',
-    //             href: '/home-loans/one-plus',
-    //           },
-    //           {
-    //             label: 'VA loan',
-    //             href: '/home-loans/va-loan',
-    //           },
-    //         ],
-    //       },
-    //     },
-    //   },
-    // },
+    {
+      label: 'Loan options',
+      href: '#',
+      dropdown: {
+        tabs: ['All home loans'],
+        content: {
+          'All home loans': {
+            mainLink: {
+              label: 'All home loans',
+              href: '/home-loans',
+            },
+            links: [
+              {
+                label: '15-year fixed',
+                href: '/home-loans/15-year-mortgage',
+              },
+              {
+                label: '30-year fixed',
+                href: '/home-loans/30-year-mortgage',
+              },
+              {
+                label: 'Adjustable-rate mortgage (ARM)',
+                href: '/home-loans/adjustable-rate-mortgage',
+              },
+              {
+                label: 'Bridge loan',
+                href: '/home-loans/bridge-loan',
+              },
+              {
+                label: 'Cash-out refinance',
+                href: '/home-loans/refinance-cash-out',
+              },
+              {
+                label: 'FHA loan',
+                href: '/home-loans/fha-loan',
+              },
+              {
+                label: 'Home Equity Loan',
+                href: '/home-loans/home-equity-loan',
+              },
+              {
+                label: 'HomeReady® and Home Possible®',
+                href: '/home-loans/homeready-and-home-possible',
+              },
+              {
+                label: 'Jumbo Smart',
+                href: '/home-loans/jumbo-loan',
+              },
+              {
+                label: 'ONE+ by Rocket Mortgage®',
+                href: '/home-loans/one-plus',
+              },
+              {
+                label: 'VA loan',
+                href: '/home-loans/va-loan',
+              },
+            ],
+          },
+        },
+      },
+    },
+    {
+      label: 'Blog',
+      href: '/blog',
+    },
   ]
   const handleMouseEnter = (label: string) => {
     setActiveDropdown(label)
@@ -391,13 +396,18 @@ export const Header: React.FC<NavigationProps> = ({
           </button>
           {/* Logo */}
           <div className="flex-shrink-0 mx-auto lg:mx-0">
-            <a href="/" className="flex items-center">
-              <img
-                src="./ratebeat-logo.png"
+
+            {/* <img
+                src={logo}
                 alt="Rocket Mortgage Logo"
                 width={100}
                 className="h-auto"
-              />
+              /> */}
+            <a href="/" className="flex items-center">
+              <img  src={`${import.meta.env.BASE_URL}ratebeat-logo.png`} alt="Rocket Mortgage Logo"
+                width={100}
+                className="h-auto" />
+
             </a>
           </div>
           {/* Desktop Navigation */}
@@ -418,7 +428,7 @@ export const Header: React.FC<NavigationProps> = ({
                 {/* Dropdown */}
                 {item.dropdown && activeDropdown === item.label && (
                   // added hidden to the div below for production deploy
-                  <div className="absolute top-full left-0 pt-0 bg-white rounded-3xl shadow-xl border min-w-[800px] z-50 hidden">
+                  <div className="absolute top-full left-0 pt-0 bg-white rounded-3xl shadow-xl border min-w-[800px] z-50">
                     <div className="flex">
                       {/* Tabs */}
                       <div className="p-6">
