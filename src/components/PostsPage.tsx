@@ -1,18 +1,24 @@
-import React, { useEffect, useState } from 'react'
-import { PlusIcon, SearchIcon, LoaderIcon } from 'lucide-react'
-import { StatsCard } from './StatsCard'
-import { PostsTable } from './PostsTable'
-import { PostForm } from './PostForm'
 import {
   collection,
-  getDocs,
   deleteDoc,
   doc,
+  getDoc,
+  getDocs,
   orderBy,
   query,
 } from 'firebase/firestore'
+import {
+  LoaderIcon,
+  PlusIcon,
+  SearchIcon
+} from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { useAuth } from '../context/AuthContext'
 import { db } from '../firebase/config'
-import { BlogPost } from './models/BlogPost'
+import { BlogPost, Tag } from './models/BlogPost'
+import { PostForm } from './PostForm'
+import { PostsTable } from './PostsTable'
+import { StatsCard } from './StatsCard'
 export const PostsPage = () => {
   // State for posts
   const [posts, setPosts] = useState<BlogPost[]>([])
@@ -25,6 +31,41 @@ export const PostsPage = () => {
   const [currentPost, setCurrentPost] = useState<BlogPost | null>(null)
   // State for search term
   const [searchTerm, setSearchTerm] = useState('')
+  // Get current user from auth context
+  const { currentUser } = useAuth()
+  // State for user role and access permissions
+  const [userRole, setUserRole] = useState<string | null>(null)
+  const [userAccessAreas, setUserAccessAreas] = useState<string[]>([])
+  const [userPermissionsLoaded, setUserPermissionsLoaded] = useState(false)
+  // Add new state for comments
+  const [comments, setComments] = useState<any[]>([])
+  const [commentsLoading, setCommentsLoading] = useState(false)
+  const [commentsError, setCommentsError] = useState<string | null>(null)
+  const [expandedCommentPosts, setExpandedCommentPosts] = useState<
+    Record<string, boolean>
+  >({})
+  // Fetch user role and permissions
+  useEffect(() => {
+    const fetchUserPermissions = async () => {
+      if (currentUser) {
+        try {
+          const userDoc = await getDoc(doc(db, 'users', currentUser.uid))
+          if (userDoc.exists()) {
+            const userData = userDoc.data()
+            setUserRole(userData.role)
+            setUserAccessAreas(userData.accessAreas || [])
+          }
+        } catch (err) {
+          console.error('Error fetching user permissions:', err)
+        } finally {
+          setUserPermissionsLoaded(true)
+        }
+      } else {
+        setUserPermissionsLoaded(true)
+      }
+    }
+    fetchUserPermissions()
+  }, [currentUser])
   // Fetch posts from Firestore
   useEffect(() => {
     const fetchPosts = async () => {
@@ -34,7 +75,7 @@ export const PostsPage = () => {
         const postQuery = query(postsCollection, orderBy('createdAt', 'desc'))
         const snapshot = await getDocs(postQuery)
         const fetchedPosts = snapshot.docs.map(
-          (doc) =>
+          (doc:any) =>
             ({
               id: doc.id,
               ...doc.data(),
@@ -50,16 +91,49 @@ export const PostsPage = () => {
     }
     fetchPosts()
   }, [])
+  // Fetch comments from Firestore
+  useEffect(() => {
+    const fetchComments = async () => {
+      if (!posts.length) return
+      setCommentsLoading(true)
+      try {
+        const commentsRef = collection(db, 'comments')
+        const commentsSnapshot = await getDocs(commentsRef)
+        const fetchedComments = commentsSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+        // Filter for approved comments (status is 'approved' or not set)
+        const approvedComments = fetchedComments.filter(
+          (comment: any) => comment.status === 'approved' || !comment.status,
+        )
+        setComments(approvedComments)
+      } catch (err) {
+        console.error('Error fetching comments:', err)
+        setCommentsError('Failed to load comments. Please try again later.')
+      } finally {
+        setCommentsLoading(false)
+      }
+    }
+    fetchComments()
+  }, [posts])
   // Filter posts based on search term
   const filteredPosts = posts.filter(
-    (post) =>
+    (post:any) =>
       post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       post.author.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       (post.tags &&
-        post.tags.some((tag) =>
+        post.tags.some((tag: Tag) =>
           tag.name.toLowerCase().includes(searchTerm.toLowerCase()),
         )),
   )
+  // Check if user has edit/delete permissions
+  const canEdit = () => {
+    if (userRole === 'admin' || userRole === 'editor') {
+      return true
+    }
+    return false
+  }
   // Open modal for creating a new post
   const handleAddPost = () => {
     setCurrentPost(null) // Set to null for new post
@@ -67,11 +141,13 @@ export const PostsPage = () => {
   }
   // Open modal for editing an existing post
   const handleEditPost = (post: BlogPost) => {
+    if (!canEdit()) return
     setCurrentPost(post)
     setIsModalOpen(true)
   }
   // Handle deleting a post
   const handleDeletePost = async (postId: number | string) => {
+    if (!canEdit()) return
     try {
       // Delete from Firestore
       await deleteDoc(doc(db, 'posts', postId as string))
@@ -100,7 +176,7 @@ export const PostsPage = () => {
   ).length
   const draftPosts = posts.filter((post) => post.status === 'Draft').length
   // Show loading spinner
-  if (isLoading) {
+  if (isLoading || !userPermissionsLoaded) {
     return (
       <div className="max-w-7xl mx-auto flex items-center justify-center h-64">
         <div className="flex flex-col items-center">
@@ -132,13 +208,15 @@ export const PostsPage = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
         <h1 className="text-3xl font-bold mb-4 md:mb-0">Posts</h1>
-        <button
-          onClick={handleAddPost}
-          className="bg-blue-600 text-white flex items-center justify-center px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
-        >
-          <PlusIcon size={20} className="mr-2" />
-          <span>Add New Post</span>
-        </button>
+        {canEdit() && (
+          <button
+            onClick={handleAddPost}
+            className="bg-blue-600 text-white flex items-center justify-center px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+          >
+            <PlusIcon size={20} className="mr-2" />
+            <span>Add New Post</span>
+          </button>
+        )}
       </div>
       {/* Search */}
       <div className="mb-6 relative">
@@ -160,12 +238,13 @@ export const PostsPage = () => {
         <StatsCard title="Drafts" value={draftPosts.toString()} />
       </div>
       {/* Recent Posts */}
-      <div className="bg-white p-6 rounded-lg border border-gray-200">
+      <div className="bg-white p-6 rounded-lg border border-gray-200 mb-8">
         <h2 className="text-xl font-bold mb-6">Recent Posts</h2>
         <PostsTable
           posts={filteredPosts}
           onEdit={handleEditPost}
           onDelete={handleDeletePost}
+          canEdit={canEdit()}
         />
       </div>
       {/* Post Form Modal */}

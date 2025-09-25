@@ -394,7 +394,7 @@ export const CategoriesPage = () => {
               className="pl-10 pr-4 py-2 w-full border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+          <div className="bg-white rounded-lg border border-gray-200 overflow-auto h-[calc(100vh_-_16rem)]">
             {categoriesLoading ? (
               <div className="p-8 flex justify-center">
                 <LoaderIcon size={24} className="animate-spin text-blue-600" />
@@ -407,7 +407,7 @@ export const CategoriesPage = () => {
               filteredCategories.map((category) => (
                 <div
                   key={category.id}
-                  className="p-4 border-b border-gray-100 flex items-center justify-between"
+                  className="p-4 border-b border-gray-100 flex items-center justify-between  hover:bg-slate-200"
                 >
                   <div>
                     <h3 className="font-medium">{category.name}</h3>
@@ -456,7 +456,7 @@ export const CategoriesPage = () => {
               className="pl-10 pr-4 py-2 w-full border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+          <div className="bg-white rounded-lg border border-gray-200 overflow-auto h-[calc(100vh_-_16rem)]">
             {tagsLoading ? (
               <div className="p-8 flex justify-center">
                 <LoaderIcon size={24} className="animate-spin text-blue-600" />
@@ -467,7 +467,7 @@ export const CategoriesPage = () => {
               filteredTags.map((tag) => (
                 <div
                   key={tag.id}
-                  className="p-4 border-b border-gray-100 flex items-center justify-between"
+                  className="p-4 border-b border-gray-100 flex items-center justify-between hover:bg-slate-200"
                 >
                   <div>
                     <h3 className="font-medium">{tag.name}</h3>
