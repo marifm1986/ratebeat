@@ -11,12 +11,17 @@ export interface BlogPost {
   };
   publishedDate: string;
   readingTime: number;
-  tags: string[];
+  tags?: {
+    id: number | string
+    name: string
+    slug: string
+  }
   isFeatured?: boolean;
+  status?: 'Published' | 'Draft'
 }
 
 // Mock blog data - in a real app, this would come from a CMS or API
-export const blogPosts: BlogPost[] = [
+export const blogPosts: any[] = [
   {
     id: 1,
     slug: "understanding-mortgage-rates-2025",
@@ -303,7 +308,7 @@ export const getBlogPosts = (page = 1, perPage = 6) => {
   const startIndex = (page - 1) * perPage;
   const endIndex = startIndex + perPage;
   const posts = blogPosts.slice(startIndex, endIndex);
-  
+
   return {
     posts,
     totalPosts: blogPosts.length,

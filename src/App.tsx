@@ -5,6 +5,10 @@ import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { OnlineFeatures } from './components/OnlineFeatures';
 import { TrustAndHook } from './components/trust-hook';
+import { GoalSelector } from './components/GoalSelector';
+import { ResourceCards } from './components/ResourceCards';
+import { QuickTools } from './components/QuickTools';
+import { Outlet } from 'react-router-dom';
 
 
 export function App() {
@@ -13,19 +17,20 @@ export function App() {
     <main>
       <Hero />
       {/* below sections temporary off */}
-      
-      {/* <GoalSelector /> */}
-      {/* <ResourceCards /> */}
+
+      <GoalSelector />
+      <ResourceCards />
       <TrustAndHook />
       <OnlineFeatures />
       <Calculator />
       <BlogSection />
-      {/* <QuickTools /> */}
+      <QuickTools />
       {/* <MortgageOptions />
         <Benefits />
         <Testimonials /> */}
       {/* <Resources /> */}
     </main>
     <Footer />
+    <Outlet />
   </div>;
 }
