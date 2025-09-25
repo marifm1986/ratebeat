@@ -1,20 +1,24 @@
-import React, { useEffect, useState } from 'react'
-import { PlusIcon, SearchIcon, LoaderIcon } from 'lucide-react'
-import { StatsCard } from './StatsCard'
-import { PostsTable } from './PostsTable'
-import { PostForm } from './PostForm'
 import {
   collection,
-  getDocs,
   deleteDoc,
   doc,
+  getDoc,
+  getDocs,
   orderBy,
   query,
-  getDoc,
 } from 'firebase/firestore'
-import { db } from '../firebase/config'
+import {
+  LoaderIcon,
+  PlusIcon,
+  SearchIcon
+} from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
+import { db } from '../firebase/config'
 import { BlogPost, Tag } from './models/BlogPost'
+import { PostForm } from './PostForm'
+import { PostsTable } from './PostsTable'
+import { StatsCard } from './StatsCard'
 export const PostsPage = () => {
   // State for posts
   const [posts, setPosts] = useState<BlogPost[]>([])
@@ -33,6 +37,13 @@ export const PostsPage = () => {
   const [userRole, setUserRole] = useState<string | null>(null)
   const [userAccessAreas, setUserAccessAreas] = useState<string[]>([])
   const [userPermissionsLoaded, setUserPermissionsLoaded] = useState(false)
+  // Add new state for comments
+  const [comments, setComments] = useState<any[]>([])
+  const [commentsLoading, setCommentsLoading] = useState(false)
+  const [commentsError, setCommentsError] = useState<string | null>(null)
+  const [expandedCommentPosts, setExpandedCommentPosts] = useState<
+    Record<string, boolean>
+  >({})
   // Fetch user role and permissions
   useEffect(() => {
     const fetchUserPermissions = async () => {
@@ -80,13 +91,39 @@ export const PostsPage = () => {
     }
     fetchPosts()
   }, [])
+  // Fetch comments from Firestore
+  useEffect(() => {
+    const fetchComments = async () => {
+      if (!posts.length) return
+      setCommentsLoading(true)
+      try {
+        const commentsRef = collection(db, 'comments')
+        const commentsSnapshot = await getDocs(commentsRef)
+        const fetchedComments = commentsSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+        // Filter for approved comments (status is 'approved' or not set)
+        const approvedComments = fetchedComments.filter(
+          (comment: any) => comment.status === 'approved' || !comment.status,
+        )
+        setComments(approvedComments)
+      } catch (err) {
+        console.error('Error fetching comments:', err)
+        setCommentsError('Failed to load comments. Please try again later.')
+      } finally {
+        setCommentsLoading(false)
+      }
+    }
+    fetchComments()
+  }, [posts])
   // Filter posts based on search term
   const filteredPosts = posts.filter(
     (post:any) =>
       post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       post.author.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       (post.tags &&
-        post.tags.some((tag:Tag) =>
+        post.tags.some((tag: Tag) =>
           tag.name.toLowerCase().includes(searchTerm.toLowerCase()),
         )),
   )
@@ -201,7 +238,7 @@ export const PostsPage = () => {
         <StatsCard title="Drafts" value={draftPosts.toString()} />
       </div>
       {/* Recent Posts */}
-      <div className="bg-white p-6 rounded-lg border border-gray-200">
+      <div className="bg-white p-6 rounded-lg border border-gray-200 mb-8">
         <h2 className="text-xl font-bold mb-6">Recent Posts</h2>
         <PostsTable
           posts={filteredPosts}

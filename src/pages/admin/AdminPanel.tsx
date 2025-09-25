@@ -1,11 +1,43 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, createContext, useContext } from 'react'
 import { BellIcon, UserIcon, PencilIcon, XIcon } from 'lucide-react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { doc, updateDoc } from 'firebase/firestore'
+import {
+  doc,
+  updateDoc,
+  collection,
+  query,
+  onSnapshot,
+  orderBy,
+} from 'firebase/firestore'
 import { updateProfile } from 'firebase/auth'
 import { useAuth } from '../../context/AuthContext'
 import { db } from '../../firebase/config'
 import { Sidebar } from '../../components/Sidebar'
+// Create a context for comments
+interface Comment {
+  id: string
+  postId: string
+  name: string
+  text: string
+  loves: number
+  createdAt: any
+  status?: 'approved' | 'pending' | 'rejected'
+  parentId?: string
+  isAdmin?: boolean
+}
+interface CommentsContextType {
+  comments: Comment[]
+  isLoading: boolean
+  error: string | null
+  refreshComments: () => void
+}
+export const CommentsContext = createContext<CommentsContextType>({
+  comments: [],
+  isLoading: false,
+  error: null,
+  refreshComments: () => {},
+})
+export const useComments = () => useContext(CommentsContext)
 export const AdminPanel = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [profileModalOpen, setProfileModalOpen] = useState(false)
@@ -18,6 +50,11 @@ export const AdminPanel = () => {
   const { currentUser } = useAuth()
   const location = useLocation()
   const navigate = useNavigate()
+  // Comments state for real-time updates
+  const [comments, setComments] = useState<Comment[]>([])
+  const [isLoadingComments, setIsLoadingComments] = useState(true)
+  const [commentsError, setCommentsError] = useState<string | null>(null)
+  const [unsubscribe, setUnsubscribe] = useState<(() => void) | null>(null)
   // Initialize form data when user data is available
   useEffect(() => {
     if (currentUser) {
@@ -27,6 +64,68 @@ export const AdminPanel = () => {
       })
     }
   }, [currentUser])
+  // Set up real-time listener for comments
+  useEffect(() => {
+    const fetchComments = () => {
+      setIsLoadingComments(true)
+      setCommentsError(null)
+      try {
+        const commentsRef = collection(db, 'comments')
+        const q = query(commentsRef, orderBy('createdAt', 'desc'))
+        // Create real-time listener
+        const unsubscribeListener = onSnapshot(
+          q,
+          (snapshot) => {
+            const fetchedComments = snapshot.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            })) as Comment[]
+            setComments(fetchedComments)
+            setIsLoadingComments(false)
+          },
+          (error) => {
+            console.error('Error fetching comments:', error)
+            setCommentsError('Failed to load comments. Please try again.')
+            setIsLoadingComments(false)
+          },
+        )
+        setUnsubscribe(() => unsubscribeListener)
+      } catch (err) {
+        console.error('Error setting up comments listener:', err)
+        setCommentsError('Failed to set up comments listener.')
+        setIsLoadingComments(false)
+      }
+    }
+    fetchComments()
+    // Clean up listener on unmount
+    return () => {
+      if (unsubscribe) {
+        unsubscribe()
+      }
+    }
+  }, [])
+  // Function to manually refresh comments if needed
+  const refreshComments = () => {
+    if (unsubscribe) {
+      unsubscribe()
+    }
+    const commentsRef = collection(db, 'comments')
+    const q = query(commentsRef, orderBy('createdAt', 'desc'))
+    const unsubscribeListener = onSnapshot(
+      q,
+      (snapshot) => {
+        const fetchedComments = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        })) as Comment[]
+        setComments(fetchedComments)
+      },
+      (error) => {
+        console.error('Error refreshing comments:', error)
+      },
+    )
+    setUnsubscribe(() => unsubscribeListener)
+  }
   // Check for access denied state passed from ProtectedRoute
   useEffect(() => {
     if (location.state?.accessDenied) {
@@ -99,12 +198,18 @@ export const AdminPanel = () => {
           <h1 className="text-xl font-semibold">Admin Dashboard</h1>
           <div className="flex items-center space-x-4">
             <div className="relative">
-              <button className="p-2 text-gray-500 hover:text-gray-700 rounded-full hover:bg-gray-100">
+            {/*   <button title='Comments' className="p-2 text-gray-500 hover:text-gray-700 rounded-full hover:bg-gray-100">
                 <BellIcon size={20} />
-                <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
-                  3
-                </span>
-              </button>
+                {comments.filter((comment) => comment.status === 'pending')
+                  .length > 0 && (
+                  <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                    {
+                      comments.filter((comment) => comment.status === 'pending')
+                        .length
+                    }
+                  </span>
+                )}
+              </button> */}
             </div>
             <div className="flex items-center space-x-2 group relative">
               {currentUser?.photoURL ? (
@@ -141,9 +246,18 @@ export const AdminPanel = () => {
             </div>
           </div>
         </div>
-        <div className="overflow-auto p-6 md:p-8">
-          <Outlet />
-        </div>
+        <CommentsContext.Provider
+          value={{
+            comments,
+            isLoading: isLoadingComments,
+            error: commentsError,
+            refreshComments,
+          }}
+        >
+          <div className="overflow-auto p-6 md:p-8">
+            <Outlet />
+          </div>
+        </CommentsContext.Provider>
       </div>
       {/* Profile Edit Modal */}
       {profileModalOpen && (
