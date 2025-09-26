@@ -1,119 +1,131 @@
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-
-
-const Login = () => {
-  const navigate = useNavigate();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const auth = getAuth();
-
-  const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setError(null);
+import React, { useState } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { AlertCircleIcon, LoaderIcon } from 'lucide-react'
+import { useAuth } from '../../context/AuthContext'
+export const Login = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+  const location = useLocation()
+  const { login } = useAuth()
+  // Get the redirect path from location state or default to admin
+  const from = location.state?.from?.pathname || '/admin'
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError('')
+    setLoading(true)
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate("/admin");
+      await login(email, password)
+      navigate(from, {
+        replace: true,
+      })
     } catch (err: any) {
-      setError(err.message || "Login failed");
+      console.error('Login error:', err)
+      setError(err.message || 'Failed to sign in')
+    } finally {
+      setLoading(false)
     }
-  };
-
-  // const handleLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
-  //   e.preventDefault();
-  //   // Add authentication logic here if needed
-  //   navigate("/admin");
-  // };
+  }
   return (
-    <>
-      <div className="login-container h-screen w-full flex items-center justify-center bg-gray-200">
-
-        <div className="login-form bg-white rounded-2xl shadow-xl w-full max-w-md p-8 flex flex-col gap-6">
-          <div className="flex flex-col items-center gap-2">
-            <img src={`${import.meta.env.BASE_URL}ratebeat-logo.png`} alt="Rocket Mortgage Logo"
-              width={100}
-              className="h-auto" />
-            <h2 className="text-2xl font-bold text-gray-900">Sign in to your account</h2>
-            <p className="text-gray-500 text-sm">Securely access your blog's admin panel</p>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8">
+        <div>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            Sign in to your account
+          </h2>
+          <p className="mt-2 text-center text-sm text-gray-600">
+            Enter your credentials to access the admin panel
+          </p>
+        </div>
+        {error && (
+          <div className="bg-red-50 border-l-4 border-red-400 p-4 rounded">
+            <div className="flex items-center">
+              <AlertCircleIcon className="h-5 w-5 text-red-400 mr-2" />
+              <p className="text-sm text-red-700">{error}</p>
+            </div>
           </div>
-            <form
-            className="space-y-5"
-            autoComplete="off"
-            onSubmit={e => {
-              e.preventDefault();
-              handleLogin(e as unknown as React.MouseEvent<HTMLButtonElement>);
-            }}
-            >
+        )}
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+          <div className="rounded-md shadow-sm -space-y-px">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-              Username or Email
+              <label htmlFor="email-address" className="sr-only">
+                Email address
               </label>
               <input
-              id="email"
-              name="email"
-              type="email"
-              autoComplete="username"
-              required
-              className="block w-full rounded-lg border border-gray-300 bg-gray-50 py-3 px-4 text-gray-900 placeholder-gray-400 focus:border-primary focus:ring-2 focus:ring-primary transition"
-              placeholder="Enter your email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
+                id="email-address"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                placeholder="Email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={loading}
               />
             </div>
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-              Password
+              <label htmlFor="password" className="sr-only">
+                Password
               </label>
               <input
-              id="password"
-              name="password"
-              type="password"
-              autoComplete="current-password"
-              required
-              className="block w-full rounded-lg border border-gray-300 bg-gray-50 py-3 px-4 text-gray-900 placeholder-gray-400 focus:border-primary focus:ring-2 focus:ring-primary transition"
-              placeholder="Enter your password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                required
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                disabled={loading}
               />
             </div>
-            <div className="flex items-center justify-between">
-              <label className="flex items-center gap-2 text-sm text-gray-700">
+          </div>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
               <input
                 id="remember-me"
                 name="remember-me"
                 type="checkbox"
-                className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
               />
-              Remember me
+              <label
+                htmlFor="remember-me"
+                className="ml-2 block text-sm text-gray-900"
+              >
+                Remember me
               </label>
-              <a href="#" className="text-sm text-primary hover:underline">
-              Forgot password?
+            </div>
+            <div className="text-sm">
+              <a
+                href="#"
+                className="font-medium text-blue-600 hover:text-blue-500"
+              >
+                Forgot your password?
               </a>
             </div>
-            {error && (
-              <div className="text-red-600 text-sm text-center">{error}</div>
-            )}
+          </div>
+          <div>
             <button
               type="submit"
-              className="w-full py-3 px-4 rounded-lg bg-red-800 text-white font-semibold text-base shadow hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-blue-400 disabled:cursor-not-allowed"
+              disabled={loading}
             >
-              Login
+              {loading ? (
+                <>
+                  <LoaderIcon className="animate-spin h-5 w-5 mr-2" />
+                  Signing in...
+                </>
+              ) : (
+                'Sign in'
+              )}
             </button>
-            </form>
-          <div className="text-center text-sm text-gray-500 mt-4">
-            Don't have an account?{' '}
-            <a href="#" className="text-primary font-medium hover:underline">
-              Sign up
-            </a>
           </div>
-        </div>
-
+        </form>
       </div>
-    </>
+    </div>
   )
 }
-
-export default Login
