@@ -91,6 +91,7 @@ export function AppRouter() {
           </Route>
         </Routes>
       </AuthProvider>
+      
     </BrowserRouter>
   )
 }
