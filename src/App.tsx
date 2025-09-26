@@ -24,7 +24,7 @@ export function App() {
       <TrustAndHook />
       <OnlineFeatures />
       <Calculator />
-      <BlogSection />
+      {/* <BlogSection /> */}
       <QuickTools />
       {/* <MortgageOptions />
         <Benefits />
