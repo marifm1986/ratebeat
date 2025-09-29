@@ -36,13 +36,13 @@ interface Category {
 }
 interface PostFormProps {
   post: BlogPost | null
-  onSave: (post: BlogPost) => void
+  onSave: (post: any) => void
   onCancel: () => void
 }
 export const PostForm = ({ post, onSave, onCancel }: PostFormProps) => {
   // Initialize form state
   const [formData, setFormData] = useState<
-    Omit<BlogPost, 'id'> & {
+    Omit<any, 'id'> & {
       id?: number | string
     }
   >({
@@ -310,7 +310,7 @@ export const PostForm = ({ post, onSave, onCancel }: PostFormProps) => {
         readingTime,
         sharableUrl,
         tags: selectedTags,
-      }
+      } as any
       // Save to Firestore
       if (finalFormData.id) {
         // Update existing post
@@ -342,7 +342,7 @@ export const PostForm = ({ post, onSave, onCancel }: PostFormProps) => {
         const updatedPost = {
           id: updatedDoc.id,
           ...updatedDoc.data(),
-        } as BlogPost
+        } as any
         onSave(updatedPost)
       } else {
         // Create new post
@@ -374,7 +374,7 @@ export const PostForm = ({ post, onSave, onCancel }: PostFormProps) => {
         const newPost = {
           id: docRef.id,
           ...newPostData,
-        } as BlogPost
+        } as any
         onSave(newPost)
       }
     } catch (err) {

@@ -1,9 +1,53 @@
 import { Calendar, ArrowRight } from 'lucide-react';
-import { getFeaturedPosts } from '../data/blogData';
-
+import { useEffect, useState } from 'react';
+import { BlogPost } from '../pages/AllBlogsPage';
+import { collection, query, orderBy, getDocs, where, limit } from 'firebase/firestore';
+import { db } from '../firebase/config';
 export const BlogSection = () => {
   // Get the 3 most recent/featured blog posts
-  const recentPosts = getFeaturedPosts(3);
+  // const featuredPost = getFeaturedPosts(3);
+  const [featuredPosts, setPosts] = useState<any[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      setIsLoading(true)
+      try {
+        const postsCollection = collection(db, 'posts')
+        const postQuery = query(
+          postsCollection,
+          where('isFeatured', '==', true),
+          where('status', '==', 'Published'),
+          orderBy('createdAt', 'desc'),
+          limit(2) 
+        )
+
+        // const postQuery = query(postsCollection,
+        //   orderBy('createdAt', 'desc'),
+        //   where('isFeatured', '==', true),
+        //   where('status', '==', 'Published'),
+        // )
+        const snapshot = await getDocs(postQuery)
+        const fetchedPosts = snapshot.docs.map(
+          (doc: any) =>
+            ({
+              id: doc.id,
+              ...doc.data(),
+            }) as BlogPost,
+        )
+        setPosts(fetchedPosts)
+      } catch (err) {
+        console.error('Error fetching posts:', err)
+        setError('Failed to load posts. Please try again later.')
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchPosts()
+  }, [])
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -13,6 +57,9 @@ export const BlogSection = () => {
       day: 'numeric'
     });
   };
+
+
+
 
   return (
     <div className="w-full bg-gradient-to-br from-gray-50 to-gray-100 py-16 lg:py-20">
@@ -29,8 +76,8 @@ export const BlogSection = () => {
 
         {/* Blog Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {recentPosts.map((post) => (
-            <article 
+          {featuredPosts.map((post: any) => (
+            <article
               key={post.id}
               className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group"
             >
@@ -42,7 +89,7 @@ export const BlogSection = () => {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
-              
+
               {/* Content */}
               <div className="p-6">
                 {/* Published Date */}
@@ -50,17 +97,17 @@ export const BlogSection = () => {
                   <Calendar className="w-4 h-4 mr-2" />
                   {formatDate(post.publishedDate)}
                 </div>
-                
+
                 {/* Title */}
                 <h3 className="text-xl font-semibold text-gray-900 mb-3 line-clamp-2 group-hover:text-gray-700 transition-colors">
                   {post.title}
                 </h3>
-                
+
                 {/* Excerpt */}
                 <p className="text-gray-600 mb-6 line-clamp-3 leading-relaxed">
                   {post.excerpt}
                 </p>
-                
+
                 {/* Read More Button */}
                 <a
                   href={`/blog/${post.slug}`}
