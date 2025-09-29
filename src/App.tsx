@@ -8,6 +8,7 @@ import { TrustAndHook } from './components/trust-hook';
 import { GoalSelector } from './components/GoalSelector';
 import { ResourceCards } from './components/ResourceCards';
 import { QuickTools } from './components/QuickTools';
+import { MortgageOptions } from './components/MortgageOptions';
 import { Outlet } from 'react-router-dom';
 
 
@@ -25,6 +26,7 @@ export function App() {
       <OnlineFeatures />
       <Calculator />
       <BlogSection />
+      <MortgageOptions />
       <QuickTools />
       {/* <MortgageOptions />
         <Benefits />
