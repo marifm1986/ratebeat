@@ -14,6 +14,12 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
 import { Login } from "./components/auth/Login";
 import { AccessDeniedPage } from "./components/AccessDeniedPage";
+import { FifteenYearFixedPage } from "./pages/FifteenYearFixedPage";
+import { ThirtyYearFixedPage } from "./pages/ThirtyYearFixedPage";
+import { RefinancePage } from "./pages/RefinancePage";
+import { VALoansPage } from "./pages/VALoansPage";
+import { JumboLoansPage } from "./pages/JumboLoansPage";
+import { ConventionalLoansPage } from "./pages/ConventionalLoansPage";
 
 export function AppRouter() {
   return (
@@ -38,6 +44,15 @@ export function AppRouter() {
           <Route path="/blog" element={<AllBlogsPage />} />
           <Route path="/blog/:slug" element={<SingleBlogPage />} />
           <Route path="/login" element={<Login />} />
+          
+          {/* Mortgage Detail Pages */}
+          <Route path="/fifteen-year-fixed" element={<FifteenYearFixedPage />} />
+          <Route path="/thirty-year-fixed" element={<ThirtyYearFixedPage />} />
+          <Route path="/refinance" element={<RefinancePage />} />
+          <Route path="/va-loans" element={<VALoansPage />} />
+          <Route path="/jumbo-loans" element={<JumboLoansPage />} />
+          <Route path="/conventional-loans" element={<ConventionalLoansPage />} />
+          
            <Route
             path="/admin"
             element={
