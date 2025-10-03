@@ -9,6 +9,10 @@ import { GoalSelector } from './components/GoalSelector';
 import { ResourceCards } from './components/ResourceCards';
 import { QuickTools } from './components/QuickTools';
 import { Outlet } from 'react-router-dom';
+import { MortgageOptions } from './components/MortgageOptions';
+import { Benefits } from './components/Benefits';
+import { Testimonials } from './components/Testimonials';
+import { Resources } from './components/Resources';
 
 
 
@@ -26,10 +30,10 @@ export function App() {
       <Calculator />
       <BlogSection />
       <QuickTools />
-      {/* <MortgageOptions />
-        <Benefits />
-        <Testimonials /> */}
-      {/* <Resources /> */}
+      <MortgageOptions />
+      <Benefits />
+      <Testimonials />
+      <Resources />
     </main>
     <Footer />
     <Outlet />

@@ -24,12 +24,7 @@ export const BlogSection = () => {
           orderBy('createdAt', 'desc'),
           limit(2) 
         )
-
-        // const postQuery = query(postsCollection,
-        //   orderBy('createdAt', 'desc'),
-        //   where('isFeatured', '==', true),
-        //   where('status', '==', 'Published'),
-        // )
+     
         const snapshot = await getDocs(postQuery)
         const fetchedPosts = snapshot.docs.map(
           (doc: any) =>
