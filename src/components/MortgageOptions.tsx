@@ -1,8 +1,9 @@
 import { Card, CardContent, CardHeader, CardFooter } from "./ui/Card";
 import { Button } from "./ui/Button";
+import { useNavigate } from "react-router-dom";
 
 export const MortgageOptions = () => {
-  // Second grid: image-based options
+  const navigate = useNavigate();
   const mortgageOptions = [
     {
       id: 1,
@@ -11,6 +12,7 @@ export const MortgageOptions = () => {
         "In the beginning, the interest payments are frontloaded and will make up the major part of the payment.",
       image: "/mortage-options/icon_1.png",
       alt: "15-Year Fixed-Rate Mortgage",
+      link: "/fifteen-year-fixed",
     },
     {
       id: 2,
@@ -19,6 +21,7 @@ export const MortgageOptions = () => {
         "Traditionally, the 30-year fixed mortgage is possibly the most popular mortgage loan on the market.",
       image: "/mortage-options/icon_2.png",
       alt: "30-Year Fixed-Rate Mortgage",
+      link: "/thirty-year-fixed",
     },
     {
       id: 3,
@@ -27,6 +30,7 @@ export const MortgageOptions = () => {
         "Refinancing your home means obtaining a new mortgage to replace your current mortgage loan.",
       image: "/mortage-options/icon_3.png",
       alt: "Refinance",
+      link: "/refinance",
     },
     {
       id: 4,
@@ -35,22 +39,25 @@ export const MortgageOptions = () => {
         "A VA Home Loan is a mortgage loan that was established in 1944 by the United States Department of Veterans Affairs and is gaining popularity in recent years.",
       image: "/mortage-options/icon_4.png",
       alt: "VA Loans",
+      link: "/va-loans",
     },
     {
       id: 5,
       title: "Jumbo Loans",
       description:
         'A jumbo loan is also referred to as a "non-conforming mortgage" or a jumbo mortgage.',
-      image: "/mortage-options/icon_4.png",
+      image: "/mortage-options/icon_5.png",
       alt: "Jumbo Loans",
+      link: "/jumbo-loans",
     },
     {
       id: 6,
       title: "Conventional Loans",
       description:
         "A conventional loan is also sometimes referred to as non-Government Sponsored Enterprise (GSE) loans or conventional mortgage.",
-      image: "/mortage-options/icon_5.png",
+      image: "/mortage-options/icon_6.png",
       alt: "Conventional Loans",
+      link: "/conventional-loans",
     },
   ];
 
@@ -94,7 +101,12 @@ export const MortgageOptions = () => {
                 </p>
               </CardContent>
               <CardFooter className="justify-center pt-2 pb-8">
-                <Button variant="outline" size="sm" className="group-hover:border-[#2c5aa0] group-hover:text-[#2c5aa0] transition-colors">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="group-hover:border-[#2c5aa0] group-hover:text-[#2c5aa0] transition-colors"
+                  onClick={() => navigate(option.link)}
+                >
                   Read More
                 </Button>
               </CardFooter>
