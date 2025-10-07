@@ -4,6 +4,30 @@ import { IframeModal } from './IframeModal';
 
 export const Hero = () => {
   const [isBuyingModalOpen, setIsBuyingModalOpen] = useState(false);
+  const [modalData, setModalData] = useState<{
+    title: string;
+    iframeUrl: string;
+    isOpen: boolean;
+  }>({
+    title: '',
+    iframeUrl: '',
+    isOpen: false,
+  });
+
+
+  const openBuyingModal = (title: any, iframeUrl: any) => {
+    setModalData({
+      title: title,
+      iframeUrl: iframeUrl,
+      isOpen: true,
+    });
+    setIsBuyingModalOpen(true)
+  };
+
+
+
+
+
 
   return (
     <div className="w-full bg-gray-200 py-8 lg:py-12">
@@ -15,23 +39,23 @@ export const Hero = () => {
               Grab today’s low rate
             </h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <button 
+              <button
                 className="bg-white p-4 lg:p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer w-full"
-                onClick={() => setIsBuyingModalOpen(true)}
+                onClick={() => openBuyingModal(`I'm Buying`, `https://ratebeat.floify.com/apply-now`)}
               >
                 <div className="flex justify-between items-center">
                   <span className="text-gray-800 font-medium text-sm lg:text-base">I'm buying</span>
                   <ArrowRightIcon className="h-4 w-4 lg:h-5 lg:w-5 text-gray-600" />
                 </div>
               </button>
-              <a className="bg-white p-4 lg:p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer" target='_blank' href='/rate'>
+              <button className="bg-white p-4 lg:p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer" onClick={() => openBuyingModal(`See today's Rate`, `https://nmann-rates-site-8566-3cl5t4e2.itclix.com/`)}>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-800 font-medium text-sm lg:text-base">
                     See today's rates
                   </span>
                   <ArrowRightIcon className="h-4 w-4 lg:h-5 lg:w-5 text-gray-600" />
                 </div>
-              </a>
+              </button>
               {/* <div className="bg-white p-4 lg:p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer sm:col-span-2">
                 <div className="flex justify-between items-center">
                   <span className="text-gray-800 font-medium text-sm lg:text-base">
@@ -53,14 +77,15 @@ export const Hero = () => {
           </div>
         </div>
       </div>
-      
-      {/* Buying Modal */}
-      <IframeModal
-        isOpen={isBuyingModalOpen}
-        onClose={() => setIsBuyingModalOpen(false)}
-        iframeUrl="https://ratebeat.floify.com/apply-now"
-        title="Apply Now - I'm Buying"
-      />
+      {
+        modalData.isOpen ? <IframeModal
+          isOpen={isBuyingModalOpen}
+          onClose={() => setIsBuyingModalOpen(false)}
+          iframeUrl={modalData.iframeUrl}
+          title={modalData.title}
+        /> : null
+      }
+
     </div>
   )
 };

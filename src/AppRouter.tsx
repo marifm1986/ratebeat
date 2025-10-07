@@ -20,6 +20,14 @@ import { RefinancePage } from "./pages/RefinancePage";
 import { VALoansPage } from "./pages/VALoansPage";
 import { JumboLoansPage } from "./pages/JumboLoansPage";
 import { ConventionalLoansPage } from "./pages/ConventionalLoansPage";
+import { AffordabilityCalculator } from "./pages/calculators/AffordabilityCalculator";
+import MortgageCalculator from "./pages/calculators/MortgageCalculator";
+import RefinanceLowerPayment from "./pages/calculators/RefinanceLowerPayment";
+import RentVsBuyCalculator from "./pages/calculators/RentVsBuyCalculator";
+import AmortizationCalculator from "./pages/calculators/AmortizationCalculator";
+import HomeEquityCalculator from "./pages/calculators/HomeEquityCalculator";
+import DownPaymentCalculator from "./pages/calculators/DownPaymentCalculator";
+import MortgagePayoffCalculator from "./pages/calculators/MortgagePayoffCalculator";
 
 export function AppRouter() {
   return (
@@ -27,7 +35,7 @@ export function AppRouter() {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<App />}>
-            <Route
+            {/* <Route
               index
               element={<div className="p-8">Home Page Content</div>}
             />
@@ -38,8 +46,16 @@ export function AppRouter() {
             <Route
               path="contact"
               element={<div className="p-8">Contact Page Content</div>}
-            />
+            /> */}
           </Route>
+          <Route path="/affordability-calculator" element={<AffordabilityCalculator />} />
+          <Route path="/mortgage-Calculator" element={<MortgageCalculator />} />
+          <Route path="/refinance-calculator" element={<RefinanceLowerPayment />} />
+          <Route path="/rent-vs-buy-calculator" element={<RentVsBuyCalculator />} />
+          <Route path="/amortization-calculator" element={<AmortizationCalculator />} />
+          <Route path="/home-equity-calculator" element={<HomeEquityCalculator />} />
+          <Route path="/mortgage-payoff-calculator" element={<MortgagePayoffCalculator />} />
+          <Route path="/down-payment-calculator" element={<DownPaymentCalculator />} />
           <Route path="/rate" element={<Buying />} />
           <Route path="/blog" element={<AllBlogsPage />} />
           <Route path="/blog/:slug" element={<SingleBlogPage />} />

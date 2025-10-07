@@ -8,6 +8,8 @@ import {
     Percent,
     RefreshCw,
 } from 'lucide-react';
+import { useState } from 'react';
+import { IframeModal } from './IframeModal';
 
 // Map icon keys to Lucide components
 const ICONS: Record<string, LucideIcon> = {
@@ -55,6 +57,27 @@ type Tool = {
 };
 export const TrustAndHook: React.FC<{ items?: Tool[] }> = ({ items }) => {
     const data: Tool[] = items ?? (tools as Tool[]);
+    const [isBuyingModalOpen, setIsBuyingModalOpen] = useState(false);
+    const [modalData, setModalData] = useState<{
+        title: string;
+        iframeUrl: string;
+        isOpen: boolean;
+    }>({
+        title: '',
+        iframeUrl: '',
+        isOpen: false,
+    });
+
+
+    const openBuyingModal = (title: any, iframeUrl: any) => {
+        setModalData({
+            title: title,
+            iframeUrl: iframeUrl,
+            isOpen: true,
+        });
+        setIsBuyingModalOpen(true)
+    };
+
     const showCalculator = () => {
     }
     return (
@@ -71,13 +94,13 @@ export const TrustAndHook: React.FC<{ items?: Tool[] }> = ({ items }) => {
                         COLOR_VARIANTS[color] ?? COLOR_VARIANTS.blue;
 
                     // Use a button for actions or an anchor for navigation
-                    const Wrapper: React.ElementType = href ? 'a' : 'button';
+                    // const Wrapper: React.ElementType = href ? 'a' : 'button';
                     const wrapperProps = href
                         ? { href, 'aria-label': name, target: '_blank' }
                         : { type: "button", 'aria-label': name } as const;
 
                     return (
-                        <Wrapper
+                        <div
                             key={idx}
                             {...wrapperProps}
                             className={[
@@ -88,7 +111,7 @@ export const TrustAndHook: React.FC<{ items?: Tool[] }> = ({ items }) => {
                                 'outline-none focus:outline-none',
                                 'flex flex-col justify-between min-h-[132px]',
                             ].join(' ')}
-                            onClick={showCalculator}
+                            onClick={() => openBuyingModal(name, href)}
                         >
                             <div className="flex flex-col items-center justify-center gap-4">
                                 <Icon className={['w-8 h-8', variant.icon].join(' ')} />
@@ -98,10 +121,18 @@ export const TrustAndHook: React.FC<{ items?: Tool[] }> = ({ items }) => {
                             </div>
 
                             {/* subtle bottom gradient highlight on hover */}
-                        </Wrapper>
+                        </div>
                     );
                 })}
             </div>
+            {
+                modalData.isOpen ? <IframeModal
+                    isOpen={isBuyingModalOpen}
+                    onClose={() => setIsBuyingModalOpen(false)}
+                    iframeUrl={modalData.iframeUrl}
+                    title={modalData.title}
+                /> : null
+            }
         </section>
     );
 };
