@@ -28,6 +28,8 @@ import AmortizationCalculator from "./pages/calculators/AmortizationCalculator";
 import HomeEquityCalculator from "./pages/calculators/HomeEquityCalculator";
 import DownPaymentCalculator from "./pages/calculators/DownPaymentCalculator";
 import MortgagePayoffCalculator from "./pages/calculators/MortgagePayoffCalculator";
+import { HelocPage } from "./pages/HelocPage";
+import { OneDayMortgagePage } from "./pages/OneDayMortgagePage";
 
 export function AppRouter() {
   return (
@@ -68,6 +70,8 @@ export function AppRouter() {
           <Route path="/va-loans" element={<VALoansPage />} />
           <Route path="/jumbo-loans" element={<JumboLoansPage />} />
           <Route path="/conventional-loans" element={<ConventionalLoansPage />} />
+          <Route path="/heloc" element={<HelocPage />} />
+          <Route path="/one-day-mortgage" element={<OneDayMortgagePage />} />
           
            <Route
             path="/admin"
