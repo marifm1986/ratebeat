@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react'
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
-import { Header } from '../../components/Header'
+import React, { useEffect, useRef, useState } from 'react'
 // Helper functions for formatting and parsing
 const fmtUSD = (value: number): string => {
     return new Intl.NumberFormat('en-US', {
@@ -196,7 +195,6 @@ const AmortizationCalculator: React.FC = () => {
     }
     return (
         <>
-            <Header />
             <div className="max-w-[1200px] mx-auto p-6 md:p-10">
                 {/* Hero section with two columns */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
@@ -416,7 +414,7 @@ const AmortizationCalculator: React.FC = () => {
                             </button>
                             {/* Footer */}
                             <div className="mt-4 text-center text-sm text-[#E41B17]">
-                                Rocket Mortgage
+                                RateBeat
                             </div>
                         </div>
                     </div>

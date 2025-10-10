@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { InfoIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
-import { Header } from '../../components/Header'
+import { ChevronDownIcon, ChevronUpIcon, InfoIcon } from 'lucide-react'
+import React, { useEffect, useRef, useState } from 'react'
 // Credit tier type
 type CreditTier = '760+' | '720+' | '680–719' | '640–679' | '≤639'
 type ProductType = 'Cash-out' | 'HELOC'
@@ -129,7 +128,6 @@ const HomeEquityCalculator: React.FC = () => {
     }
     return (
         <>
-            <Header />
             <div className="max-w-[1200px] mx-auto p-6 md:p-10 grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Left column - Input form */}
                 <div className="rounded-3xl bg-[#F6F7F8] p-6 md:p-8">
@@ -338,7 +336,7 @@ const HomeEquityCalculator: React.FC = () => {
                     </div>
                     {/* Footer */}
                     <div className="mt-6 text-xs text-center text-gray-500 flex items-center justify-center gap-2">
-                        <span className="text-red-600 font-medium">Rocket Mortgage</span>
+                        <span className="text-red-600 font-medium">RateBeat</span>
                         <span>•</span>
                         <a href="#" className="underline hover:text-gray-700">
                             Legal disclosures

@@ -20,7 +20,6 @@ import { RefinancePage } from "./pages/RefinancePage";
 import { VALoansPage } from "./pages/VALoansPage";
 import { JumboLoansPage } from "./pages/JumboLoansPage";
 import { ConventionalLoansPage } from "./pages/ConventionalLoansPage";
-import { AffordabilityCalculator } from "./pages/calculators/AffordabilityCalculator";
 import MortgageCalculator from "./pages/calculators/MortgageCalculator";
 import RefinanceLowerPayment from "./pages/calculators/RefinanceLowerPayment";
 import RentVsBuyCalculator from "./pages/calculators/RentVsBuyCalculator";
@@ -30,11 +29,16 @@ import DownPaymentCalculator from "./pages/calculators/DownPaymentCalculator";
 import MortgagePayoffCalculator from "./pages/calculators/MortgagePayoffCalculator";
 import { HelocPage } from "./pages/HelocPage";
 import { OneDayMortgagePage } from "./pages/OneDayMortgagePage";
+import AffordabilityCalculator from "./pages/calculators/AffordabilityCalculator";
+import HomeAffordabilityCalculator from "./pages/calculators/AffordabilityCalculator";
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
 
 export function AppRouter() {
   return (
     <BrowserRouter>
       <AuthProvider>
+        <Header/>
         <Routes>
           <Route path="/" element={<App />}>
             {/* <Route
@@ -50,7 +54,7 @@ export function AppRouter() {
               element={<div className="p-8">Contact Page Content</div>}
             /> */}
           </Route>
-          <Route path="/affordability-calculator" element={<AffordabilityCalculator />} />
+          <Route path="/affordability-calculator" element={<HomeAffordabilityCalculator />} />
           <Route path="/mortgage-Calculator" element={<MortgageCalculator />} />
           <Route path="/refinance-calculator" element={<RefinanceLowerPayment />} />
           <Route path="/rent-vs-buy-calculator" element={<RentVsBuyCalculator />} />
@@ -125,6 +129,7 @@ export function AppRouter() {
             <Route path="access-denied" element={<AccessDeniedPage />} />
           </Route>
         </Routes>
+        <Footer/>
       </AuthProvider>
       
     </BrowserRouter>

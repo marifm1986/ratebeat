@@ -1,6 +1,5 @@
 import { ChevronDown, DollarSign, InfoIcon, PercentIcon } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
-import { Header } from '../../components/Header';
 // Define types for the application
 interface MonthlyPayment {
     total: number;
@@ -268,7 +267,6 @@ const MortgageCalculator: React.FC = () => {
     };
     return (
         <>
-            <Header />
             <div className="max-w-6xl mx-auto p-12">
                 <div className="flex flex-col lg:flex-row gap-6 rounded-3xl overflow-hidden">
                     {/* Left section - Form */}
@@ -401,7 +399,7 @@ const MortgageCalculator: React.FC = () => {
                         </button>
                         {/* Footer */}
                         <div className="mt-6 flex items-center justify-center gap-2 text-sm">
-                            <span className="text-red-500 font-medium">Rocket Mortgage</span>
+                            <span className="text-red-500 font-medium">RateBeat</span>
                             <span className="text-gray-400">•</span>
                             <a href="#" className="text-gray-500 underline">
                                 Legal disclosures

@@ -351,7 +351,7 @@ export const Header: React.FC<NavigationProps> = ({
                 href: '/home-loans/jumbo-loan',
               },
               {
-                label: 'ONE+ by Rocket Mortgage®',
+                label: 'ONE+ by RateBeat®',
                 href: '/home-loans/one-plus',
               },
               {
@@ -400,12 +400,12 @@ export const Header: React.FC<NavigationProps> = ({
 
             {/* <img
                 src={logo}
-                alt="Rocket Mortgage Logo"
+                alt="RateBeat Logo"
                 width={100}
                 className="h-auto"
               /> */}
             <a href="/" className="flex items-center">
-              <img  src={`${import.meta.env.BASE_URL}ratebeat-logo.png`} alt="Rocket Mortgage Logo"
+              <img  src={`${import.meta.env.BASE_URL}ratebeat-logo.png`} alt="RateBeat Logo"
                 width={100}
                 className="h-auto" />
 
