@@ -83,12 +83,12 @@ export const QuickTools: React.FC<{ items?: Tool[] }> = ({ items }) => {
       : data.filter((x: any) => x.category.includes(selectedCalculatorTab));
 
   return (
-    <section className="bg-white rounded-3xl px-10 py-10 lg:px-28 lg:py-18 shadow-lg">
+    <section className="bg-white rounded-3xl px-10 py-10 lg:px-28 lg:py-18 shadow-lg" id='calculators'>
       <div className="title-wrapper flex flex-col mb-12">
         <h2 className="text-center text-2xl lg:text-5xl font-bold text-gray-900 mb-4 ">
           RateBeat® <br /> Purchase Calculators
         </h2>
-        <p className='text-center'>Estimate mortgage payments, check affordability, and plan your home buying budget with Rocket’s purchase calculators.</p>
+        <p className='text-center'>Estimate mortgage payments, check affordability, and plan your home buying budget with ReateBeat’s purchase calculators.</p>
       </div>
 
       <div className="w-full bg-gray-100 px-8 py-10 rounded-lg mb-12">

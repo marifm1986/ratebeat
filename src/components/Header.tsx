@@ -48,28 +48,40 @@ export const Header: React.FC<NavigationProps> = ({
           Calculators: {
             mainLink: {
               label: 'All calculators',
-              href: '/calculators',
+              href: '#calculators',
             },
             links: [
               {
                 label: 'Home affordability calculator',
-                href: '/calculators/home-affordability-calculator',
+                href: '/affordability-calculator',
               },
               {
                 label: 'Mortgage calculator',
-                href: '/calculators/mortgage-calculator',
+                href: '/mortgage-Calculator',
+              },
+              {
+                label: 'Refinance Calculator',
+                href: '/refinance-calculator',
               },
               {
                 label: 'Rent vs. buy calculator',
-                href: '/calculators/rent-vs-buy',
+                href: '/rent-vs-buy-calculator',
               },
               {
                 label: 'Amortization calculator',
-                href: '/calculators/amortization-calculator',
+                href: '/amortization-calculator',
+              },
+              {
+                label: 'Home Equity calculator',
+                href: '/home-equity-calculator',
+              },
+              {
+                label: 'Mortgage Payoff Calculator',
+                href: '/mortgage-payoff-calculator',
               },
               {
                 label: 'Down payment calculator',
-                href: '/calculators/down-payment-calculator',
+                href: '/down-payment-calculator',
               },
             ],
           },
@@ -405,7 +417,7 @@ export const Header: React.FC<NavigationProps> = ({
                 className="h-auto"
               /> */}
             <a href="/" className="flex items-center">
-              <img  src={`${import.meta.env.BASE_URL}ratebeat-logo.png`} alt="RateBeat Logo"
+              <img src={`${import.meta.env.BASE_URL}ratebeat-logo.png`} alt="RateBeat Logo"
                 width={100}
                 className="h-auto" />
 
@@ -497,7 +509,7 @@ export const Header: React.FC<NavigationProps> = ({
                               of your own
                             </p>
                             <a
-                              href="https://www.rocketmortgage.com/rent-rewards"
+                              href="/"
                               className="text-gray-900 font-medium underline hover:no-underline"
                             >
                               Learn about RentRewards

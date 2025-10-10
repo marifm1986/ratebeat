@@ -1,5 +1,5 @@
+import React, { useEffect, useState, useRef } from 'react'
 import { ChevronDownIcon, ChevronUpIcon, InfoIcon } from 'lucide-react'
-import React, { useEffect, useRef, useState } from 'react'
 // Credit tier type
 type CreditTier = '760+' | '720+' | '680–719' | '640–679' | '≤639'
 type ProductType = 'Cash-out' | 'HELOC'
@@ -346,42 +346,151 @@ const HomeEquityCalculator: React.FC = () => {
                 {/* Right column - Results */}
                 <div
                     ref={resultsRef}
-                    className="rounded-3xl bg-[#F8EEF2] p-6 md:p-8"
+                    className="rounded-3xl bg-[#F8EEF2] p-6 md:p-8 h-max"
                     aria-live="polite"
                 >
                     {isCalculated ? (
                         <>
-                            <div className="text-gray-700 mb-2">Your estimated home equity</div>
+                            {creditTier === '≤639' ? (
+                                <div className="bg-[#F9EFF3] rounded-xl p-6">
+                                    <h3 className="text-[#5D0F26] text-xl font-semibold mb-3">
+                                        A higher credit profile may help you qualify for a cash-out
+                                        loan.
+                                    </h3>
+                                    <p className="text-[#5D0F26] mb-6">
+                                        Learn{' '}
+                                        <a href="https://www.zinucreditrepair.com/" className="underline">
+                                            how to repair your credit score
+                                        </a>
+                                        . You can also talk to one of our Home Loan Experts. They
+                                        may be able to help.
+                                    </p>
+                                    <div className="flex flex-col sm:flex-row gap-4 items-center">
+                                        <button className="flex items-center gap-2 text-[#5D0F26] font-medium">
+                                            Get expert advice
+                                            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full border border-[#5D0F26]">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="16"
+                                                    height="16"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    strokeWidth="2"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                >
+                                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                                </svg>
+                                            </span>
+                                        </button>
+                                        <button className="flex items-center justify-center gap-2 px-6 py-3 border border-[#5D0F26] rounded-full text-[#5D0F26] font-medium hover:bg-[#F0E1E7] transition-colors">
+                                            Connect with an expert
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="16"
+                                                height="16"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                strokeWidth="2"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            >
+                                                <path d="M5 12h14"></path>
+                                                <path d="m12 5 7 7-7 7"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <>
+                                    <div className="text-[#5D0F26] font-medium text-xl mb-3">
+                                        Your estimated home equity
+                                    </div>
+                                    <div
+                                        ref={equityValueRef}
+                                        className="text-5xl md:text-6xl font-bold tabular-nums text-[#5D0F26]"
+                                    >
+                                        {fmtUSD(equity)}
+                                    </div>
+                                    {hasNegativeEquity && (
+                                        <div className="text-gray-500 mt-2 text-sm">
+                                            You may have negative equity based on these inputs.
+                                        </div>
+                                    )}
+                                    {!hasNegativeEquity && borrowingPower > 0 && (
+                                        <div className="mt-6 border-t border-gray-200 pt-4">
+                                            <div className="text-gray-700 font-medium">
+                                                Estimated borrowing power (after costs):{' '}
+                                                {fmtUSD(borrowingPower)}
+                                            </div>
+                                            <div className="text-gray-500 text-sm mt-1">
+                                                Assumes max CLTV by credit profile; actual limits vary.
+                                            </div>
+                                        </div>
+                                    )}
+                                </>
+                            )}
+                        </>
+                    ) : (
+                        <>
+                            <div className="text-[#5D0F26] font-medium text-xl mb-3">
+                                Your estimated home equity
+                            </div>
                             <div
                                 ref={equityValueRef}
                                 className="text-5xl md:text-6xl font-bold tabular-nums text-[#5D0F26]"
                             >
-                                {fmtUSD(equity)}
+                                {fmtUSD(0)}
                             </div>
-                            {hasNegativeEquity && (
-                                <div className="text-gray-500 mt-2 text-sm">
-                                    You may have negative equity based on these inputs.
+                            <div className="bg-[#F0E1E7] rounded-xl p-6 mt-4">
+                                <h3 className="text-[#5D0F26] text-xl font-semibold mb-3">
+                                    Not sure how to access your home's equity? We can help.
+                                </h3>
+                                <p className="text-[#5D0F26] mb-6">
+                                    We'll walk you through it. No pressure, just a simple review
+                                    to help you understand your options.
+                                </p>
+                                <div className="flex flex-col sm:flex-row gap-4 items-center">
+                                    <button className="flex items-center gap-2 text-[#5D0F26] font-medium">
+                                        Get expert advice
+                                        <span className="inline-flex items-center justify-center w-6 h-6 rounded-full border border-[#5D0F26]">
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="16"
+                                                height="16"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                strokeWidth="2"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            >
+                                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                            </svg>
+                                        </span>
+                                    </button>
+                                    <button className="flex items-center justify-center gap-2 px-6 py-3 border border-[#5D0F26] rounded-full text-[#5D0F26] font-medium hover:bg-[#F0E1E7] transition-colors">
+                                        See what I can do
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="16"
+                                            height="16"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <path d="M5 12h14"></path>
+                                            <path d="m12 5 7 7-7 7"></path>
+                                        </svg>
+                                    </button>
                                 </div>
-                            )}
-                            {!hasNegativeEquity && borrowingPower > 0 && (
-                                <div className="mt-6 border-t border-gray-200 pt-4">
-                                    <div className="text-gray-700 font-medium">
-                                        Estimated borrowing power (after costs):{' '}
-                                        {fmtUSD(borrowingPower)}
-                                    </div>
-                                    <div className="text-gray-500 text-sm mt-1">
-                                        Assumes max CLTV by credit profile; actual limits vary.
-                                    </div>
-                                </div>
-                            )}
+                            </div>
                         </>
-                    ) : (
-                        <div className="h-full flex items-center justify-center text-gray-400 text-center">
-                            <div>
-                                <p>Enter your details and click Calculate</p>
-                                <p>to see your estimated home equity</p>
-                            </div>
-                        </div>
                     )}
                 </div>
             </div>
