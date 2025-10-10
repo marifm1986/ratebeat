@@ -22,8 +22,8 @@ const toISO = (val: any): string | undefined => {
 const normalizeTags = (raw: any): string[] =>
   Array.isArray(raw)
     ? raw
-        .map((t) => (typeof t === 'string' ? t : t?.name ?? t?.slug ?? ''))
-        .filter(Boolean)
+      .map((t) => (typeof t === 'string' ? t : t?.name ?? t?.slug ?? ''))
+      .filter(Boolean)
     : [];
 
 const mapDocToPost = (d: any): BlogPost => {
@@ -186,7 +186,6 @@ export const SingleBlogPage = () => {
   if (loadingPost) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <Header />
         <main className="py-16">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto animate-pulse">
@@ -205,7 +204,6 @@ export const SingleBlogPage = () => {
             </div>
           </div>
         </main>
-        <Footer />
       </div>
     );
   }
@@ -214,7 +212,6 @@ export const SingleBlogPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       <main>
         {/* HERO: eager image for LCP */}
         <div className="relative h-[70vh] min-h-[500px] overflow-hidden">
@@ -239,7 +236,7 @@ export const SingleBlogPage = () => {
                 </Link>
 
                 <div className="flex justify-center flex-wrap gap-2 mb-6">
-                  {(post.tags ?? []).slice(0, 3).map((tag:any, i:any) => (
+                  {(post.tags ?? []).slice(0, 3).map((tag: any, i: any) => (
                     <span
                       key={`${tag}-${i}`}
                       className="px-4 py-2 bg-white/20 backdrop-blur-sm text-white text-sm font-medium rounded-full border border-white/30"
@@ -367,35 +364,35 @@ export const SingleBlogPage = () => {
                     <div className="space-y-4">
                       {loadingSidebars
                         ? Array.from({ length: 3 }).map((_, i) => (
-                            <div key={i} className="flex gap-4 animate-pulse">
-                              <div className="w-16 h-16 bg-gray-200 rounded-lg" />
-                              <div className="flex-1 space-y-2">
-                                <div className="h-4 bg-gray-200 rounded" />
-                                <div className="h-3 bg-gray-100 rounded w-1/2" />
+                          <div key={i} className="flex gap-4 animate-pulse">
+                            <div className="w-16 h-16 bg-gray-200 rounded-lg" />
+                            <div className="flex-1 space-y-2">
+                              <div className="h-4 bg-gray-200 rounded" />
+                              <div className="h-3 bg-gray-100 rounded w-1/2" />
+                            </div>
+                          </div>
+                        ))
+                        : recentPosts.map((rp) => (
+                          <Link key={rp.id} to={`/blog/${rp.slug}`} className="block group">
+                            <div className="flex gap-4">
+                              <img
+                                src={rp.featuredImage}
+                                alt={rp.title}
+                                className="w-16 h-16 rounded-lg object-cover flex-shrink-0"
+                                width={64}
+                                height={64}
+                                loading="lazy"
+                                decoding="async"
+                              />
+                              <div className="flex-1 min-w-0">
+                                <h4 className="text-sm font-semibold text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors">
+                                  {rp.title}
+                                </h4>
+                                <p className="text-xs text-gray-500 mt-1">{formatDate(rp.publishedDate!)}</p>
                               </div>
                             </div>
-                          ))
-                        : recentPosts.map((rp) => (
-                            <Link key={rp.id} to={`/blog/${rp.slug}`} className="block group">
-                              <div className="flex gap-4">
-                                <img
-                                  src={rp.featuredImage}
-                                  alt={rp.title}
-                                  className="w-16 h-16 rounded-lg object-cover flex-shrink-0"
-                                  width={64}
-                                  height={64}
-                                  loading="lazy"
-                                  decoding="async"
-                                />
-                                <div className="flex-1 min-w-0">
-                                  <h4 className="text-sm font-semibold text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors">
-                                    {rp.title}
-                                  </h4>
-                                  <p className="text-xs text-gray-500 mt-1">{formatDate(rp.publishedDate!)}</p>
-                                </div>
-                              </div>
-                            </Link>
-                          ))}
+                          </Link>
+                        ))}
                     </div>
                   </div>
 
@@ -444,7 +441,7 @@ export const SingleBlogPage = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {(loadingSidebars ? Array.from({ length: 3 }) : relatedPosts).map((item:any, idx) =>
+                  {(loadingSidebars ? Array.from({ length: 3 }) : relatedPosts).map((item: any, idx) =>
                     loadingSidebars ? (
                       <div key={idx} className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden animate-pulse">
                         <div className="aspect-[16/10] bg-gray-200" />
@@ -504,7 +501,6 @@ export const SingleBlogPage = () => {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

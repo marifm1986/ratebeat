@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { MapPinIcon, InfoIcon } from 'lucide-react'
-import { Header } from '../../components/Header'
+import { InfoIcon, MapPinIcon } from 'lucide-react'
+import React, { useEffect, useRef, useState } from 'react'
 // Types
 type CreditTier = '760+' | '720–759' | '680–719' | '640–679' | '≤639'
 type State = keyof typeof STATE_COSTS
@@ -597,7 +596,6 @@ const DownPaymentCalculator: React.FC = () => {
     }, [price])
     return (
         <>
-            <Header />
             <div className="max-w-[1200px] mx-auto p-6 md:p-10 grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Left card - Input form */}
                 <div className="rounded-3xl bg-[#F3F5F7] p-6 md:p-8">
@@ -731,7 +729,7 @@ const DownPaymentCalculator: React.FC = () => {
                     </button>
                     {/* Footer */}
                     <div className="mt-6 text-sm text-center text-gray-500 flex items-center justify-center gap-2">
-                        <span className="text-red-500 font-medium">Rocket Mortgage</span>
+                        <span className="text-red-500 font-medium">RateBeat</span>
                         <span className="text-gray-400">•</span>
                         <a href="#" className="text-gray-500 underline">
                             Legal disclosures

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ChevronRight,
   Calculator,
@@ -14,6 +14,7 @@ import {
   CreditCard,
 
 } from 'lucide-react';
+import { FilterTabs } from './ui/FilterTabs';
 
 // Map icon keys to Lucide components
 const ICONS: Record<string, LucideIcon> = {
@@ -49,20 +50,21 @@ const COLOR_VARIANTS: Record<
 
 // Data
 const tools = [
-  { name: 'Home affordability calculator', description: 'See what home price range fits your budget and what amount you may qualify to borrow.', href: '/affordability-calculator', icon: 'DollarSign', color: 'blue' },
-  { name: 'Mortgage calculator', description: 'Estimate your monthly mortgage payment, including taxes and insurance, before you buy.', href: '/mortgage-Calculator', icon: 'HandCoins', color: 'red' },
-  { name: 'Refinance calculator', description: 'Check how refinancing could reduce your monthly payments or overall loan cost.', href: '/refinance-calculator', icon: 'RefreshCw', color: 'green' },
-  { name: 'Rent vs buy calculator', description: 'Compare the long-term costs of renting versus owning to find out which suits you best.', href: '/rent-vs-buy-calculator', icon: 'Banknote', color: 'orange' },
-  { name: 'Amortization Calculator', description: 'View how each monthly payment divides between principal and interest over time.', href: '/amortization-calculator', icon: 'CalendarDays', color: 'purple' },
-  { name: 'Home equity calculator', description: 'Find out how much equity you’ve built in your home and how much value remains owed.', href: '/home-equity-calculator', icon: 'Home', color: 'yellow' },
-  { name: 'Mortgage payoff calculator', description: 'Explore how extra payments or refinancing can help you pay off your mortgage sooner.', href: '/mortgage-payoff-calculator', icon: 'CalendarPlus', color: 'teal' },
-  { name: 'Down payment calculator', description: 'Determine the cash you’ll need upfront to buy the home you’re considering.', href: '/down-payment-calculator', icon: 'CreditCard', color: 'pink' },
+  { category: ['buy_a_home'], name: 'Home affordability calculator', description: 'See what home price range fits your budget and what amount you may qualify to borrow.', href: '/affordability-calculator', icon: 'DollarSign', color: 'blue' },
+  { category: ['buy_a_home'], name: 'Mortgage calculator', description: 'Estimate your monthly mortgage payment, including taxes and insurance, before you buy.', href: '/mortgage-Calculator', icon: 'HandCoins', color: 'red' },
+  { category: ['refinance'], name: 'Refinance calculator', description: 'Check how refinancing could reduce your monthly payments or overall loan cost.', href: '/refinance-calculator', icon: 'RefreshCw', color: 'green' },
+  { category: ['buy_a_home'], name: 'Rent vs buy calculator', description: 'Compare the long-term costs of renting versus owning to find out which suits you best.', href: '/rent-vs-buy-calculator', icon: 'Banknote', color: 'orange' },
+  { category: ['buy_a_home', 'refinance'], name: 'Amortization Calculator', description: 'View how each monthly payment divides between principal and interest over time.', href: '/amortization-calculator', icon: 'CalendarDays', color: 'purple' },
+  { category: ['refinance'], name: 'Home equity calculator', description: 'Find out how much equity you’ve built in your home and how much value remains owed.', href: '/home-equity-calculator', icon: 'Home', color: 'yellow' },
+  { category: ['refinance'], name: 'Mortgage payoff calculator', description: 'Explore how extra payments or refinancing can help you pay off your mortgage sooner.', href: '/mortgage-payoff-calculator', icon: 'CalendarPlus', color: 'teal' },
+  { category: ['buy_a_home'], name: 'Down payment calculator', description: 'Determine the cash you’ll need upfront to buy the home you’re considering.', href: '/down-payment-calculator', icon: 'CreditCard', color: 'pink' },
   // { name: 'Buy a home',                    icon: 'Home',        color: 'indigo' },
   // { name: 'Sell a home',                   icon: 'DollarSign',  color: 'cyan' },
   // { name: 'Get home inspection',           icon: 'Home',        color: 'lime' },
 ];
 
 type Tool = {
+  category: []
   name: string;
   description: string;
   icon: keyof typeof ICONS;
@@ -73,15 +75,49 @@ type Tool = {
 
 export const QuickTools: React.FC<{ items?: Tool[] }> = ({ items }) => {
   const data: Tool[] = items ?? (tools as Tool[]);
+  const [selectedCalculatorTab, setSelectedCalculatorTab] = useState<string>('all');
+
+  const filteredData: Tool[] =
+    selectedCalculatorTab === 'all'
+      ? data
+      : data.filter((x: any) => x.category.includes(selectedCalculatorTab));
 
   return (
     <section className="bg-white rounded-3xl px-10 py-10 lg:px-28 lg:py-18 shadow-lg">
-      <h2 className="text-center text-2xl lg:text-3xl font-bold text-gray-900 mb-8 lg:mb-12">
-        Calculators &amp; Tools
-      </h2>
+      <div className="title-wrapper flex flex-col mb-12">
+        <h2 className="text-center text-2xl lg:text-5xl font-bold text-gray-900 mb-4 ">
+          RateBeat® <br /> Purchase Calculators
+        </h2>
+        <p className='text-center'>Estimate mortgage payments, check affordability, and plan your home buying budget with Rocket’s purchase calculators.</p>
+      </div>
+
+      <div className="w-full bg-gray-100 px-8 py-10 rounded-lg mb-12">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex-1">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+              Not sure which calculator to use?
+            </h2>
+            <p className="text-gray-600 text-base md:text-lg">
+              Answer a few questions and we'll recommend one that matches your
+              goals.
+            </p>
+          </div>
+          <button className="bg-black text-white px-8 py-3.5 rounded-full font-medium hover:bg-gray-800 transition-colors whitespace-nowrap">
+            Get recommendation
+          </button>
+        </div>
+      </div>
+      <div className="filter-wrapper flex justify-center mb-12">
+
+        <FilterTabs
+          onFilterChange={(filter) => setSelectedCalculatorTab(filter)}
+        />
+      </div>
+
+
 
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {data.map(({ name, description, icon, color, href }, idx) => {
+        {filteredData.map(({ name, description, icon, color, href }, idx) => {
           const Icon = ICONS[icon] ?? Home;
           const variant =
             COLOR_VARIANTS[color] ?? COLOR_VARIANTS.blue;

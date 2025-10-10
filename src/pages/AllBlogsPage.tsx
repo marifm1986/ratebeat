@@ -1,19 +1,18 @@
+import { ArrowRight, Calendar, Clock } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Calendar, ArrowRight, Clock } from 'lucide-react';
-import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 
 import {
   collection,
-  getDocs,
+  DocumentData,
   getCountFromServer,
+  getDocs,
   limit,
   orderBy,
   query,
+  QueryDocumentSnapshot,
   startAfter,
   Timestamp,
-  QueryDocumentSnapshot,
-  DocumentData,
   where,
 } from 'firebase/firestore';
 import { db } from '../firebase/config';
@@ -87,7 +86,7 @@ export const AllBlogsPage = () => {
     try {
       const d = new Date(val);
       if (!isNaN(d.getTime())) return d.toISOString();
-    } catch {}
+    } catch { }
     return undefined;
   };
 
@@ -266,7 +265,6 @@ export const AllBlogsPage = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <Header />
 
       <main>
         {/* Hero Section */}
@@ -389,11 +387,10 @@ export const AllBlogsPage = () => {
                         <button
                           key={pageNumber}
                           onClick={() => handlePageChange(pageNumber)}
-                          className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                            currentPage === pageNumber
+                          className={`px-4 py-2 rounded-lg font-medium transition-colors ${currentPage === pageNumber
                               ? 'bg-gray-900 text-white'
                               : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-                          }`}
+                            }`}
                         >
                           {pageNumber}
                         </button>
@@ -415,7 +412,6 @@ export const AllBlogsPage = () => {
         </div>
       </main>
 
-      <Footer />
     </div>
   );
 };

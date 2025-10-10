@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react'
 import {
-    InfoIcon,
     ChevronDownIcon,
     ChevronUpIcon,
+    InfoIcon,
     SettingsIcon,
 } from 'lucide-react'
-import { Header } from '../../components/Header'
+import React, { useEffect, useRef, useState } from 'react'
 // Credit tier options
 type CreditTier = '760+' | '720–759' | '680–719' | '640–679' | '≤639'
 // PMI rates by credit tier
@@ -349,7 +348,6 @@ const RentVsBuyCalculator: React.FC = () => {
     }
     return (
         <>
-            <Header />
             <div className="max-w-[1200px] mx-auto p-6 md:p-10 grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Left column - Input form */}
                 <div className="rounded-3xl border border-slate-200 bg-white p-6 md:p-8">
@@ -720,7 +718,7 @@ const RentVsBuyCalculator: React.FC = () => {
                     </div>
                     {/* Footer */}
                     <div className="mt-6 text-xs text-center text-gray-500 flex items-center justify-center gap-2">
-                        <span className="text-red-600 font-medium">Rocket Mortgage</span>
+                        <span className="text-red-600 font-medium">RateBeat</span>
                         <span>•</span>
                         <a href="#" className="underline hover:text-gray-700">
                             Legal disclosures

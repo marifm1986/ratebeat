@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
 import { InfoIcon } from 'lucide-react'
-import { Header } from '../../components/Header'
+import React, { useEffect, useState } from 'react'
 // Define types for the application
 interface FormData {
     currentBalance: number
@@ -695,7 +694,6 @@ const RefinanceLowerPayment: React.FC = () => {
     }
     return (
         <>
-            <Header />
             <div className="max-w-[1200px] mx-auto p-6 md:p-10 grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Left card - Input form */}
                 <div className="rounded-3xl bg-[#F4F5F7] p-6 md:p-8">
@@ -894,7 +892,7 @@ const RefinanceLowerPayment: React.FC = () => {
                     </button>
                     {/* Footer */}
                     <div className="mt-6 flex items-center justify-center gap-2 text-sm">
-                        <span className="text-red-500 font-medium">Rocket Mortgage</span>
+                        <span className="text-red-500 font-medium">RateBeat</span>
                         <span className="text-gray-400">•</span>
                         <a href="#" className="text-gray-500 underline">
                             Legal disclosures
