@@ -17,21 +17,25 @@ import { AllBlogsPage } from "./pages/AllBlogsPage";
 import { ConventionalLoansPage } from "./pages/ConventionalLoansPage";
 import { FifteenYearFixedPage } from "./pages/FifteenYearFixedPage";
 import { HelocPage } from "./pages/HelocPage";
+import { HomeLoansPage } from "./pages/HomeLoansPage";
 import { JumboLoansPage } from "./pages/JumboLoansPage";
 import { OneDayMortgagePage } from "./pages/OneDayMortgagePage";
+import { PurchaseGetStartedPage } from "./pages/PurchaseGetStartedPage";
 import { RefinancePage } from "./pages/RefinancePage";
 import { SingleBlogPage } from "./pages/SingleBlogPage";
 import { ThirtyYearFixedPage } from "./pages/ThirtyYearFixedPage";
 import { VALoansPage } from "./pages/VALoansPage";
+import { VAMilitaryHomebuyerPage } from "./pages/VAMilitaryHomebuyerPage";
 import { AdminPanel } from "./pages/admin/AdminPanel";
 import HomeAffordabilityCalculator from "./pages/calculators/AffordabilityCalculator";
+import AmortizationCalculator from "./pages/calculators/AmortizationCalculator";
 import DownPaymentCalculator from "./pages/calculators/DownPaymentCalculator";
 import HomeEquityCalculator from "./pages/calculators/HomeEquityCalculator";
 import MortgageCalculator from "./pages/calculators/MortgageCalculator";
 import MortgagePayoffCalculator from "./pages/calculators/MortgagePayoffCalculator";
 import RefinanceLowerPayment from "./pages/calculators/RefinanceLowerPayment";
 import RentVsBuyCalculator from "./pages/calculators/RentVsBuyCalculator";
-import AmortizationCalculator from "./pages/calculators/AmortizationCalculator";
+
 
 export function AppRouter() {
   return (
@@ -75,6 +79,9 @@ export function AppRouter() {
           <Route path="/conventional-loans" element={<ConventionalLoansPage />} />
           <Route path="/heloc" element={<HelocPage />} />
           <Route path="/one-day-mortgage" element={<OneDayMortgagePage />} />
+          <Route path="/purchase/get-started" element={<PurchaseGetStartedPage />} />
+          <Route path="/purchase/va-military-homebuyer" element={<VAMilitaryHomebuyerPage />} />
+          <Route path="/home-loans" element={<HomeLoansPage />} />
           
            <Route
             path="/admin"

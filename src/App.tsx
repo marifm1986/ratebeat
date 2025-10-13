@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { Benefits } from './components/Benefits';
 import { BlogSection } from './components/BlogSection';
 import Calculator from './components/Calculator';
+import { FeaturedProducts } from './components/FeaturedProducts';
 import { GoalSelector } from './components/GoalSelector';
 import { Hero } from './components/Hero';
 import { MortgageOptions } from './components/MortgageOptions';
@@ -29,6 +30,7 @@ export function App() {
       <BlogSection />
       <MortgageOptions />
       <QuickTools />
+      <FeaturedProducts />
       <Benefits />
       <Testimonials />
       <Resources />
