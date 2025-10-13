@@ -29,8 +29,11 @@ import DownPaymentCalculator from "./pages/calculators/DownPaymentCalculator";
 import MortgagePayoffCalculator from "./pages/calculators/MortgagePayoffCalculator";
 import { HelocPage } from "./pages/HelocPage";
 import { OneDayMortgagePage } from "./pages/OneDayMortgagePage";
+import { PurchaseGetStartedPage } from "./pages/PurchaseGetStartedPage";
+import { HomeLoansPage } from "./pages/HomeLoansPage";
 import AffordabilityCalculator from "./pages/calculators/AffordabilityCalculator";
 import HomeAffordabilityCalculator from "./pages/calculators/AffordabilityCalculator";
+import { VAMilitaryHomebuyerPage } from "./pages/VAMilitaryHomebuyerPage";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 
@@ -76,6 +79,9 @@ export function AppRouter() {
           <Route path="/conventional-loans" element={<ConventionalLoansPage />} />
           <Route path="/heloc" element={<HelocPage />} />
           <Route path="/one-day-mortgage" element={<OneDayMortgagePage />} />
+          <Route path="/purchase/get-started" element={<PurchaseGetStartedPage />} />
+          <Route path="/purchase/va-military-homebuyer" element={<VAMilitaryHomebuyerPage />} />
+          <Route path="/home-loans" element={<HomeLoansPage />} />
           
            <Route
             path="/admin"
