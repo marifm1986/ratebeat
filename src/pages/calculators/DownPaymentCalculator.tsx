@@ -1,5 +1,6 @@
 import { InfoIcon, MapPinIcon } from 'lucide-react'
 import React, { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 // ========== Tiny animation utilities ==========
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3)
@@ -565,9 +566,8 @@ const DownPaymentCalculator: React.FC = () => {
             type="button"
             onClick={calculateResults}
             disabled={!isFormValid}
-            className={`w-full h-12 rounded-full text-white font-medium transition-colors ${
-              isFormValid ? 'bg-black hover:bg-gray-800' : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            }`}
+            className={`w-full h-12 rounded-full text-white font-medium transition-colors ${isFormValid ? 'bg-black hover:bg-gray-800' : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              }`}
           >
             Calculate
           </button>
@@ -575,9 +575,9 @@ const DownPaymentCalculator: React.FC = () => {
           <div className="mt-6 text-sm text-center text-gray-500 flex items-center justify-center gap-2">
             <span className="text-red-500 font-medium">RateBeat</span>
             <span className="text-gray-400">•</span>
-            <a href="#" className="text-gray-500 underline">
+            <Link to="#" className="text-gray-500 underline">
               Legal disclosures
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -616,11 +616,10 @@ const DownPaymentCalculator: React.FC = () => {
                   <button
                     key={pct}
                     onClick={() => handleChipSelect(pct as ActiveChip)}
-                    className={`inline-flex items-center gap-2 rounded-full border px-4 h-9 transition-colors ${
-                      activeChip === pct
+                    className={`inline-flex items-center gap-2 rounded-full border px-4 h-9 transition-colors ${activeChip === pct
                         ? 'bg-[#3C4016] text-white border-[#3C4016]'
                         : 'bg-white border-gray-300 hover:bg-gray-50'
-                    }`}
+                      }`}
                     aria-pressed={activeChip === pct}
                   >
                     {pct}%
@@ -628,11 +627,10 @@ const DownPaymentCalculator: React.FC = () => {
                 ))}
                 <button
                   onClick={() => handleChipSelect('other')}
-                  className={`inline-flex items-center gap-2 rounded-full border px-4 h-9 transition-colors ${
-                    activeChip === 'other'
+                  className={`inline-flex items-center gap-2 rounded-full border px-4 h-9 transition-colors ${activeChip === 'other'
                       ? 'bg-[#3C4016] text-white border-[#3C4016]'
                       : 'bg-white border-gray-300 hover:bg-gray-50'
-                  }`}
+                    }`}
                   aria-pressed={activeChip === 'other'}
                 >
                   Other
@@ -645,9 +643,8 @@ const DownPaymentCalculator: React.FC = () => {
                   <div className="flex rounded-lg bg-gray-200 p-1 w-40 mb-2">
                     <button
                       type="button"
-                      className={`flex-1 px-3 py-1 rounded-md text-sm font-medium transition-colors ${
-                        downMode === 'pct' ? 'bg-white text-gray-800 shadow' : 'text-gray-700'
-                      }`}
+                      className={`flex-1 px-3 py-1 rounded-md text-sm font-medium transition-colors ${downMode === 'pct' ? 'bg-white text-gray-800 shadow' : 'text-gray-700'
+                        }`}
                       onClick={() => handleDownModeToggle('pct')}
                       aria-pressed={downMode === 'pct'}
                     >
@@ -655,9 +652,8 @@ const DownPaymentCalculator: React.FC = () => {
                     </button>
                     <button
                       type="button"
-                      className={`flex-1 px-3 py-1 rounded-md text-sm font-medium transition-colors ${
-                        downMode === 'amt' ? 'bg-white text-gray-800 shadow' : 'text-gray-700'
-                      }`}
+                      className={`flex-1 px-3 py-1 rounded-md text-sm font-medium transition-colors ${downMode === 'amt' ? 'bg-white text-gray-800 shadow' : 'text-gray-700'
+                        }`}
                       onClick={() => handleDownModeToggle('amt')}
                       aria-pressed={downMode === 'amt'}
                     >
@@ -672,9 +668,8 @@ const DownPaymentCalculator: React.FC = () => {
                       type="text"
                       value={customDownInput}
                       onChange={handleCustomDownChange}
-                      className={`w-full h-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-black/70 ${
-                        downMode === 'amt' ? 'pl-8' : 'pl-4'
-                      }`}
+                      className={`w-full h-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-black/70 ${downMode === 'amt' ? 'pl-8' : 'pl-4'
+                        }`}
                     />
                     {downMode === 'pct' && (
                       <span className="absolute inset-y-0 right-3 flex items-center text-gray-500">%</span>

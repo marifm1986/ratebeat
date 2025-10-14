@@ -35,16 +35,21 @@ import MortgageCalculator from "./pages/calculators/MortgageCalculator";
 import MortgagePayoffCalculator from "./pages/calculators/MortgagePayoffCalculator";
 import RefinanceLowerPayment from "./pages/calculators/RefinanceLowerPayment";
 import RentVsBuyCalculator from "./pages/calculators/RentVsBuyCalculator";
+import { useEffect } from "react";
 
 
 export function AppRouter() {
+   useEffect(() => {
+    document.documentElement.style.scrollBehavior = 'smooth';
+  }, []);
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <Header/>
-        <Routes>
-          <Route path="/" element={<App />}>
-            {/* <Route
+    <>
+      <BrowserRouter>
+        <AuthProvider>
+          <Header />
+          <Routes>
+            <Route path="/" element={<App />}>
+              {/* <Route
               index
               element={<div className="p-8">Home Page Content</div>}
             />
@@ -56,88 +61,89 @@ export function AppRouter() {
               path="contact"
               element={<div className="p-8">Contact Page Content</div>}
             /> */}
-          </Route>
-          <Route path="/affordability-calculator" element={<HomeAffordabilityCalculator />} />
-          <Route path="/mortgage-Calculator" element={<MortgageCalculator />} />
-          <Route path="/refinance-calculator" element={<RefinanceLowerPayment />} />
-          <Route path="/rent-vs-buy-calculator" element={<RentVsBuyCalculator />} />
-          <Route path="/amortization-calculator" element={<AmortizationCalculator />} />
-          <Route path="/home-equity-calculator" element={<HomeEquityCalculator />} />
-          <Route path="/mortgage-payoff-calculator" element={<MortgagePayoffCalculator />} />
-          <Route path="/down-payment-calculator" element={<DownPaymentCalculator />} />
-          <Route path="/rate" element={<Buying />} />
-          <Route path="/blog" element={<AllBlogsPage />} />
-          <Route path="/blog/:slug" element={<SingleBlogPage />} />
-          <Route path="/login" element={<Login />} />
-          
-          {/* Mortgage Detail Pages */}
-          <Route path="/fifteen-year-fixed" element={<FifteenYearFixedPage />} />
-          <Route path="/thirty-year-fixed" element={<ThirtyYearFixedPage />} />
-          <Route path="/refinance" element={<RefinancePage />} />
-          <Route path="/va-loans" element={<VALoansPage />} />
-          <Route path="/jumbo-loans" element={<JumboLoansPage />} />
-          <Route path="/conventional-loans" element={<ConventionalLoansPage />} />
-          <Route path="/heloc" element={<HelocPage />} />
-          <Route path="/one-day-mortgage" element={<OneDayMortgagePage />} />
-          <Route path="/purchase/get-started" element={<PurchaseGetStartedPage />} />
-          <Route path="/purchase/va-military-homebuyer" element={<VAMilitaryHomebuyerPage />} />
-          <Route path="/home-loans" element={<HomeLoansPage />} />
-          
-           <Route
-            path="/admin"
-            element={
-              <ProtectedRoute>
-                <AdminPanel />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<DashboardPage />} />
+            </Route>
+            <Route path="/affordability-calculator" element={<HomeAffordabilityCalculator />} />
+            <Route path="/mortgage-Calculator" element={<MortgageCalculator />} />
+            <Route path="/refinance-calculator" element={<RefinanceLowerPayment />} />
+            <Route path="/rent-vs-buy-calculator" element={<RentVsBuyCalculator />} />
+            <Route path="/amortization-calculator" element={<AmortizationCalculator />} />
+            <Route path="/home-equity-calculator" element={<HomeEquityCalculator />} />
+            <Route path="/mortgage-payoff-calculator" element={<MortgagePayoffCalculator />} />
+            <Route path="/down-payment-calculator" element={<DownPaymentCalculator />} />
+            <Route path="/rate" element={<Buying />} />
+            <Route path="/blog" element={<AllBlogsPage />} />
+            <Route path="/blog/:slug" element={<SingleBlogPage />} />
+            <Route path="/login" element={<Login />} />
+
+            {/* Mortgage Detail Pages */}
+            <Route path="/fifteen-year-fixed" element={<FifteenYearFixedPage />} />
+            <Route path="/thirty-year-fixed" element={<ThirtyYearFixedPage />} />
+            <Route path="/refinance" element={<RefinancePage />} />
+            <Route path="/va-loans" element={<VALoansPage />} />
+            <Route path="/jumbo-loans" element={<JumboLoansPage />} />
+            <Route path="/conventional-loans" element={<ConventionalLoansPage />} />
+            <Route path="/heloc" element={<HelocPage />} />
+            <Route path="/one-day-mortgage" element={<OneDayMortgagePage />} />
+            <Route path="/purchase/get-started" element={<PurchaseGetStartedPage />} />
+            <Route path="/purchase/va-military-homebuyer" element={<VAMilitaryHomebuyerPage />} />
+            <Route path="/home-loans" element={<HomeLoansPage />} />
+
             <Route
-              path="posts"
+              path="/admin"
               element={
-                <ProtectedRoute requiredArea="posts">
-                  <PostsPage />
+                <ProtectedRoute>
+                  <AdminPanel />
                 </ProtectedRoute>
               }
-            />
-            <Route
-              path="comments"
-              element={
-                <ProtectedRoute requiredArea="comments">
-                  <CommentsPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="categories"
-              element={
-                <ProtectedRoute requiredArea="categories">
-                  <CategoriesPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="tags"
-              element={
-                <ProtectedRoute requiredArea="categories">
-                  <TagsPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="settings"
-              element={
-                <ProtectedRoute requiredArea="settings" adminOnly={true}>
-                  <SettingsPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="access-denied" element={<AccessDeniedPage />} />
-          </Route>
-        </Routes>
-        <Footer/>
-      </AuthProvider>
-      
-    </BrowserRouter>
+            >
+              <Route index element={<DashboardPage />} />
+              <Route
+                path="posts"
+                element={
+                  <ProtectedRoute requiredArea="posts">
+                    <PostsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="comments"
+                element={
+                  <ProtectedRoute requiredArea="comments">
+                    <CommentsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="categories"
+                element={
+                  <ProtectedRoute requiredArea="categories">
+                    <CategoriesPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="tags"
+                element={
+                  <ProtectedRoute requiredArea="categories">
+                    <TagsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="settings"
+                element={
+                  <ProtectedRoute requiredArea="settings" adminOnly={true}>
+                    <SettingsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="access-denied" element={<AccessDeniedPage />} />
+            </Route>
+          </Routes>
+          <Footer />
+        </AuthProvider>
+
+      </BrowserRouter>
+    </>
   )
 }

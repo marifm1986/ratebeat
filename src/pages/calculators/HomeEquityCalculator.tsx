@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { ChevronDownIcon, ChevronUpIcon, InfoIcon } from 'lucide-react'
+import { Link } from 'react-router-dom'
 // Credit tier type
 type CreditTier = '760+' | '720+' | '680–719' | '640–679' | '≤639'
 type ProductType = 'Cash-out' | 'HELOC'
@@ -338,9 +339,9 @@ const HomeEquityCalculator: React.FC = () => {
                     <div className="mt-6 text-xs text-center text-gray-500 flex items-center justify-center gap-2">
                         <span className="text-red-600 font-medium">RateBeat</span>
                         <span>•</span>
-                        <a href="#" className="underline hover:text-gray-700">
+                        <Link to="#" className="underline hover:text-gray-700">
                             Legal disclosures
-                        </a>
+                        </Link>
                     </div>
                 </div>
                 {/* Right column - Results */}
@@ -359,9 +360,9 @@ const HomeEquityCalculator: React.FC = () => {
                                     </h3>
                                     <p className="text-[#5D0F26] mb-6">
                                         Learn{' '}
-                                        <a href="https://www.zinucreditrepair.com/" className="underline">
+                                        <Link to="https://www.zinucreditrepair.com/" className="underline">
                                             how to repair your credit score
-                                        </a>
+                                        </Link>
                                         . You can also talk to one of our Home Loan Experts. They
                                         may be able to help.
                                     </p>

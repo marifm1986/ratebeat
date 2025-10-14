@@ -48,7 +48,7 @@ export const Header: React.FC<NavigationProps> = ({
           Calculators: {
             mainLink: {
               label: 'All calculators',
-              href: '#calculators',
+              href: '/#calculators',
             },
             links: [
               {
@@ -160,7 +160,7 @@ export const Header: React.FC<NavigationProps> = ({
           Calculators: {
             mainLink: {
               label: 'All calculators',
-              href: '#calculators',
+              href: '/#calculators',
             },
             links: [
               {
@@ -320,11 +320,11 @@ export const Header: React.FC<NavigationProps> = ({
             links: [
               {
                 label: '15-year fixed',
-                href: '/home-loans/15-year-mortgage',
+                href: '/fifteen-year-fixed',
               },
               {
                 label: '30-year fixed',
-                href: '/home-loans/30-year-mortgage',
+                href: '/thirty-year-fixed',
               },
               {
                 label: 'Adjustable-rate mortgage (ARM)',
@@ -408,12 +408,12 @@ export const Header: React.FC<NavigationProps> = ({
                 width={100}
                 className="h-auto"
               /> */}
-            <a href="/" className="flex items-center">
+            <Link to="/" className="flex items-center">
               <img src={`${import.meta.env.BASE_URL}ratebeat-logo.png`} alt="RateBeat Logo"
                 width={100}
                 className="h-auto" />
 
-            </a>
+            </Link>
           </div>
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-1">
@@ -424,12 +424,12 @@ export const Header: React.FC<NavigationProps> = ({
                 onMouseEnter={() => handleMouseEnter(item.label)}
                 onMouseLeave={handleMouseLeave}
               >
-                <a
-                  href={item.href}
+                <Link
+                  to={item.href}
                   className="px-4 py-2 text-gray-900 font-medium hover:text-gray-700 transition-colors flex items-center h-20"
                 >
                   {item.label}
-                </a>
+                </Link>
                 {/* Dropdown */}
                 {item.dropdown && activeDropdown === item.label && (
                   // added hidden to the div below for production deploy
@@ -454,8 +454,8 @@ export const Header: React.FC<NavigationProps> = ({
 
                         {item.dropdown.content[activeTab[item.label]] && (
                           <div className="min-w-80">
-                            <a
-                              href={
+                            <Link
+                              to={
                                 item.dropdown.content[activeTab[item.label]]
                                   .mainLink.href
                               }
@@ -466,7 +466,7 @@ export const Header: React.FC<NavigationProps> = ({
                                   .mainLink.label
                               }
                               <ChevronRight className="ml-2" size={20} />
-                            </a>
+                            </Link>
                             <p className="text-xs text-gray-500 uppercase tracking-wide mt-4 mb-4">
                               Popular
                             </p>
@@ -475,12 +475,12 @@ export const Header: React.FC<NavigationProps> = ({
                                 activeTab[item.label]
                               ].links.map((link: any) => (
                                 <li key={link.label} className="py-1">
-                                  <a
-                                    href={link.href}
+                                  <Link
+                                    to={link.href}
                                     className="text-gray-700 hover:text-gray-900 font-medium block"
                                   >
                                     {link.label}
-                                  </a>
+                                  </Link>
                                 </li>
                               ))}
                             </ul>
@@ -500,12 +500,12 @@ export const Header: React.FC<NavigationProps> = ({
                               Turn your monthly rent into a head start on a home
                               of your own
                             </p>
-                            <a
-                              href="/"
+                            <Link
+                              to="/"
                               className="text-gray-900 font-medium underline hover:no-underline"
                             >
                               Learn about RentRewards
-                            </a>
+                            </Link>
                           </>
                         ) : (
                           <>
@@ -518,12 +518,12 @@ export const Header: React.FC<NavigationProps> = ({
                               Get cash from your home's equity while keeping
                               your mortgage rate
                             </p>
-                            <a
-                              href="/home-loans/home-equity-loan"
+                            <Link
+                              to="/home-loans/home-equity-loan"
                               className="text-gray-900 font-medium underline hover:no-underline"
                             >
                               Learn about Home Equity Loans
-                            </a>
+                            </Link>
                           </>
                         )}
                       </div>
@@ -535,13 +535,13 @@ export const Header: React.FC<NavigationProps> = ({
           </nav>
           {/* Right side actions */}
           <div className="hidden lg:flex items-center space-x-7 ml-auto">
-            <a
-              href="tel:+18778777575"
+            <Link
+              to="tel:+18778777575"
               className="flex items-center text-gray-900 font-medium hover:text-gray-700 transition-colors"
             >
               (877) 877 7575
               <Phone className="ml-2" size={20} />
-            </a>
+            </Link>
             {/*  <a
               href="/sign-in"
               className="flex items-center text-gray-900 font-medium hover:text-gray-700 transition-colors"
@@ -549,21 +549,21 @@ export const Header: React.FC<NavigationProps> = ({
               Sign in
               <User className="ml-2" size={20} />
             </a> */}
-            <a
-              href="https://ratebeat.floify.com/apply-now"
+            <Link
+              to="https://ratebeat.floify.com/apply-now"
               className="bg-gray-900 text-white px-6 py-3 rounded-full font-medium hover:bg-gray-800 transition-colors"
             >
               Apply now
-            </a>
+            </Link>
           </div>
           {/* Mobile sign in button */}
-          <a
-            href="/sign-in"
+          <Link
+            to="/sign-in"
             className="lg:hidden p-2 rounded-full hover:bg-gray-100"
             aria-label="Sign in"
           >
             <User size={24} />
-          </a>
+          </Link>
         </div>
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
@@ -579,19 +579,19 @@ export const Header: React.FC<NavigationProps> = ({
               ))}
             </ul>
             <div className="fixed bottom-0 left-0 right-0 bg-white border-t p-6 space-y-4">
-              <a
-                href="tel:8884528179"
+              <Link
+                to="tel:8884528179"
                 className="flex items-center justify-center text-gray-900 font-medium"
               >
                 <Phone className="mr-2" size={20} />
                 (888) 452-8179
-              </a>
-              <a
-                href="/apply"
+              </Link>
+              <Link
+                to="/apply"
                 className="block w-full bg-gray-900 text-white text-center py-4 rounded-full font-medium"
               >
                 Apply now
-              </a>
+              </Link>
             </div>
           </nav>
         )}
