@@ -1,125 +1,100 @@
 import { useNavigate } from "react-router-dom";
-import { ChevronRight, Clock, DollarSign } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 export const FeaturedProducts = () => {
   const navigate = useNavigate();
-  
-  // Featured Options
-  const featuredOptions = [
-    {
-      id: 'one-day',
-      title: "One Day Mortgage™",
-      description: "Get your Commitment Letter in 24 hours instead of waiting weeks. Speed up the process and head straight home.",
-      link: "/one-day-mortgage",
-      badge: "24 Hours",
-      icon: "clock"
-    },
-    {
-      id: 'heloc',
-      title: "Home Equity Line of Credit (HELOC)",
-      description: "Get the cash you need. Apply from your couch. Access up to $500,000 from Better Equity Line of Credit.",
-      link: "/heloc",
-      badge: "Up to $500K",
-      icon: "dollar"
-    }
-  ];
 
   return (
-    <section className="bg-white rounded-3xl px-10 py-10 lg:px-28 lg:py-18 shadow-lg">
-      <div className="title-wrapper flex flex-col mb-12">
-        <h2 className="text-center text-2xl lg:text-5xl font-bold text-gray-900 mb-4">
-          Featured Mortgage Products
-        </h2>
-        <p className="text-center text-gray-600 max-w-3xl mx-auto">
-          Fast-track your home financing goals with our premium mortgage solutions designed for speed and convenience.
-        </p>
-      </div>
+    <section className="bg-white py-16 px-4">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+            Got questions?<br />
+            We've got answers
+          </h2>
+        </div>
 
-      <div className="w-full bg-gray-100 px-8 py-10 rounded-lg mb-12">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex-1">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-              Need help choosing the right option?
-            </h2>
-            <p className="text-gray-600 text-base md:text-lg">
-              Our mortgage experts can help you decide between One Day Mortgage™ 
-              and HELOC based on your specific needs.
+        {/* Product Grid - Simplified Layout */}
+        <div className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+          {/* How AI Mortgage Lending Card */}
+          <div className="bg-blue-50 rounded-2xl p-6 hover:shadow-lg transition-shadow cursor-pointer">
+            <h3 className="text-xl font-bold text-gray-900 mb-4">
+              How AI Mortgage Lending is Transforming the Home Loan Process
+            </h3>
+            <button className="w-10 h-10 rounded-full bg-white hover:bg-gray-50 flex items-center justify-center mb-4 border border-gray-200 transition-colors">
+              <ChevronRight className="w-5 h-5 text-teal-600" />
+            </button>
+            <img 
+              src="/Better.webp" 
+              alt="Person on couch with laptop"
+              className="w-full h-48 object-cover rounded-lg"
+            />
+          </div>
+
+          {/* One Day Mortgage Card */}
+          <div 
+            onClick={() => navigate('/one-day-mortgage')}
+            className="bg-blue-50 rounded-2xl p-6 hover:shadow-lg transition-shadow cursor-pointer"
+          >
+            <h3 className="text-xl font-bold text-gray-900 mb-3">
+              One Day Mortgage¹
+            </h3>
+            <p className="text-gray-600 mb-4 text-sm leading-relaxed">
+              Kick your home loan into hyperdrive. Going from locked rate to Commitment Letter takes weeks for traditional lenders. We do it in a single day. Traditional lenders deliver a Commitment Letter in a few weeks.¹
+            </p>
+            <button className="w-10 h-10 rounded-full bg-white hover:bg-gray-50 flex items-center justify-center mb-4 border border-gray-200 transition-colors">
+              <ChevronRight className="w-5 h-5 text-teal-600" />
+            </button>
+            <div className="bg-teal-100 rounded-xl p-6 text-center">
+              <div className="flex items-center justify-center gap-2">
+                <div className="text-5xl font-bold text-teal-700">1</div>
+                <div className="text-left">
+                  <div className="text-xl font-bold text-teal-700">One Day</div>
+                  <div className="text-xl font-bold text-teal-700">Mortgage™</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Better HELOC Card */}
+          <div 
+            onClick={() => navigate('/heloc')}
+            className="bg-blue-50 rounded-2xl p-6 hover:shadow-lg transition-shadow cursor-pointer"
+          >
+            <div className="flex gap-4 mb-4">
+              <img 
+                src="/buy.webp" 
+                alt="Couple looking at laptop"
+                className="w-32 h-24 object-cover rounded-lg flex-shrink-0"
+              />
+              <div className="flex-1">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  Better HELOC
+                </h3>
+                <button className="w-10 h-10 rounded-full bg-white hover:bg-gray-50 flex items-center justify-center border border-gray-200 transition-colors">
+                  <ChevronRight className="w-5 h-5 text-teal-600" />
+                </button>
+              </div>
+            </div>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Introducing One Day HELOC™—your express lane to getting cash from your home with our Home Equity Line of Credit². Access up to 90% of your home equity as cash in as little as 7 days.³
             </p>
           </div>
-          <button className="bg-[#2c5aa0] text-white px-8 py-3.5 rounded-full font-medium hover:bg-blue-700 transition-colors whitespace-nowrap">
-            Talk to an Expert
-          </button>
-        </div>
-      </div>
 
-      <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-        {featuredOptions.map((option) => (
-          <a
-            key={option.id}
-            href={option.link}
-            onClick={(e) => {
-              e.preventDefault();
-              navigate(option.link);
-            }}
-            className="group relative w-full rounded-2xl p-6 bg-blue-50 hover:bg-blue-100 focus:bg-gray-100 transition-all duration-200 cursor-pointer ring-1 ring-transparent hover:ring-gray-200 hover:shadow-xl focus:ring-gray-300 outline-none focus:outline-none flex flex-col justify-between min-h-[180px]"
-            aria-label={option.title}
-          >
-            <div className="flex items-start gap-4 mb-4">
-              {option.icon === 'clock' ? (
-                <Clock className="w-6 h-6 text-blue-700" />
-              ) : (
-                <DollarSign className="w-6 h-6 text-blue-700" />
-              )}
-              <div className="bg-blue-100 px-3 py-1 rounded-full ring-1 ring-blue-200">
-                <span className="text-blue-900 text-sm font-medium">{option.badge}</span>
-              </div>
-            </div>
-            
-            <div className="title-wrapper flex flex-col mb-4">
-              <p className="text-left text-lg md:text-xl font-medium leading-snug text-blue-900 mb-2">
-                {option.title}
-              </p>
-              <p className="text-left text-blue-900 opacity-80">
-                {option.description}
-              </p>
-            </div>
-
-            <div className="mt-4 self-end">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center bg-blue-100">
-                <ChevronRight className="w-5 h-5 text-blue-900 group-hover:scale-125 transition-transform" />
-              </div>
-            </div>
-          </a>
-        ))}
-      </div>
-
-      {/* Additional Info Section */}
-      <div className="mt-16 text-center">
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-100">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex-1 text-left">
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
-                Ready to get started?
-              </h3>
-              <p className="text-gray-600">
-                Both options offer fast processing and competitive rates. 
-                Choose the one that best fits your home financing needs.
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <button 
-                onClick={() => navigate('/one-day-mortgage')}
-                className="bg-[#2c5aa0] text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
-              >
-                Start One Day Mortgage™
-              </button>
-              <button 
-                onClick={() => navigate('/heloc')}
-                className="bg-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-700 transition-colors"
-              >
-                Apply for HELOC
-              </button>
-            </div>
+          {/* Insurance Card */}
+          <div className="bg-blue-50 rounded-2xl p-6 hover:shadow-lg transition-shadow cursor-pointer">
+            <h3 className="text-xl font-bold text-gray-900 mb-4">
+              Insurance
+            </h3>
+            <button className="w-10 h-10 rounded-full bg-white hover:bg-gray-50 flex items-center justify-center mb-4 border border-gray-200 transition-colors">
+              <ChevronRight className="w-5 h-5 text-teal-600" />
+            </button>
+            <img 
+              src="/hero.webp" 
+              alt="Family with insurance"
+              className="w-full h-48 object-cover rounded-lg"
+            />
           </div>
         </div>
       </div>
