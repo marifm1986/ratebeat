@@ -20,7 +20,7 @@ export const HeroSection = ({
   badgeText,
   badgeIcon,
   badgeColor = "bg-[#2c5aa0]",
-  backLink = "/"
+  backLink = "/home-loans"
 }: HeroSectionProps) => {
   return (
     <>
@@ -50,13 +50,13 @@ export const HeroSection = ({
         <div className="container mx-auto px-4">
           {/* Back Navigation */}
           <div className="mb-12">
-            <a
-              href={backLink}
+            <Link
+              to={backLink}
               className="inline-flex items-center text-[#2c5aa0] hover:text-blue-800 transition-colors font-medium"
             >
               <ArrowLeft className="w-5 h-5 mr-2" />
               Back to Mortgage Options
-            </a>
+            </Link>
           </div>
 
           {/* Main Content Grid */}

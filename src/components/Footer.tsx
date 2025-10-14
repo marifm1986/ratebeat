@@ -53,17 +53,17 @@ export const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link to="#" className="hover:text-white">
+              <Link to="/refinance-cash-out" className="hover:text-white">
                 Cash-Out Refinance
               </Link>
             </li>
             <li>
-              <Link to="/va-loans" className="hover:text-white">
+              <Link to="/fha-loan" className="hover:text-white">
                 FHA Loans
               </Link>
             </li>
             <li>
-              <Link to="#" className="hover:text-white">
+              <Link to="/va-loans" className="hover:text-white">
                 VA Loans
               </Link>
             </li>
@@ -145,7 +145,7 @@ export const Footer = () => {
                   Privacy Policy
                 </Link>
               </li>
-              {/* <li>
+              <li>
                 <Link to="#" className="hover:text-white">
                   Terms of Service
                 </Link>
@@ -159,7 +159,7 @@ export const Footer = () => {
                 <Link to="#" className="hover:text-white">
                   Sitemap
                 </Link>
-              </li> */}
+              </li>
             </ul>
           </div>
         </div>

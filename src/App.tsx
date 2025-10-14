@@ -13,11 +13,41 @@ import { Resources } from './components/Resources';
 import { Testimonials } from './components/Testimonials';
 import { TrustAndHook } from './components/trust-hook';
 import ScrollToHashElement from './utils/scrollToHashElement';
+import { useEffect, useState } from 'react';
+import { IframeModal } from './components/IframeModal';
 
 
 
-export function App() {
- 
+export function App({ headerEventData }: any) {
+
+  const [isBuyingModalOpen, setIsBuyingModalOpen] = useState(false);
+  const [modalData, setModalData] = useState<{
+    title: string;
+    iframeUrl: string;
+    isOpen: boolean;
+  }>({
+    title: '',
+    iframeUrl: '',
+    isOpen: false,
+  });
+
+  useEffect(() => {
+    if (headerEventData?.payload) {
+      openBuyingModal(`I'm Buying`, `https://ratebeat.floify.com/apply-now`)
+    }
+  }, [headerEventData]);
+
+
+
+  const openBuyingModal = (title: any, iframeUrl: any) => {
+    setModalData({
+      title: title,
+      iframeUrl: iframeUrl,
+      isOpen: true,
+    });
+    setIsBuyingModalOpen(true)
+  };
+
   return <div className="min-h-screen w-full bg-gray-50">
     {/* <Header /> */}
     <ScrollToHashElement />
@@ -41,5 +71,13 @@ export function App() {
     </main>
     {/* <Footer /> */}
     <Outlet />
+    {
+      modalData.isOpen ? <IframeModal
+        isOpen={isBuyingModalOpen}
+        onClose={() => setIsBuyingModalOpen(false)}
+        iframeUrl={modalData.iframeUrl}
+        title={modalData.title}
+      /> : null
+    }
   </div>;
 }

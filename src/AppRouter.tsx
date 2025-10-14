@@ -35,33 +35,41 @@ import MortgageCalculator from "./pages/calculators/MortgageCalculator";
 import MortgagePayoffCalculator from "./pages/calculators/MortgagePayoffCalculator";
 import RefinanceLowerPayment from "./pages/calculators/RefinanceLowerPayment";
 import RentVsBuyCalculator from "./pages/calculators/RentVsBuyCalculator";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { AdjustableRateMortgage } from "./pages/AdjustableRateMortgage";
+import { BridgeLoan } from "./pages/BridgeLoan";
+import { CashOutRefinance } from "./pages/CashOutRefinance";
+import { FHALoan } from "./pages/FHALoan";
+import { HomeEquityLoan } from "./pages/HomeEquityLoan";
+import { HomeReadyHomePossible } from "./pages/HomeReadyHomePossible";
+import { OnePlus } from "./pages/OnePlus";
 
 
 export function AppRouter() {
-   useEffect(() => {
+
+  const [headerEventData, setHeaderEventData] = useState(null);
+
+  const handleHeaderEvent = (data: any) => {
+    setHeaderEventData(data);
+  };
+  console.log('headerEventData', headerEventData)
+
+
+  useEffect(() => {
     document.documentElement.style.scrollBehavior = 'smooth';
   }, []);
+
+  
+
+
   return (
     <>
       <BrowserRouter>
         <AuthProvider>
-          <Header />
+          <Header onEvent={handleHeaderEvent} />
+
           <Routes>
-            <Route path="/" element={<App />}>
-              {/* <Route
-              index
-              element={<div className="p-8">Home Page Content</div>}
-            />
-            <Route
-              path="about"
-              element={<div className="p-8">About Page Content</div>}
-            />
-            <Route
-              path="contact"
-              element={<div className="p-8">Contact Page Content</div>}
-            /> */}
-            </Route>
+            <Route path="/" element={<App headerEventData={headerEventData}/>}></Route>
             <Route path="/affordability-calculator" element={<HomeAffordabilityCalculator />} />
             <Route path="/mortgage-Calculator" element={<MortgageCalculator />} />
             <Route path="/refinance-calculator" element={<RefinanceLowerPayment />} />
@@ -76,12 +84,19 @@ export function AppRouter() {
             <Route path="/login" element={<Login />} />
 
             {/* Mortgage Detail Pages */}
-            <Route path="/fifteen-year-fixed" element={<FifteenYearFixedPage />} />
-            <Route path="/thirty-year-fixed" element={<ThirtyYearFixedPage />} />
+            <Route path="/15-year-fixed-rate-mortgage" element={<FifteenYearFixedPage />} />
+            <Route path="/30-year-fixed-rate-mortgage" element={<ThirtyYearFixedPage />} />
+            <Route path="/adjustable-rate-mortgage" element={<AdjustableRateMortgage />} />
+            <Route path="/bridge-loan" element={<BridgeLoan />} />
+            <Route path="/refinance-cash-out" element={<CashOutRefinance />} />
+            <Route path="/fha-loan" element={<FHALoan />} />
+            <Route path="/home-equity-loan" element={<HomeEquityLoan />} />
+            <Route path="/home-ready-and-home-possible" element={<HomeReadyHomePossible />} />
+            <Route path="/one-plus" element={<OnePlus />} />
             <Route path="/refinance" element={<RefinancePage />} />
-            <Route path="/va-loans" element={<VALoansPage />} />
-            <Route path="/jumbo-loans" element={<JumboLoansPage />} />
-            <Route path="/conventional-loans" element={<ConventionalLoansPage />} />
+            <Route path="/va-loan" element={<VALoansPage />} />
+            <Route path="/jumbo-loan" element={<JumboLoansPage />} />
+            <Route path="/conventional-loan" element={<ConventionalLoansPage />} />
             <Route path="/heloc" element={<HelocPage />} />
             <Route path="/one-day-mortgage" element={<OneDayMortgagePage />} />
             <Route path="/purchase/get-started" element={<PurchaseGetStartedPage />} />
@@ -144,6 +159,7 @@ export function AppRouter() {
         </AuthProvider>
 
       </BrowserRouter>
+      
     </>
   )
 }
