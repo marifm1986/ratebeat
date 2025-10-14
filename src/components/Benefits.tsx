@@ -1,5 +1,6 @@
 import React from 'react';
 import { CheckCircleIcon, ClockIcon, ShieldIcon, StarIcon } from 'lucide-react';
+import { Link } from 'react-router-dom';
 export const Benefits = () => {
   const benefits = [{
     icon: <ClockIcon className="h-12 w-12 text-gray-700" />,
@@ -41,9 +42,9 @@ export const Benefits = () => {
         </div>)}
       </div>
       <div className="mt-16 flex justify-center">
-        <a href="#" className="inline-flex items-center px-8 py-4 border border-gray-300 text-base font-medium rounded-xl shadow-sm text-gray-700 bg-white hover:bg-gray-50">
+        <Link to="#" className="inline-flex items-center px-8 py-4 border border-gray-300 text-base font-medium rounded-xl shadow-sm text-gray-700 bg-white hover:bg-gray-50">
           Get Started Today
-        </a>
+        </Link>
       </div>
     </div>
   </div>;

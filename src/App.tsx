@@ -12,12 +12,16 @@ import { ResourceCards } from './components/ResourceCards';
 import { Resources } from './components/Resources';
 import { Testimonials } from './components/Testimonials';
 import { TrustAndHook } from './components/trust-hook';
+import ScrollToHashElement from './utils/scrollToHashElement';
 
 
 
 export function App() {
+ 
   return <div className="min-h-screen w-full bg-gray-50">
     {/* <Header /> */}
+    <ScrollToHashElement />
+
     <main>
       <Hero />
       {/* below sections temporary off */}

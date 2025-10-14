@@ -1,4 +1,5 @@
 import { ArrowLeft } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface HeroSectionProps {
   backgroundImage?: string;
@@ -102,10 +103,10 @@ export const HeroSection = ({
                     dangerouslySetInnerHTML={{ __html: description }}
                   />
                   <div className="pt-6">
-                    <a href="#" className={`inline-flex items-center ${badgeColor} hover:opacity-90 text-white font-bold px-8 py-4 rounded-2xl transition-all shadow-lg`}>
+                    <Link to="#" className={`inline-flex items-center ${badgeColor} hover:opacity-90 text-white font-bold px-8 py-4 rounded-2xl transition-all shadow-lg`}>
                       Apply Now
                       <ArrowLeft className="w-5 h-5 ml-2 rotate-180" />
-                    </a>
+                    </Link>
                     <span className="ml-4 text-gray-600">to get started with your mortgage application.</span>
                   </div>
                 </div>

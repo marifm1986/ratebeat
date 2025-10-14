@@ -1,5 +1,6 @@
 import { InfoIcon } from 'lucide-react'
 import React, { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 // Types
 type CreditTier = 'Excellent' | 'Very good' | 'Good' | 'Fair' | 'Poor' | ''
@@ -575,7 +576,7 @@ const MortgagePayoffCalculator: React.FC = () => {
           <div className="mt-6 flex items-center justify-center gap-2 text-sm">
             <span className="text-red-500 font-medium">RateBeat</span>
             <span className="text-gray-400">•</span>
-            <a href="#" className="text-gray-500 underline">Legal disclosures</a>
+            <Link to="#" className="text-gray-500 underline">Legal disclosures</Link>
           </div>
         </div>
 

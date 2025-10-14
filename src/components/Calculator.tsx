@@ -1,7 +1,7 @@
 
 const Calculator = () => {
     return (
-        <div className="calculator-container ">
+        <div className="calculator-container " id="mortgage-calculator">
             <div className="container flex justify-between mx-auto py-16 gap-8 max-lg:flex-col">
                 <div className="text-wrapper flex flex-col w-1/2 max-lg:w-full">
                     <img src="./calculator-image.webp" alt="" />

@@ -1,5 +1,6 @@
 import { MortgageOptionLayout } from '../layouts/MortgageOptionLayout';
 import { HeroSection } from '../components/HeroSection';
+import { Link } from 'react-router-dom';
 
 export const ThirtyYearFixedPage = () => {
   const heroContent = {
@@ -338,7 +339,7 @@ export const ThirtyYearFixedPage = () => {
                 </p>
                 <p>
                   to value of 80% and credit score of 740. Rate-lock lengths and actual interest rates may vary. Shop and Compare with
-                  <a href="#" className="text-[#2c5aa0] hover:text-blue-800 underline mx-1">Bank Rate</a>
+                  <Link to="#" className="text-[#2c5aa0] hover:text-blue-800 underline mx-1">Bank Rate</Link>
                 </p>
               </div>
             </div>
