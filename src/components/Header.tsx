@@ -59,10 +59,7 @@ export const Header: React.FC<NavigationProps> = ({
                 label: 'Mortgage calculator',
                 href: '/mortgage-Calculator',
               },
-              {
-                label: 'Refinance Calculator',
-                href: '/refinance-calculator',
-              },
+
               {
                 label: 'Rent vs. buy calculator',
                 href: '/rent-vs-buy-calculator',
@@ -70,14 +67,6 @@ export const Header: React.FC<NavigationProps> = ({
               {
                 label: 'Amortization calculator',
                 href: '/amortization-calculator',
-              },
-              {
-                label: 'Home Equity calculator',
-                href: '/home-equity-calculator',
-              },
-              {
-                label: 'Mortgage Payoff Calculator',
-                href: '/mortgage-payoff-calculator',
               },
               {
                 label: 'Down payment calculator',
@@ -163,29 +152,32 @@ export const Header: React.FC<NavigationProps> = ({
                 label: 'Chat',
                 href: '/chat',
               },
+
+
+
             ],
           },
           Calculators: {
             mainLink: {
               label: 'All calculators',
-              href: '/refinance-calculators',
+              href: '#calculators',
             },
             links: [
               {
-                label: 'Refinance calculator',
-                href: '/calculators/refinance-calculator',
-              },
-              {
-                label: 'Mortgage payoff calculator',
-                href: '/calculators/mortgage-payoff-calculator',
+                label: 'Refinance Calculator',
+                href: '/refinance-calculator',
               },
               {
                 label: 'Amortization calculator',
-                href: '/calculators/amortization-calculator',
+                href: '/amortization-calculator',
               },
               {
-                label: 'Home equity calculator',
-                href: '/calculators/home-equity-calculator',
+                label: 'Mortgage Payoff Calculator',
+                href: '/mortgage-payoff-calculator',
+              },
+              {
+                label: 'Home Equity calculator',
+                href: '/home-equity-calculator',
               },
             ],
           },

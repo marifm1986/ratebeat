@@ -18,7 +18,7 @@ export const Resources = () => {
     link: '#'
   }];
   return <div className="bg-gray-100 py-16 md:py-24">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
+      <div className="container mx-auto px-6 sm:px-8 lg:px-10">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="text-3xl font-extrabold text-gray-800 sm:text-4xl">
             Resources & Tools

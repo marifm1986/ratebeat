@@ -6,7 +6,7 @@ export const FeaturedProducts = () => {
 
   return (
     <section className="bg-white py-16 px-4">
-      <div className="max-w-7xl mx-auto">
+      <div className="container mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
@@ -25,15 +25,15 @@ export const FeaturedProducts = () => {
             <button className="w-10 h-10 rounded-full bg-white hover:bg-gray-50 flex items-center justify-center mb-4 border border-gray-200 transition-colors">
               <ChevronRight className="w-5 h-5 text-teal-600" />
             </button>
-            <img 
-              src="/Better.webp" 
+            <img
+              src="/Better.webp"
               alt="Person on couch with laptop"
               className="w-full h-48 object-cover rounded-lg"
             />
           </div>
 
           {/* One Day Mortgage Card */}
-          <div 
+          <div
             onClick={() => navigate('/one-day-mortgage')}
             className="bg-blue-50 rounded-2xl p-6 hover:shadow-lg transition-shadow cursor-pointer"
           >
@@ -58,13 +58,13 @@ export const FeaturedProducts = () => {
           </div>
 
           {/* Better HELOC Card */}
-          <div 
+          <div
             onClick={() => navigate('/heloc')}
             className="bg-blue-50 rounded-2xl p-6 hover:shadow-lg transition-shadow cursor-pointer"
           >
             <div className="flex gap-4 mb-4">
-              <img 
-                src="/buy.webp" 
+              <img
+                src="/buy.webp"
                 alt="Couple looking at laptop"
                 className="w-32 h-24 object-cover rounded-lg flex-shrink-0"
               />
@@ -90,8 +90,8 @@ export const FeaturedProducts = () => {
             <button className="w-10 h-10 rounded-full bg-white hover:bg-gray-50 flex items-center justify-center mb-4 border border-gray-200 transition-colors">
               <ChevronRight className="w-5 h-5 text-teal-600" />
             </button>
-            <img 
-              src="/hero.webp" 
+            <img
+              src="/hero.webp"
               alt="Family with insurance"
               className="w-full h-48 object-cover rounded-lg"
             />

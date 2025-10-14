@@ -84,85 +84,87 @@ export const QuickTools: React.FC<{ items?: Tool[] }> = ({ items }) => {
 
   return (
     <section className="bg-white rounded-3xl px-10 py-10 lg:px-28 lg:py-18 shadow-lg" id='calculators'>
-      <div className="title-wrapper flex flex-col mb-12">
-        <h2 className="text-center text-2xl lg:text-5xl font-bold text-gray-900 mb-4 ">
-          RateBeat® <br /> Purchase Calculators
-        </h2>
-        <p className='text-center'>Estimate mortgage payments, check affordability, and plan your home buying budget with ReateBeat’s purchase calculators.</p>
-      </div>
-
-      <div className="w-full bg-gray-100 px-8 py-10 rounded-lg mb-12">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex-1">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-              Not sure which calculator to use?
-            </h2>
-            <p className="text-gray-600 text-base md:text-lg">
-              Answer a few questions and we'll recommend one that matches your
-              goals.
-            </p>
-          </div>
-          <button className="bg-black text-white px-8 py-3.5 rounded-full font-medium hover:bg-gray-800 transition-colors whitespace-nowrap">
-            Get recommendation
-          </button>
+      <div className="container mx-auto flex flex-col">
+        <div className="title-wrapper flex flex-col mb-12">
+          <h2 className="text-center text-2xl lg:text-5xl font-bold text-gray-900 mb-4 ">
+            RateBeat® <br /> Purchase Calculators
+          </h2>
+          <p className='text-center'>Estimate mortgage payments, check affordability, and plan your home buying budget with ReateBeat’s purchase calculators.</p>
         </div>
-      </div>
-      <div className="filter-wrapper flex justify-center mb-12">
 
-        <FilterTabs
-          onFilterChange={(filter) => setSelectedCalculatorTab(filter)}
-        />
-      </div>
+        <div className="w-full bg-gray-100 px-8 py-10 rounded-lg mb-12">
+          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex-1">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+                Not sure which calculator to use?
+              </h2>
+              <p className="text-gray-600 text-base md:text-lg">
+                Answer a few questions and we'll recommend one that matches your
+                goals.
+              </p>
+            </div>
+            <button className="bg-black text-white px-8 py-3.5 rounded-full font-medium hover:bg-gray-800 transition-colors whitespace-nowrap">
+              Get recommendation
+            </button>
+          </div>
+        </div>
+        <div className="filter-wrapper flex justify-center mb-12">
+
+          <FilterTabs
+            onFilterChange={(filter) => setSelectedCalculatorTab(filter)}
+          />
+        </div>
 
 
 
-      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {filteredData.map(({ name, description, icon, color, href }, idx) => {
-          const Icon = ICONS[icon] ?? Home;
-          const variant =
-            COLOR_VARIANTS[color] ?? COLOR_VARIANTS.blue;
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {filteredData.map(({ name, description, icon, color, href }, idx) => {
+            const Icon = ICONS[icon] ?? Home;
+            const variant =
+              COLOR_VARIANTS[color] ?? COLOR_VARIANTS.blue;
 
-          // Use a button for actions or an anchor for navigation
-          const Wrapper: React.ElementType = href ? 'a' : 'button';
-          const wrapperProps = href
-            ? { href, 'aria-label': name }
-            : { type: "button", 'aria-label': name } as const;
+            // Use a button for actions or an anchor for navigation
+            const Wrapper: React.ElementType = href ? 'a' : 'button';
+            const wrapperProps = href
+              ? { href, 'aria-label': name }
+              : { type: "button", 'aria-label': name } as const;
 
-          return (
-            <Wrapper
-              key={idx}
-              {...wrapperProps}
-              className={[
-                'group relative w-full rounded-2xl p-5',
-                variant.cardBg, variant.hoverBg, 'focus:bg-gray-100',
-                'transition-all duration-200 cursor-pointer',
-                'ring-1 ring-transparent hover:ring-gray-200 hover:shadow-xl focus:ring-gray-300',
-                'outline-none focus:outline-none',
-                'flex flex-col justify-between min-h-[132px]',
-              ].join(' ')}
-            >
-              <div className="flex items-start gap-4 mb-4">
-                <Icon className={['w-6 h-6', variant.icon].join(' ')} />
-              </div>
-              <div className="title-wrapper flex flex-col">
-
-                <p className={['text-left text-base md:text-lg font-medium leading-snug', variant.textColor].join(' ')}>
-                  {name}
-                </p>
-                <p className={`text-left ${variant.textColor}`}>{description}</p>
-              </div>
-
-              <div className={`mt-4 self-end`}>
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center  ${variant.badgeBg}`}>
-                  <ChevronRight className={`w-5 h-5 text-gray-600 group-hover:scale-125 transition-transform ${variant.textColor}`} />
+            return (
+              <Wrapper
+                key={idx}
+                {...wrapperProps}
+                className={[
+                  'group relative w-full rounded-2xl p-5',
+                  variant.cardBg, variant.hoverBg, 'focus:bg-gray-100',
+                  'transition-all duration-200 cursor-pointer',
+                  'ring-1 ring-transparent hover:ring-gray-200 hover:shadow-xl focus:ring-gray-300',
+                  'outline-none focus:outline-none',
+                  'flex flex-col justify-between min-h-[132px]',
+                ].join(' ')}
+              >
+                <div className="flex items-start gap-4 mb-4">
+                  <Icon className={['w-6 h-6', variant.icon].join(' ')} />
                 </div>
-              </div>
+                <div className="title-wrapper flex flex-col">
+
+                  <p className={['text-left text-base md:text-lg font-medium leading-snug', variant.textColor].join(' ')}>
+                    {name}
+                  </p>
+                  <p className={`text-left ${variant.textColor}`}>{description}</p>
+                </div>
+
+                <div className={`mt-4 self-end`}>
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center  ${variant.badgeBg}`}>
+                    <ChevronRight className={`w-5 h-5 text-gray-600 group-hover:scale-125 transition-transform ${variant.textColor}`} />
+                  </div>
+                </div>
 
 
-            </Wrapper>
-          );
-        })}
-      </div>
+              </Wrapper>
+            );
+          })}
+        </div>
+      </div >
     </section>
   );
 };

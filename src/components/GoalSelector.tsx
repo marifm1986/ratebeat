@@ -42,8 +42,9 @@ export const GoalSelector = () => {
       <h2 className="text-center text-2xl lg:text-3xl font-bold text-gray-900 mb-8 lg:mb-12">
         What's your goal?
       </h2>
+
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {cardsData.map((card) => (
           <div 
             key={card.id}
