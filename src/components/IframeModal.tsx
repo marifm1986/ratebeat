@@ -1,5 +1,5 @@
 import { X } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 interface IframeModalProps {
   isOpen: boolean;
@@ -9,6 +9,13 @@ interface IframeModalProps {
 }
 
 export const IframeModal = ({ isOpen, onClose, iframeUrl, title }: IframeModalProps) => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleIframeLoad = () => {
+    setIsLoading(false);
+  };
+
+
   // Handle escape key press
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
@@ -33,11 +40,11 @@ export const IframeModal = ({ isOpen, onClose, iframeUrl, title }: IframeModalPr
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Backdrop */}
-      <div 
+      <div
         className="absolute inset-0 bg-black/50 backdrop-blur-sm"
         onClick={onClose}
       />
-      
+
       {/* Modal */}
       <div className="relative w-full max-w-7xl mx-4 bg-white rounded-2xl shadow-2xl overflow-hidden max-h-[95vh] flex flex-col">
         {/* Header */}
@@ -51,15 +58,23 @@ export const IframeModal = ({ isOpen, onClose, iframeUrl, title }: IframeModalPr
             <X className="w-6 h-6 text-white" />
           </button>
         </div>
-        
+
         {/* Iframe Container */}
         <div className="flex-1 overflow-hidden">
+          {isLoading && (
+            <div className="absolute inset-0 flex items-center justify-center bg-white z-10">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500"></div>
+            </div>
+          )}
+
           <iframe
             src={iframeUrl}
             className="w-full h-full min-h-[700px] border-0"
             title={title}
             loading="lazy"
             sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"
+            onLoad={handleIframeLoad}
+
           />
         </div>
       </div>

@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import { Menu, X, Phone, User, ChevronRight, ChevronDown } from 'lucide-react'
 import { Link } from 'react-router-dom'
 interface NavigationProps {
-  'data-id'?: string
+  'data-id'?: string,
+  onEvent?: (data: any) => void;
 }
 export const Header: React.FC<NavigationProps> = ({
   'data-id': dataId,
+  onEvent,
 
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -21,9 +23,9 @@ export const Header: React.FC<NavigationProps> = ({
   const navigationItems = [
     {
       label: 'Buy',
-      href: 'https://ratebeat.floify.com/apply-now',
+      href: '#',
       dropdown: {
-        tabs: ['Buy a home', 'Calculators', 'Español', 'Learn'],
+        tabs: ['Buy a home', 'Calculators'],
         content: {
           'Buy a home': {
             mainLink: {
@@ -74,63 +76,63 @@ export const Header: React.FC<NavigationProps> = ({
               },
             ],
           },
-          Español: {
-            mainLink: {
-              label: 'Compra o vende una casa',
-              href: '/es',
-            },
-            links: [
-              {
-                label:
-                  'Cómo aumentar el valor de la vivienda: Una guía de 4 pasos',
-                href: '/es/learn/como-aumentar-el-valor-de-la-vivienda',
-              },
-              {
-                label:
-                  'Casa inicial o casa definitiva: ¿Qué es lo mejor para ti?',
-                href: '/es/learn/casa-inicial-o-casa-definitiva',
-              },
-              {
-                label:
-                  '¿Cómo reparar tu puntuación de crédito cuando quieres comprar una casa?',
-                href: '/es/learn/como-reparar-el-credito',
-              },
-            ],
-          },
-          Learn: {
-            mainLink: {
-              label: 'All articles',
-              href: '/learn',
-            },
-            links: [
-              {
-                label: 'Home buying process',
-                href: '/learn/home-buying',
-              },
-              {
-                label: 'First-time home buyers',
-                href: '/learn/first-time-home-buyers',
-              },
-              {
-                label: 'Moving tips',
-                href: '/learn/moving-tips',
-              },
-              {
-                label: 'Preparing to buy',
-                href: '/learn/preparing-to-buy',
-              },
-              {
-                label: 'Homeownership',
-                href: '/learn/homeownership',
-              },
-            ],
-          },
+          // Español: {
+          //   mainLink: {
+          //     label: 'Compra o vende una casa',
+          //     href: '/es',
+          //   },
+          //   links: [
+          //     {
+          //       label:
+          //         'Cómo aumentar el valor de la vivienda: Una guía de 4 pasos',
+          //       href: '/es/learn/como-aumentar-el-valor-de-la-vivienda',
+          //     },
+          //     {
+          //       label:
+          //         'Casa inicial o casa definitiva: ¿Qué es lo mejor para ti?',
+          //       href: '/es/learn/casa-inicial-o-casa-definitiva',
+          //     },
+          //     {
+          //       label:
+          //         '¿Cómo reparar tu puntuación de crédito cuando quieres comprar una casa?',
+          //       href: '/es/learn/como-reparar-el-credito',
+          //     },
+          //   ],
+          // },
+          // Learn: {
+          //   mainLink: {
+          //     label: 'All articles',
+          //     href: '/learn',
+          //   },
+          //   links: [
+          //     {
+          //       label: 'Home buying process',
+          //       href: '/learn/home-buying',
+          //     },
+          //     {
+          //       label: 'First-time home buyers',
+          //       href: '/learn/first-time-home-buyers',
+          //     },
+          //     {
+          //       label: 'Moving tips',
+          //       href: '/learn/moving-tips',
+          //     },
+          //     {
+          //       label: 'Preparing to buy',
+          //       href: '/learn/preparing-to-buy',
+          //     },
+          //     {
+          //       label: 'Homeownership',
+          //       href: '/learn/homeownership',
+          //     },
+          //   ],
+          // },
         },
       },
     },
     {
       label: 'Refinance',
-      href: 'https://nmann-refinance-site-8566-mRX46H3p.itclix.com',
+      href: '#',
       dropdown: {
         tabs: ['Refinance a home', 'Calculators', 'Learn', 'Español'],
         content: {
@@ -231,7 +233,7 @@ export const Header: React.FC<NavigationProps> = ({
     },
     {
       label: 'Rates',
-      href: '/rate',
+      href: '#',
       dropdown: {
         tabs: ['Purchase rates', 'Refinance rates', 'Rate updates'],
         content: {
@@ -320,47 +322,47 @@ export const Header: React.FC<NavigationProps> = ({
             links: [
               {
                 label: '15-year fixed',
-                href: '/fifteen-year-fixed',
+                href: '/15-year-fixed-rate-mortgage',
               },
               {
                 label: '30-year fixed',
-                href: '/thirty-year-fixed',
+                href: '/30-year-fixed-rate-mortgage',
               },
               {
                 label: 'Adjustable-rate mortgage (ARM)',
-                href: '/home-loans/adjustable-rate-mortgage',
+                href: '/adjustable-rate-mortgage',
               },
               {
                 label: 'Bridge loan',
-                href: '/home-loans/bridge-loan',
+                href: '/bridge-loan',
               },
               {
                 label: 'Cash-out refinance',
-                href: '/home-loans/refinance-cash-out',
+                href: '/refinance-cash-out',
               },
               {
                 label: 'FHA loan',
-                href: '/home-loans/fha-loan',
+                href: '/fha-loan',
               },
               {
                 label: 'Home Equity Loan',
-                href: '/home-loans/home-equity-loan',
+                href: '/home-equity-loan',
               },
               {
                 label: 'HomeReady® and Home Possible®',
-                href: '/home-loans/homeready-and-home-possible',
+                href: '/home-ready-and-home-possible',
               },
               {
                 label: 'Jumbo Smart',
-                href: '/home-loans/jumbo-loan',
+                href: '/jumbo-loan',
               },
               {
                 label: 'ONE+ by RateBeat®',
-                href: '/home-loans/one-plus',
+                href: '/one-plus',
               },
               {
                 label: 'VA loan',
-                href: '/home-loans/va-loan',
+                href: '/va-loan',
               },
             ],
           },
@@ -384,6 +386,18 @@ export const Header: React.FC<NavigationProps> = ({
       [menuLabel]: tabLabel,
     }))
   }
+
+  const handleOpenBuyingModal = () => {
+    if (onEvent) {
+      onEvent({ type: 'HEADER_CLICK', payload: true });
+    }
+
+
+  }
+
+
+
+
   return (
     <header
       className="bg-white flex items-center shadow-sm border-b sticky top-0 z-50 w-full h-[104px]"
@@ -500,12 +514,12 @@ export const Header: React.FC<NavigationProps> = ({
                               Turn your monthly rent into a head start on a home
                               of your own
                             </p>
-                            <Link
+                            {/* <Link
                               to="/"
                               className="text-gray-900 font-medium underline hover:no-underline"
                             >
                               Learn about RentRewards
-                            </Link>
+                            </Link> */}
                           </>
                         ) : (
                           <>
@@ -519,7 +533,7 @@ export const Header: React.FC<NavigationProps> = ({
                               your mortgage rate
                             </p>
                             <Link
-                              to="/home-loans/home-equity-loan"
+                              to="/home-equity-loan"
                               className="text-gray-900 font-medium underline hover:no-underline"
                             >
                               Learn about Home Equity Loans
@@ -549,12 +563,13 @@ export const Header: React.FC<NavigationProps> = ({
               Sign in
               <User className="ml-2" size={20} />
             </a> */}
-            <Link
-              to="https://ratebeat.floify.com/apply-now"
+            <button
+
+              onClick={handleOpenBuyingModal}
               className="bg-gray-900 text-white px-6 py-3 rounded-full font-medium hover:bg-gray-800 transition-colors"
             >
               Apply now
-            </Link>
+            </button>
           </div>
           {/* Mobile sign in button */}
           <Link
