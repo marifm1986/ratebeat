@@ -174,7 +174,7 @@ const VAMilitaryHomebuyerPage: React.FC = () => {
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
               <h3 className="text-xl font-bold text-gray-900 mb-4">
-                Rocket Veteran Program
+                Ratebeat Veteran Program
               </h3>
               <p className="text-gray-600 mb-4">
                 We're one largest private employers of military members and veterans in the United States. Since 2018:
@@ -219,7 +219,7 @@ const VAMilitaryHomebuyerPage: React.FC = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="bg-red-500 text-white rounded-2xl p-8">
               <h3 className="text-2xl font-bold mb-4">
-                Hear from military families who chose Rocket Mortgage
+                Hear from military families who chose Ratebeat
               </h3>
               <div className="text-sm text-red-100">
                 <Shield className="w-6 h-6 mb-2" />
@@ -236,10 +236,10 @@ const VAMilitaryHomebuyerPage: React.FC = () => {
                 </div>
               </div>
               <blockquote className="text-gray-900 text-lg mb-4">
-                "I got the best customer service and fastest information. As a 100% disabled vet, Rocket gave an incredible amount of support and information to find my perfect home."
+                "I got the best customer service and fastest information. As a 100% disabled vet, Ratebeat gave an incredible amount of support and information to find my perfect home."
               </blockquote>
               <cite className="text-gray-600">
-                - Review by Chad I., a veteran and Rocket Mortgage customer
+                - Review by Chad I., a veteran and Ratebeat customer
               </cite>
             </div>
           </div>
@@ -287,7 +287,7 @@ const VAMilitaryHomebuyerPage: React.FC = () => {
             Frequently asked questions for military families buying a home
           </h2>
           <p className="text-center text-gray-600 mb-12">
-            Get answers to the most common Rocket questions.
+            Get answers to the most common Ratebeat questions.
           </p>
 
           <div className="space-y-4">
@@ -406,9 +406,9 @@ const VAMilitaryHomebuyerPage: React.FC = () => {
             ® Important legal disclosures<br/>
         Refinancing may cause finance charges to be higher over the life of the loan.
  <br/><br/>
-Clients who lock their rate between May 19, 2025, and June 2, 2025, by 8:00 am ET, will receive a one-point discount on the rate’s pricing as a lender credit toward closing costs. A point is equal to 1% of the loan amount. Not valid with other discounts or promotions. Valid on first lien, retail fixed VA products. Not valid for loans through Rocket Pro, Partnerships, team member loans, or by an Executive Loan Officer. Acceptance of this offer means acceptance of these terms, which may be cancelled or changed at any time at the discretion of Rocket Mortgage. Non-transferable. Not a commitment to lend. Additional restrictions/conditions may apply.
+Clients who lock their rate between May 19, 2025, and June 2, 2025, by 8:00 am ET, will receive a one-point discount on the rate’s pricing as a lender credit toward closing costs. A point is equal to 1% of the loan amount. Not valid with other discounts or promotions. Valid on first lien, retail fixed VA products. Not valid for loans through Ratebeat Pro, Partnerships, team member loans, or by an Executive Loan Officer. Acceptance of this offer means acceptance of these terms, which may be cancelled or changed at any time at the discretion of Ratebeat. Non-transferable. Not a commitment to lend. Additional restrictions/conditions may apply.
  <br/><br/>
-Client will be required to pay a 1% down payment, with the ability to pay a maximum of 3%, and Rocket Mortgage will cover an additional 2% of the client’s purchase price as a down payment, or $2,000. Maximum grant amount is $7,000. Offer valid on primary residence, conventional loan products only. Maximum loan amount of $350,000. Cost of mortgage insurance premium passed through to client effective January 2, 2024. Offer valid only for home buyers when qualifying income is less than or equal to 80% area median income based on county where property is located. Not available with any other discounts or promotions and cannot be retroactively applied to previously closed loans or loans that have a locked rate. This is not a commitment to lend. Rocket Mortgage reserves the right to cancel/modify this offer at any time. Additional restrictions/conditions may apply.
+Client will be required to pay a 1% down payment, with the ability to pay a maximum of 3%, and Ratebeat will cover an additional 2% of the client’s purchase price as a down payment, or $2,000. Maximum grant amount is $7,000. Offer valid on primary residence, conventional loan products only. Maximum loan amount of $350,000. Cost of mortgage insurance premium passed through to client effective January 2, 2024. Offer valid only for home buyers when qualifying income is less than or equal to 80% area median income based on county where property is located. Not available with any other discounts or promotions and cannot be retroactively applied to previously closed loans or loans that have a locked rate. This is not a commitment to lend. Ratebeat reserves the right to cancel/modify this offer at any time. Additional restrictions/conditions may apply.
           </p>
         </div>
       </section>

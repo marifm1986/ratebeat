@@ -228,7 +228,7 @@ const AmortizationCalculator: React.FC = () => {
                     {/* Left column - Terracotta panel */}
                     <div className="rounded-3xl bg-[#F0D9CE] p-8 h-max">
                         <h1 className="text-4xl md:text-5xl font-semibold text-[#6D2E1A] mb-6">
-                            Amortization calculator
+                            Amortization Calculator
                         </h1>
                         <p className="text-[#6D2E1A] text-lg leading-relaxed">
                             An amortization calculator helps you understand how fixed mortgage

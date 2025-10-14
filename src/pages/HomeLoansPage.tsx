@@ -68,11 +68,11 @@ export const HomeLoansPage = () => {
         </div>
       </section>
 
-      {/* Loan options from Rocket Mortgage */}
+      {/* Loan options from Ratebeat */}
       <section className="py-16 px-4 bg-white">
         <div className="container mx-auto max-w-7xl">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-4">
-            Loan options from Rocket Mortgage®
+            Loan options from Ratebeat®
           </h2>
           <div className="flex flex-wrap justify-center gap-2 mb-12">
             <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">New home</span>
@@ -253,14 +253,14 @@ export const HomeLoansPage = () => {
               </div>
             </div>
 
-            {/* ONE+ by Rocket Mortgage® */}
+            {/* ONE+ by Ratebeat® */}
             <div className="group relative w-full rounded-2xl p-5 bg-pink-50 hover:bg-pink-50 focus:bg-gray-100 transition-all duration-200 cursor-pointer ring-1 ring-transparent hover:ring-gray-200 hover:shadow-xl focus:ring-gray-300 outline-none focus:outline-none flex flex-col justify-between min-h-[200px]">
               <div className="flex items-start gap-4 mb-4">
                 <PiggyBank className="w-6 h-6 text-pink-700" />
               </div>
               <div className="title-wrapper flex flex-col flex-grow">
                 <h3 className="text-left text-lg font-semibold leading-snug text-pink-900 mb-2">
-                  ONE+ by Rocket Mortgage®
+                  ONE+ by Ratebeat®
                 </h3>
                 <p className="text-left text-pink-900 text-sm mb-4 flex-grow">
                   Get the best of buying and investing with a conventional home loan plus additional 2%.
@@ -421,7 +421,7 @@ export const HomeLoansPage = () => {
                 Questions about mortgage?
               </h2>
               <p className="text-lg text-gray-600 mb-8">
-                Whether you're curious to learning about house plans, your Rocket agent - here to answer your questions. Call / or, someone, no pressure.
+                Whether you're curious to learning about house plans, your Ratebeat agent - here to answer your questions. Call / or, someone, no pressure.
               </p>
               <div className="flex flex-wrap gap-2 mb-8">
                 <span className="bg-gray-100 text-gray-700 px-3 py-2 rounded-lg text-sm">Buy</span>
@@ -553,11 +553,11 @@ export const HomeLoansPage = () => {
         <div className="container mx-auto max-w-6xl">
           <p className="text-xs text-gray-500 leading-relaxed">
             ® Important legal disclosures<br/>
-            Client will be required to pay a 1% down payment, with the ability to pay a maximum of 3%, and Rocket Mortgage will cover an additional 2% of the client’s purchase price as a down payment, or $2,000. Maximum grant amount is $7,000. Offer valid on primary residence, conventional loan products only. Maximum loan amount of $350,000. Cost of mortgage insurance premium passed through to client effective January 2, 2024. Offer valid only for home buyers when qualifying income is less than or equal to 80% area median income based on county where property is located. Not available with any other discounts or promotions and cannot be retroactively applied to previously closed loans or loans that have a locked rate. This is not a commitment to lend. Rocket Mortgage reserves the right to cancel/modify this offer at any time. Additional restrictions/conditions may apply.
+            Client will be required to pay a 1% down payment, with the ability to pay a maximum of 3%, and Ratebeat will cover an additional 2% of the client’s purchase price as a down payment, or $2,000. Maximum grant amount is $7,000. Offer valid on primary residence, conventional loan products only. Maximum loan amount of $350,000. Cost of mortgage insurance premium passed through to client effective January 2, 2024. Offer valid only for home buyers when qualifying income is less than or equal to 80% area median income based on county where property is located. Not available with any other discounts or promotions and cannot be retroactively applied to previously closed loans or loans that have a locked rate. This is not a commitment to lend. Ratebeat reserves the right to cancel/modify this offer at any time. Additional restrictions/conditions may apply.
             <br/><br/>
             Home Equity Loan product requires full documentation of income and assets, credit score and max loan-to-value (LTV), combined loan-to-value (CLTV), and home equity combined loan-to-value (HCLTV) ratios. Requirements were updated 2/5/2024 and are tiered as follows: 680 minimum FICO with a max LTV/CLTV/HCLTV of 80%, 700 minimum FICO with a max LTV/CLTV/HCLTV of 85%, and 740 minimum FICO with a max LTV/CLTV/HCLTV of 90%. Your debt-to-income ratio (DTI) must be 50% or below. Valid for loan amounts between $45,000.00 and $500,000.00 (minimum loan amount for properties located in Michigan is $10,000.00). Product is a second standalone lien and may not be used for piggyback transactions. Product not available on Schwab products. Guidelines may vary for self-employed individuals. Some mortgages may be considered “higher priced” based on the APOR spread test. Higher priced loans are not allowed on properties located in New York. Additional restrictions apply. Not available in Texas. This is not a commitment to lend.
             <br/><br/>
-            Clients who are current renters will receive a lender credit toward closing equivalent to 10% of the total amount of their 12-month current rental payment, up to $5,000. Current renters are defined as individuals who are currently under a lease agreement. Offer only valid on primary residences. Offer valid only through retail channels and on loans that are locked on or after February 11, 2025. Offer not available for Non-Occupant Co-Clients. Offer not available for partnerships. Offer not valid on Jumbo loans, Schwab products or previously locked or closed loans. Offer is nontransferable. Offer is not valid with any other discounts or promotions. Additional restrictions/conditions apply. Rocket Mortgage reserves the right to modify/cancel this offer at any time. This is not a commitment to lend.
+            Clients who are current renters will receive a lender credit toward closing equivalent to 10% of the total amount of their 12-month current rental payment, up to $5,000. Current renters are defined as individuals who are currently under a lease agreement. Offer only valid on primary residences. Offer valid only through retail channels and on loans that are locked on or after February 11, 2025. Offer not available for Non-Occupant Co-Clients. Offer not available for partnerships. Offer not valid on Jumbo loans, Schwab products or previously locked or closed loans. Offer is nontransferable. Offer is not valid with any other discounts or promotions. Additional restrictions/conditions apply. Ratebeat reserves the right to modify/cancel this offer at any time. This is not a commitment to lend.
           </p>
         </div>
       </section>

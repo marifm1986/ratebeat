@@ -404,7 +404,7 @@ const MortgagePayoffCalculator: React.FC = () => {
         {/* Left card - Input form */}
         <div className="rounded-3xl bg-[#F4F5F7] p-6 md:p-8">
           <h1 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4">
-            Mortgage payoff calculator
+            Mortgage Payoff Calculator
           </h1>
           <p className="text-gray-600 mb-8">
             Let's see how much faster you could pay off your current mortgage if you refinance to a shorter term. All fields are required.

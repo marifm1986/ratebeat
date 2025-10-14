@@ -300,7 +300,7 @@ const DownPaymentCalculator: React.FC = () => {
   const [annualIncome, setAnnualIncome] = useState<number>(0)
   const [creditTier, setCreditTier] = useState<CreditTier>('720–759')
 
-  // Default to 5% to match Rocket example
+  // Default to 5% to match Ratebeat example
   const [downMode, setDownMode] = useState<DownPaymentMode>('pct')
   const [downPct, setDownPct] = useState<number>(5)
   const [downAmt, setDownAmt] = useState<number>(0)
@@ -436,7 +436,7 @@ const DownPaymentCalculator: React.FC = () => {
         {/* Left card - Input form */}
         <div className="rounded-3xl bg-[#F3F5F7] p-6 md:p-8">
           <h1 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4">
-            Down payment calculator
+            Down Payment Calculator
           </h1>
           <p className="text-gray-600 mb-8">
             Let's learn how much cash you need to buy a home by estimating your

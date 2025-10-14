@@ -351,7 +351,7 @@ const RentVsBuyCalculator: React.FC = () => {
             {/* Left column - Input form */}
             <div className="rounded-3xl border border-slate-200 bg-white p-6 md:p-8">
                 <h1 className="text-3xl md:text-4xl font-semibold tracking-tight mb-6">
-                    Rent vs. buy calculator
+                    Rent vs. Buy Calculator
                 </h1>
                 {/* Purchase price input */}
                 <div className="mb-6">

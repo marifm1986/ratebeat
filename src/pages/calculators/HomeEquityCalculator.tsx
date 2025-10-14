@@ -132,7 +132,7 @@ const HomeEquityCalculator: React.FC = () => {
                 {/* Left column - Input form */}
                 <div className="rounded-3xl bg-[#F6F7F8] p-6 md:p-8">
                     <h1 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4">
-                        Home equity calculator
+                        Home Equity Calculator
                     </h1>
                     <p className="text-gray-700 mb-8">
                         Discover how much cash you have in your home and ways you can access

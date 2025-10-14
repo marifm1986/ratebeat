@@ -1253,7 +1253,7 @@ const HomeAffordabilityCalculator: React.FC = () => {
             {/* Left column - Input form */}
             <div className="rounded-3xl bg-gray-100 p-6 md:p-8">
                 <h1 className="text-3xl md:text-4xl font-semibold tracking-tight mb-6">
-                    Affordability calculator
+                    Affordability Calculator
                 </h1>
                 {/* Annual Income input */}
                 <div className="mb-6">
@@ -1532,7 +1532,7 @@ const HomeAffordabilityCalculator: React.FC = () => {
                 {/* DTI Slider */}
                 <div className="mb-8">
                     <div className="mb-1 flex justify-between text-sm">
-                        <span className="text-green-700 font-medium">Affordable</span>
+                        <span className="text-green-700 font-medium ">Affordable</span>
                         <span className="text-yellow-700 font-medium">Stretching</span>
                         <span className="text-red-700 font-medium">Aggressive</span>
                     </div>
@@ -1540,6 +1540,15 @@ const HomeAffordabilityCalculator: React.FC = () => {
                         <div className="absolute top-0 left-0 right-0 h-2 rounded-lg overflow-hidden">
                             <div className="h-full w-full bg-gradient-to-r from-green-400 via-yellow-400 to-red-400"></div>
                         </div>
+                        {/* <input
+                            type="range"
+                            min="36"
+                            max="45"
+                            step="1"
+                            value={dtiRatio}
+                            onChange={handleDtiChange}
+                            className="relative w-full h-2 bg-transparent  appearance-none cursor-pointer z-10 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-7 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:wiggle [&::-webkit-slider-thumb]:mb-4 [&::-webkit-slider-thumb]:rounded-lg [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-black [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-black [&::-moz-range-thumb]:cursor-pointer"
+                        /> */}
                         <input
                             type="range"
                             min="36"
@@ -1547,8 +1556,29 @@ const HomeAffordabilityCalculator: React.FC = () => {
                             step="1"
                             value={dtiRatio}
                             onChange={handleDtiChange}
-                            className="relative w-full h-2 bg-transparent appearance-none cursor-pointer z-10 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-7 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:mb-4 [&::-webkit-slider-thumb]:rounded-lg [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-black [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-black [&::-moz-range-thumb]:cursor-pointer"
+                            className="relative w-full h-2 bg-transparent appearance-none cursor-pointer z-10
+    [&::-webkit-slider-thumb]:appearance-none
+    [&::-webkit-slider-thumb]:h-7
+    [&::-webkit-slider-thumb]:w-4
+    [&::-webkit-slider-thumb]:mb-5
+    [&::-webkit-slider-thumb]:rounded-lg
+    [&::-webkit-slider-thumb]:animate-fadeIn
+    [&::-webkit-slider-thumb]:bg-white
+    [&::-webkit-slider-thumb]:shadow-md
+    [&::-webkit-slider-thumb]:border-2
+    [&::-webkit-slider-thumb]:border-black
+    [&::-webkit-slider-thumb]:cursor-pointer
+    [&::-moz-range-thumb]:appearance-none
+    [&::-moz-range-thumb]:h-4
+    [&::-moz-range-thumb]:w-4
+    [&::-moz-range-thumb]:rounded-full
+    [&::-moz-range-thumb]:bg-white
+    [&::-moz-range-thumb]:border-2
+    [&::-moz-range-thumb]:border-black
+    [&::-moz-range-thumb]:cursor-pointer
+    "
                         />
+
                     </div>
                     <div className="mt-3 text-sm text-center">
                         <span
@@ -1640,14 +1670,14 @@ const HomeAffordabilityCalculator: React.FC = () => {
                     )}
                 </div>
                 {/* CTA */}
-                <div className="mt-6">
+                {/* <div className="mt-6">
                     <button
                         type="button"
                         className="w-full h-12 rounded-full text-white font-medium bg-black hover:bg-gray-800 transition-colors"
                     >
                         Get prequalified
                     </button>
-                </div>
+                </div> */}
             </div>
         </div>
     )

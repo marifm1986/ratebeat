@@ -104,16 +104,16 @@ export const PurchaseGetStartedPage = () => {
         </div>
       </section>
 
-      {/* Rocket Preferred Section */}
+      {/* Ratebeat Preferred Section */}
       <section className="py-16 px-4 bg-gray-50">
         <div className="container mx-auto max-w-6xl">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="bg-white rounded-2xl p-8">
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight">
-                You're in control with Rocket Preferred
+                You're in control with Ratebeat Preferred
               </h2>
               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                Reach and Rocket Mortgage are teaming up to offer you 
+                Reach and Ratebeat are teaming up to offer you 
                 exclusive savings – plus getting 1% off your rate for the first 
                 year of up to $6,000 off closing costs.
               </p>
@@ -125,7 +125,7 @@ export const PurchaseGetStartedPage = () => {
               <div className="bg-gradient-to-br from-blue-600 to-green-600 rounded-2xl p-6 text-white">
                 <div className="flex justify-between items-center mb-4">
                   <span className="text-lg font-semibold">Reach</span>
-                  <span className="text-lg font-semibold">Rocket</span>
+                  <span className="text-lg font-semibold">Ratebeat</span>
                 </div>
                 <img
                   src="/Better.webp"
@@ -184,14 +184,14 @@ export const PurchaseGetStartedPage = () => {
               </div>
             </div>
 
-            {/* Rocket Money App */}
+            {/* Ratebeat Money App */}
             <div className="group relative w-full rounded-2xl p-5 bg-pink-50 hover:bg-pink-50 focus:bg-gray-100 transition-all duration-200 cursor-pointer ring-1 ring-transparent hover:ring-gray-200 hover:shadow-xl focus:ring-gray-300 outline-none focus:outline-none flex flex-col justify-between min-h-[132px]">
               <div className="flex items-start gap-4 mb-4">
                 <Smartphone className="w-6 h-6 text-pink-700" />
               </div>
               <div className="title-wrapper flex flex-col">
                 <p className="text-left text-base md:text-lg font-medium leading-snug text-pink-900">
-                  Rocket Money™ App
+                  Ratebeat Money™ App
                 </p>
                 <p className="text-left text-pink-900 text-sm">Get your credit and finances ready for your big move.</p>
               </div>
@@ -317,7 +317,7 @@ export const PurchaseGetStartedPage = () => {
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             <div className="bg-red-600 rounded-2xl p-8 text-white">
               <h2 className="text-2xl font-bold mb-4">
-                Hear from home buyers who chose Rocket Mortgage
+                Hear from home buyers who chose Ratebeat
               </h2>
             </div>
             <div className="bg-white rounded-2xl p-8">
@@ -360,9 +360,9 @@ export const PurchaseGetStartedPage = () => {
         <div className="container mx-auto max-w-6xl">
           <p className="text-xs text-gray-500 leading-relaxed">
             ® Important legal disclosures<br/><br/>
-            Clients purchasing a home with a Redfin real estate agent or Redfin Partner Agent (or with a Rocket Homes Network Agent) and financing with Rocket Mortgage will receive an effective rate reduction of 1% below the note rate for the first year from Rocket Mortgage. For example, a client locking in a 6.99% interest rate would pay 5.99% for the first year, reverting to 6.99% for the remaining term. Client may choose to opt out of the rate reduction and receive a lender-paid credit of .75% of the loan amount, up to $6,000 from Rocket Mortgage.  Only valid on conforming loan limits. This offer is only available to clients who complete their application process and receive their Loan Estimate after July 1, 2025. Offer valid on retail loans only and cannot be combined with any other discounts or promotional offers. Additional restrictions/conditions may apply. Rocket Mortgage reserves the right to cancel/modify this offer at any time. This is not a commitment to lend.
+            Clients purchasing a home with a Redfin real estate agent or Redfin Partner Agent (or with a Ratebeat Homes Network Agent) and financing with Ratebeat will receive an effective rate reduction of 1% below the note rate for the first year from Ratebeat. For example, a client locking in a 6.99% interest rate would pay 5.99% for the first year, reverting to 6.99% for the remaining term. Client may choose to opt out of the rate reduction and receive a lender-paid credit of .75% of the loan amount, up to $6,000 from Ratebeat.  Only valid on conforming loan limits. This offer is only available to clients who complete their application process and receive their Loan Estimate after July 1, 2025. Offer valid on retail loans only and cannot be combined with any other discounts or promotional offers. Additional restrictions/conditions may apply. Ratebeat reserves the right to cancel/modify this offer at any time. This is not a commitment to lend.
             <br/><br/>
-            Clients who are current renters will receive a lender credit toward closing equivalent to 10% of the total amount of their 12-month current rental payment, up to $5,000. Current renters are defined as individuals who are currently under a lease agreement. Offer only valid on primary residences. Offer valid only through retail channels and on loans that are locked on or after February 11, 2025. Offer not available for Non-Occupant Co-Clients. Offer not available for partnerships. Offer not valid on Jumbo loans, Schwab products or previously locked or closed loans. Offer is nontransferable. Offer is not valid with any other discounts or promotions. Additional restrictions/conditions apply. Rocket Mortgage reserves the right to modify/cancel this offer at any time. This is not a commitment to lend.
+            Clients who are current renters will receive a lender credit toward closing equivalent to 10% of the total amount of their 12-month current rental payment, up to $5,000. Current renters are defined as individuals who are currently under a lease agreement. Offer only valid on primary residences. Offer valid only through retail channels and on loans that are locked on or after February 11, 2025. Offer not available for Non-Occupant Co-Clients. Offer not available for partnerships. Offer not valid on Jumbo loans, Schwab products or previously locked or closed loans. Offer is nontransferable. Offer is not valid with any other discounts or promotions. Additional restrictions/conditions apply. Ratebeat reserves the right to modify/cancel this offer at any time. This is not a commitment to lend.
           </p>
         </div>
       </section>

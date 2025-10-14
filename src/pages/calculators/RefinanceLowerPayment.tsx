@@ -698,7 +698,7 @@ const RefinanceLowerPayment: React.FC = () => {
                 {/* Left card - Input form */}
                 <div className="rounded-3xl bg-[#F4F5F7] p-6 md:p-8">
                     <h1 className="text-4xl font-bold mb-4">
-                        Refinance calculator: <br /> Lower payment
+                        Refinance Calculator: <br /> Lower Payment
                     </h1>
                     <p className="text-gray-600 mb-8">
                         Let's see how much you can save each month by refinancing to a lower

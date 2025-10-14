@@ -168,7 +168,7 @@ const MortgageCalculator: React.FC = () => {
             <div className="flex flex-col lg:flex-row gap-6 p-12 rounded-3xl overflow-hidden">
                 {/* Left section - Form */}
                 <div className="bg-gray-50 p-6 lg:p-12 rounded-3xl flex-1">
-                    <h1 className="text-4xl font-bold mb-4">Mortgage calculator</h1>
+                    <h1 className="text-4xl font-bold mb-4">Mortgage Calculator</h1>
                     <p className="text-gray-600 mb-8">
                         If you're thinking about buying a home, we can help you estimate
                         your monthly mortgage payment. All fields are required.
