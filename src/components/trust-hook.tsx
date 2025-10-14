@@ -86,7 +86,7 @@ export const TrustAndHook: React.FC<{ items?: Tool[] }> = ({ items }) => {
                 Your Home. Your Rate. Your Choice
             </h2>
 
-            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+            <div className="container mx-auto grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
                 {data.map(({ name, icon, color, href }, idx) => {
                     const Icon = ICONS[icon] ?? Home;
 
