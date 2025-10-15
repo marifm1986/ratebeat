@@ -54,6 +54,13 @@ import PreparingToBuyPage from "./pages/PreparingToBuyPage";
 import RefinancingGuidePage from "./pages/RefinancingGuidePage";
 import RefinancingLearnPage from "./pages/RefinancingLearnPage";
 import TypesOfRefinancingPage from "./pages/TypesOfRefinancingPage";
+import { MortgageRateUpdates } from "./pages/MortgageRateUpdates";
+import { FederalFundsArticle } from "./pages/FederalFundsArticle";
+import { FedRateDropArticle } from "./pages/FedRateDropArticle";
+import { MortgageRateLockArticle } from "./pages/MortgageRateLockArticle";
+import { RefinanceRatesPage } from "./pages/RefinanceRatesPage";
+import { ThirtyYearRefinanceRates } from "./pages/ThirtyYearRefinanceRates";
+import { FHARefinanceRates } from "./pages/FHARefinanceRates";
 
 
 export function AppRouter() {
@@ -134,6 +141,17 @@ export function AppRouter() {
             <Route path="/va-loans" element={<VALoansPage />} />
             <Route path="/jumbo-loans" element={<JumboLoansPage />} />
             <Route path="/conventional-loans" element={<ConventionalLoansPage />} />
+
+            {/* rates */}
+
+            <Route path="/rate-updates" element={<MortgageRateUpdates />} />
+            <Route path="/learn/federal-funds-rate" element={<FederalFundsArticle />} />
+            <Route path="/learn/fed-rate-drop" element={<FedRateDropArticle />} />
+            <Route path="/learn/should-i-lock-my-mortgage-rate-today" element={<MortgageRateLockArticle />} />
+            <Route path="/refinance-rates" element={<RefinanceRatesPage />} />
+            <Route path="/refinance-rates/30-year-refinance-rates" element={<ThirtyYearRefinanceRates />} />
+            <Route path="/refinance-rates/fha-refinance-rates" element={<FHARefinanceRates />} />
+
             <Route path="/heloc" element={<HelocPage />} />
             <Route path="/one-day-mortgage" element={<OneDayMortgagePage />} />
             <Route path="/purchase/get-started" element={<PurchaseGetStartedPage />} />
