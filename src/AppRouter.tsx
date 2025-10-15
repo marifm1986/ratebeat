@@ -22,10 +22,12 @@ import { JumboLoansPage } from "./pages/JumboLoansPage";
 import { OneDayMortgagePage } from "./pages/OneDayMortgagePage";
 import { PurchaseGetStartedPage } from "./pages/PurchaseGetStartedPage";
 import { RefinancePage } from "./pages/RefinancePage";
+import RefinanceGetStartedPage from "./pages/RefinanceGetStartedPage";
 import { SingleBlogPage } from "./pages/SingleBlogPage";
 import { ThirtyYearFixedPage } from "./pages/ThirtyYearFixedPage";
 import { VALoansPage } from "./pages/VALoansPage";
 import { VAMilitaryHomebuyerPage } from "./pages/VAMilitaryHomebuyerPage";
+import VAMilitaryRefinancePage from "./pages/VAMilitaryRefinancePage";
 import { AdminPanel } from "./pages/admin/AdminPanel";
 import HomeAffordabilityCalculator from "./pages/calculators/AffordabilityCalculator";
 import AmortizationCalculator from "./pages/calculators/AmortizationCalculator";
@@ -112,6 +114,8 @@ export function AppRouter() {
             <Route path="/home-ready-and-home-possible" element={<HomeReadyHomePossible />} />
             <Route path="/one-plus" element={<OnePlus />} />
             <Route path="/refinance" element={<RefinancePage />} />
+            <Route path="/refinance/get-started" element={<RefinanceGetStartedPage />} />
+            <Route path="/refinance/va-military-refinance" element={<VAMilitaryRefinancePage />} />
             <Route path="/va-loan" element={<VALoansPage />} />
             <Route path="/jumbo-loan" element={<JumboLoansPage />} />
             <Route path="/conventional-loan" element={<ConventionalLoansPage />} />
@@ -119,6 +123,7 @@ export function AppRouter() {
             <Route path="/one-day-mortgage" element={<OneDayMortgagePage />} />
             <Route path="/purchase/get-started" element={<PurchaseGetStartedPage />} />
             <Route path="/purchase/va-military-homebuyer" element={<VAMilitaryHomebuyerPage />} />
+            <Route path="/refinance/va-military-refinance" element={<VAMilitaryRefinancePage />} />
             <Route path="/home-loans" element={<HomeLoansPage />} />
 
             <Route path="/affordability-calculator" element={<HomeAffordabilityCalculator />} />
@@ -138,6 +143,7 @@ export function AppRouter() {
             <Route path="/fifteen-year-fixed" element={<FifteenYearFixedPage />} />
             <Route path="/thirty-year-fixed" element={<ThirtyYearFixedPage />} />
             <Route path="/refinance" element={<RefinancePage />} />
+            <Route path="/refinance/get-started" element={<RefinanceGetStartedPage />} />
             <Route path="/va-loans" element={<VALoansPage />} />
             <Route path="/jumbo-loans" element={<JumboLoansPage />} />
             <Route path="/conventional-loans" element={<ConventionalLoansPage />} />
@@ -156,6 +162,7 @@ export function AppRouter() {
             <Route path="/one-day-mortgage" element={<OneDayMortgagePage />} />
             <Route path="/purchase/get-started" element={<PurchaseGetStartedPage />} />
             <Route path="/purchase/va-military-homebuyer" element={<VAMilitaryHomebuyerPage />} />
+            <Route path="/refinance/va-military-refinance" element={<VAMilitaryRefinancePage />} />
             <Route path="/home-loans" element={<HomeLoansPage />} />
             <Route path="/learn" element={<LearnPage />} />
             <Route path="/learn/home-buying" element={<HomeBuyingPage />} />

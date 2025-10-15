@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Menu, X, Phone, User, ChevronRight, ChevronDown } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Menu, X, Phone, ChevronRight, ChevronDown } from 'lucide-react'
+import { Link, useLocation } from 'react-router-dom'
 interface NavigationProps {
   'data-id'?: string,
   onEvent?: (data: any) => void;
@@ -10,8 +10,11 @@ export const Header: React.FC<NavigationProps> = ({
   onEvent,
 
 }) => {
+  const location = useLocation()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+  const [activeMobileSection, setActiveMobileSection] = useState<string | null>(null)
+  const [activeMobileTab, setActiveMobileTab] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState<{
     [key: string]: string
   }>({
@@ -20,6 +23,12 @@ export const Header: React.FC<NavigationProps> = ({
     Rates: 'Purchase rates',
     'Loan options': 'All home loans',
   })
+
+  // Helper function to check if a link is active
+  const isLinkActive = (href: string) => {
+    if (href === '#') return false
+    return location.pathname === href || location.pathname.startsWith(href + '/')
+  }
   const navigationItems = [
     {
       label: 'Buy',
@@ -150,12 +159,10 @@ export const Header: React.FC<NavigationProps> = ({
                 label: 'VA & military refi resources',
                 href: '/refinance/va-military-refinance',
               },
-              {
-                label: 'Chat',
-                href: '/chat',
-              },
-
-
+              // {
+              //   label: 'Chat',
+              //   href: '/chat',
+              // },
 
               // {
               //   label: 'Chat',
@@ -404,50 +411,46 @@ export const Header: React.FC<NavigationProps> = ({
 
   return (
     <header
-      className="bg-white flex items-center shadow-sm border-b sticky top-0 z-50 w-full h-[104px]"
+      className="bg-white flex items-center shadow-sm border-b sticky top-0 z-50 w-full h-[80px] lg:h-[104px]"
       data-id={dataId}
     >
-      <div className="px-6 lg:px-12 w-full">
-        <div className="flex items-center gap-12">
+      <div className="px-4 lg:px-12 w-full">
+        <div className="flex items-center gap-4 lg:gap-12">
           {/* Mobile menu button */}
           <button
-            className="lg:hidden p-2 rounded-full hover:bg-gray-100"
+            className="lg:hidden p-2 rounded-full hover:bg-gray-100 flex-shrink-0"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle navigation"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
           {/* Logo */}
-          <div className="flex-shrink-0 mx-auto lg:mx-0">
-
-            {/* <img
-                src={logo}
-                alt="RateBeat Logo"
-                width={100}
-                className="h-auto"
-              /> */}
+          <div className="flex-shrink-0">
             <Link to="/" className="flex items-center">
-              <img src={`${import.meta.env.BASE_URL}ratebeat-logo.png`} alt="RateBeat Logo"
-                width={100}
-                className="h-auto" />
-
+              <img 
+                src={`${import.meta.env.BASE_URL}ratebeat-logo.png`} 
+                alt="RateBeat Logo"
+                width={80}
+                className="h-auto lg:w-[100px]" 
+              />
             </Link>
           </div>
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-1">
-            {navigationItems.map((item: any) => (
-              <div
-                key={item.label}
-                className="relative"
-                onMouseEnter={() => handleMouseEnter(item.label)}
-                onMouseLeave={handleMouseLeave}
-              >
-                <Link
-                  to={item.href}
-                  className="px-4 py-2 text-gray-900 font-medium hover:text-gray-700 transition-colors flex items-center h-20"
+            {navigationItems.map((item: any) => {
+              return (
+                <div
+                  key={item.label}
+                  className="relative"
+                  onMouseEnter={() => handleMouseEnter(item.label)}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  {item.label}
-                </Link>
+                  <Link
+                    to={item.href}
+                    className="px-4 py-2 font-medium transition-colors flex items-center h-20 relative text-gray-900 hover:text-orange-600"
+                  >
+                    {item.label}
+                  </Link>
                 {/* Dropdown */}
                 {item.dropdown && activeDropdown === item.label && (
                   // added hidden to the div below for production deploy
@@ -460,7 +463,7 @@ export const Header: React.FC<NavigationProps> = ({
                             <button
                               key={tab}
                               onClick={() => handleTabClick(item.label, tab)}
-                              className={`w-48 text-left px-6 py-4 rounded-lg font-medium transition-colors ${activeTab[item.label] === tab ? 'bg-gray-100 text-gray-900' : 'text-gray-700 hover:bg-gray-50'}`}
+                              className={`w-48 text-left px-6 py-4 rounded-lg font-medium transition-colors ${activeTab[item.label] === tab ? 'bg-orange-50 text-orange-700 border-l-4 border-orange-500' : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600'}`}
                             >
                               {tab}
                             </button>
@@ -477,13 +480,13 @@ export const Header: React.FC<NavigationProps> = ({
                                 item.dropdown.content[activeTab[item.label]]
                                   .mainLink.href
                               }
-                              className="inline-flex items-center text-gray-900 font-medium hover:text-gray-700 py-4"
+                              className="inline-flex items-center text-gray-900 font-medium hover:text-orange-600 py-4 group"
                             >
                               {
                                 item.dropdown.content[activeTab[item.label]]
                                   .mainLink.label
                               }
-                              <ChevronRight className="ml-2" size={20} />
+                              <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
                             </Link>
                             <p className="text-xs text-gray-500 uppercase tracking-wide mt-4 mb-4">
                               Popular
@@ -491,16 +494,23 @@ export const Header: React.FC<NavigationProps> = ({
                             <ul className="space-y-2">
                               {item.dropdown.content[
                                 activeTab[item.label]
-                              ].links.map((link: any) => (
-                                <li key={link.label} className="py-1">
-                                  <Link
-                                    to={link.href}
-                                    className="text-gray-700 hover:text-gray-900 font-medium block"
-                                  >
-                                    {link.label}
-                                  </Link>
-                                </li>
-                              ))}
+                              ].links.map((link: any) => {
+                                const linkActive = isLinkActive(link.href)
+                                return (
+                                  <li key={link.label} className="py-1">
+                                    <Link
+                                      to={link.href}
+                                      className={`font-medium block px-3 py-2 rounded-lg transition-colors ${
+                                        linkActive
+                                          ? 'text-orange-600 bg-orange-50 border-l-4 border-orange-500'
+                                          : 'text-gray-700 hover:text-orange-600 hover:bg-orange-50'
+                                      }`}
+                                    >
+                                      {link.label}
+                                    </Link>
+                                  </li>
+                                )
+                              })}
                             </ul>
                           </div>
                         )}
@@ -549,13 +559,14 @@ export const Header: React.FC<NavigationProps> = ({
                   </div>
                 )}
               </div>
-            ))}
+            )
+            })}
           </nav>
           {/* Right side actions */}
           <div className="hidden lg:flex items-center space-x-7 ml-auto">
             <Link
               to="tel:+18778777575"
-              className="flex items-center text-gray-900 font-medium hover:text-gray-700 transition-colors"
+              className="flex items-center text-gray-900 font-medium hover:text-orange-600 transition-colors"
             >
               (877) 877 7575
               <Phone className="ml-2" size={20} />
@@ -568,49 +579,155 @@ export const Header: React.FC<NavigationProps> = ({
               <User className="ml-2" size={20} />
             </a> */}
             <button
-
               onClick={handleOpenBuyingModal}
               className="bg-gray-900 text-white px-6 py-3 rounded-full font-medium hover:bg-gray-800 transition-colors"
             >
               Apply now
             </button>
           </div>
-          {/* Mobile sign in button */}
-          <Link
-            to="/sign-in"
-            className="lg:hidden p-2 rounded-full hover:bg-gray-100"
-            aria-label="Sign in"
+          {/* Mobile apply button */}
+          <button
+            onClick={handleOpenBuyingModal}
+            className="lg:hidden ml-auto bg-gray-900 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-800 transition-colors flex-shrink-0"
           >
-            <User size={24} />
-          </Link>
+            Apply
+          </button>
         </div>
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <nav className="lg:hidden border-t bg-white py-4">
-            <ul className="space-y-1">
-              {navigationItems.map((item) => (
-                <li key={item.label}>
-                  <button className="w-full flex items-center justify-between px-3 py-4 text-gray-900 font-medium hover:bg-gray-50 transition-colors">
-                    {item.label}
-                    <ChevronRight size={20} />
-                  </button>
-                </li>
-              ))}
-            </ul>
-            <div className="fixed bottom-0 left-0 right-0 bg-white border-t p-6 space-y-4">
+          <nav className="lg:hidden fixed inset-0 top-[80px] bg-white z-40 overflow-y-auto pb-32">
+            <div className="py-2">
+              {navigationItems.map((item) => {
+                return (
+                  <div key={item.label} className="border-b border-gray-100">
+                    {item.dropdown ? (
+                      <div>
+                        {/* Main Category Button */}
+                        <button
+                          onClick={() => {
+                            setActiveMobileSection(activeMobileSection === item.label ? null : item.label);
+                            setActiveMobileTab(null);
+                          }}
+                          className={`w-full flex items-center justify-between px-6 py-4 font-semibold transition-colors ${
+                            activeMobileSection === item.label
+                              ? 'text-orange-700 bg-orange-50' 
+                              : 'text-gray-900 hover:bg-orange-50 hover:text-orange-600'
+                          }`}
+                        >
+                          {item.label}
+                          <ChevronDown
+                            size={20}
+                            className={`transform transition-transform ${
+                              activeMobileSection === item.label ? 'rotate-180 text-orange-600' : ''
+                            }`}
+                          />
+                        </button>
+
+                      {/* Subcategories/Tabs */}
+                      {activeMobileSection === item.label && (
+                        <div className="bg-gray-50 py-2">
+                          {item.dropdown.tabs.map((tab: string) => (
+                            <div key={tab} className="border-b border-gray-200 last:border-b-0">
+                              <button
+                                onClick={() => setActiveMobileTab(activeMobileTab === tab ? null : tab)}
+                                className={`w-full text-left px-6 py-3 font-medium transition-colors flex items-center justify-between ${
+                                  activeMobileTab === tab
+                                    ? 'text-orange-700 bg-white border-l-4 border-orange-500'
+                                    : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600'
+                                }`}
+                              >
+                                {tab}
+                                <ChevronDown
+                                  size={18}
+                                  className={`transform transition-transform ${
+                                    activeMobileTab === tab ? 'rotate-180 text-orange-600' : ''
+                                  }`}
+                                />
+                              </button>
+
+                              {/* Tab Content/Links */}
+                              {activeMobileTab === tab && (() => {
+                                const content = item.dropdown.content[tab as keyof typeof item.dropdown.content];
+                                if (!content) return null;
+
+                                return (
+                                  <div className="bg-white px-4 py-3">
+                                    {/* Main Link */}
+                                    <Link
+                                      to={content.mainLink.href}
+                                      onClick={() => setIsMobileMenuOpen(false)}
+                                      className="flex items-center text-orange-700 font-semibold py-2 mb-3 border-b border-orange-200 hover:text-orange-800 group"
+                                    >
+                                      {content.mainLink.label}
+                                      <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
+                                    </Link>
+
+                                    {/* Popular Links */}
+                                    <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">
+                                      Popular
+                                    </p>
+                                    <ul className="space-y-1">
+                                      {content.links.map((link: { label: string; href: string }) => {
+                                        const linkActive = isLinkActive(link.href)
+                                        return (
+                                          <li key={link.label}>
+                                            <Link
+                                              to={link.href}
+                                              onClick={() => setIsMobileMenuOpen(false)}
+                                              className={`font-medium block py-2 px-2 rounded text-sm transition-colors ${
+                                                linkActive
+                                                  ? 'text-orange-600 bg-orange-100 border-l-4 border-orange-500'
+                                                  : 'text-gray-700 hover:text-orange-600 hover:bg-orange-50'
+                                              }`}
+                                            >
+                                              {link.label}
+                                            </Link>
+                                          </li>
+                                        )
+                                      })}
+                                    </ul>
+                                  </div>
+                                );
+                              })()}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <Link
+                      to={item.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="w-full flex items-center justify-between px-6 py-4 font-semibold transition-colors text-gray-900 hover:bg-orange-50 hover:text-orange-600"
+                    >
+                      {item.label}
+                      <ChevronRight size={20} />
+                    </Link>
+                  )}
+                </div>
+                )
+              })}
+            </div>
+
+            {/* Fixed Bottom Actions */}
+            <div className="fixed bottom-0 left-0 right-0 bg-white border-t p-6 space-y-4 shadow-lg">
               <Link
-                to="tel:8884528179"
-                className="flex items-center justify-center text-gray-900 font-medium"
+                to="tel:8778777575"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center justify-center text-gray-900 font-medium hover:text-orange-600 transition-colors"
               >
                 <Phone className="mr-2" size={20} />
-                (888) 452-8179
+                (877) 877-7575
               </Link>
-              <Link
-                to="/apply"
-                className="block w-full bg-gray-900 text-white text-center py-4 rounded-full font-medium"
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  handleOpenBuyingModal();
+                }}
+                className="block w-full bg-gray-900 text-white text-center py-4 rounded-full font-medium hover:bg-gray-800 transition-colors"
               >
                 Apply now
-              </Link>
+              </button>
             </div>
           </nav>
         )}
