@@ -447,13 +447,13 @@ export const FedRateDropArticle: React.FC<FedRateDropArticleProps> = ({
                                 <h3 className="text-xl font-bold mb-2">Kevin Graham</h3>
                                 <div className="prose max-w-none text-gray-700 leading-relaxed text-sm">
                                     <p>
-                                        Kevin Graham is a Senior Blog Writer for Rocket Companies.
+                                        Kevin Graham is a Senior Blog Writer for Ratebeat Companies.
                                         He specializes in economics, mortgage qualification and
                                         personal finance topics. As someone with cerebral palsy
                                         spastic quadriplegia that requires the use of a wheelchair,
                                         he also takes on articles around modifying your home for
                                         physical challenges and smart home tech. Kevin has a BA in
-                                        Journalism from Oakland University. Prior to joining Rocket
+                                        Journalism from Oakland University. Prior to joining Ratebeat
                                         Mortgage he freelanced for various newspapers in the Metro
                                         Detroit area.
                                     </p>

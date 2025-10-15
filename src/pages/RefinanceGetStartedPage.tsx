@@ -459,13 +459,13 @@ const RefinanceGetStartedPage: React.FC = () => {
       <LegalDisclaimer
         content={` Refinancing your current mortgage loan over the life of the loan.
 
-Tap into November 2024 survey of current Rocket Mortgage LLC clients (not the final VA Approved Lender over the life of the loan.
+Tap into November 2024 survey of current Ratebeat LLC clients (not the final VA Approved Lender over the life of the loan.
 
 You will borrow the same amount you currently owe minus the property is and for the added down (excluding closing costs) and close it at a term to make the loan originated.
 
 Subject to credit approval. Terms, rates, and program availability may vary and are subject to change. Credit, income and asset review is required. Not all loans or loan programs qualify.
 
-® Rocket Mortgage, LLC; NMLS #3030; www.nmlsconsumeraccess.org. Equal Housing Lender. Licensed in 50 states.`}
+® Ratebeat, LLC; NMLS #3030; www.nmlsconsumeraccess.org. Equal Housing Lender. Licensed in 50 states.`}
       />
 
       {/* Final CTA */}

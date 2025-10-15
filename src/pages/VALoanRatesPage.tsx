@@ -546,7 +546,7 @@ export const VALoanRatesPage: React.FC<VALoanRatesPageProps> = ({
                     your situation. Your actual rate will depend on many factors such as
                     your credit, income, loan type, loan amount, and property value. Rates
                     are subject to change without notice. For current rates please call
-                    800-555-0100. Lending services provided by Rocket Mortgage, LLC. NMLS
+                    800-555-0100. Lending services provided by Ratebeat, LLC. NMLS
                     #3030. Equal Housing Lender. Licensed in 50 states.
                 </p>
             </div>

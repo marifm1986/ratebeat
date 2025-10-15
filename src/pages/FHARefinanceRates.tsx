@@ -170,7 +170,7 @@ export const FHARefinanceRates: React.FC<FHARefinanceRatesProps> = ({
                 FHA refinance rates
               </h1>
               <p className="text-gray-600 mb-6">
-                Explore Rocket Mortgage® FHA loan rates and refinancing
+                Explore Ratebeat® FHA loan rates and refinancing
                 options. A lower FHA rate could mean a lower monthly payment and
                 better terms. Discover your custom rate options in minutes.
               </p>
@@ -503,7 +503,7 @@ export const FHARefinanceRates: React.FC<FHARefinanceRatesProps> = ({
           your situation. Your actual rate will depend on many factors such as
           your credit, income, loan type, loan amount, and property value. Rates
           are subject to change without notice. For current rates please call
-          800-555-0100. Lending services provided by Rocket Mortgage, LLC. NMLS
+          800-555-0100. Lending services provided by Ratebeat, LLC. NMLS
           #3030. Equal Housing Lender. Licensed in 50 states.
         </p>
       </div>

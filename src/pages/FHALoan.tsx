@@ -11,6 +11,7 @@ import {
   Check,
   ChevronDown,
 } from 'lucide-react'
+import { Link } from 'react-router-dom'
 interface FHALoanProps {
   'data-id'?: string
 }
@@ -253,9 +254,9 @@ export const FHALoan: React.FC<FHALoanProps> = ({ 'data-id': dataId }) => {
                 Learn how much you'll need to save for a down payment and how to
                 save it.
               </p>
-              <button className="flex items-center gap-2 text-sm font-medium text-gray-900 hover:gap-3 transition-all">
+              <Link to='/down-payment-calculator' className="flex items-center gap-2 text-sm font-medium text-gray-900 hover:gap-3 transition-all">
                 <ChevronRight className="w-4 h-4" />
-              </button>
+              </Link>
             </div>
             <div className="bg-gray-50 p-8 rounded-2xl border border-gray-200">
               <Home className="w-8 h-8 mb-4 text-gray-700" />
@@ -266,9 +267,9 @@ export const FHALoan: React.FC<FHALoanProps> = ({ 'data-id': dataId }) => {
                 Figure out how much home you can afford based on your income,
                 debt and other factors.
               </p>
-              <button className="flex items-center gap-2 text-sm font-medium text-gray-900 hover:gap-3 transition-all">
+              <Link to='/affordability-calculator' className="flex items-center gap-2 text-sm font-medium text-gray-900 hover:gap-3 transition-all">
                 <ChevronRight className="w-4 h-4" />
-              </button>
+              </Link>
             </div>
           </div>
         </div>

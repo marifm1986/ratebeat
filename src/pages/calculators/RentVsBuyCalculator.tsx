@@ -388,7 +388,7 @@ export const RentVsBuyCalculator: React.FC<RentVsBuyCalculatorProps> = ({
                         </button>
                         {/* Footer Links */}
                         <div className="text-center text-xs text-gray-600">
-                            <span className="text-red-600">Rocket Mortgage</span> •{' '}
+                            <span className="text-red-600">Ratebeat</span> •{' '}
                             <a href="#" className="underline hover:text-black">
                                 Legal disclosures
                             </a>
@@ -572,7 +572,7 @@ export const RentVsBuyCalculator: React.FC<RentVsBuyCalculatorProps> = ({
                         Assumptions include 3% annual home appreciation, 3% annual rent
                         increase, 1.15% property tax rate, 0.3% insurance rate, 1%
                         maintenance rate, and 30-year fixed mortgage. Lending services
-                        provided by Rocket Mortgage, LLC. NMLS #3030. Equal Housing Lender.
+                        provided by Ratebeat, LLC. NMLS #3030. Equal Housing Lender.
                     </p>
                 </div>
             </div>

@@ -70,6 +70,10 @@ import { VALoansPage } from "./pages/VALoansPage";
 import { VAMilitaryHomebuyerPage } from "./pages/VAMilitaryHomebuyerPage";
 import VAMilitaryRefinancePage from "./pages/VAMilitaryRefinancePage";
 import { VARefinanceRates } from "./pages/VARefinanceRates";
+import { AboutUs } from "./pages/AboutUs";
+import ContactPage from "./components/ContactPage";
+import { WhyChooseUs } from "./components/WhyChooseUs";
+import AwardsPage from "./pages/AwardsPage";
 
 
 
@@ -100,6 +104,10 @@ export function AppRouter() {
             <Route path="/" element={<App headerEventData={headerEventData} />}></Route>
             <Route path="/rate" element={<Buying />} />
             <Route path="/blog" element={<AllBlogsPage />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/why-choose-us" element={<WhyChooseUs />} />
+            <Route path="/awards-and-certifications" element={<AwardsPage />} />
             <Route path="/blog/:slug" element={<SingleBlogPage />} />
             <Route path="/login" element={<Login />} />
 
