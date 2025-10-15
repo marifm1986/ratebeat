@@ -206,7 +206,7 @@ export const CashOutRefinance: React.FC<CashOutRefinanceProps> = ({
                         </p>
                     </div>
                     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        <div className="bg-red-500 text-white p-8 rounded-2xl">
+                        <div className="bg-gradient-to-l from-yellow-200 to-yellow-400 text-black p-8 rounded-2xl">
                             <DollarSign className="w-8 h-8 mb-4" />
                             <h3 className="text-xl font-bold mb-3">Equity</h3>
                             <p className="text-sm mb-6 opacity-90">

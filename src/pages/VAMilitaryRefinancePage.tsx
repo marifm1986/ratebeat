@@ -32,7 +32,7 @@ const VAMilitaryRefinancePage: React.FC = () => {
   // Resources cards data
   const resources = [
     {
-      name: 'Rocket Veteran Program',
+      name: 'Ratebeat Veteran Program',
       description: 'Educate current and former military clients on home-buying strategies and tools to succeed.',
       icon: Shield,
       color: 'blue',
@@ -40,7 +40,7 @@ const VAMilitaryRefinancePage: React.FC = () => {
     },
     {
       name: 'Job training and veteran internships',
-      description: 'Rocket provides career opportunities and job training programs specifically designed for veterans.',
+      description: 'Ratebeat provides career opportunities and job training programs specifically designed for veterans.',
       icon: Users,
       color: 'green',
       href: '#job-training'
@@ -141,7 +141,7 @@ const VAMilitaryRefinancePage: React.FC = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
             <div>
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-8">
-                Why veterans choose Rocket for VA refinance
+                Why veterans choose Ratebeat for VA refinance
               </h2>
 
               <div className="space-y-6">
@@ -223,7 +223,7 @@ const VAMilitaryRefinancePage: React.FC = () => {
               Veterans are part of our culture and company
             </h2>
             <p className="text-gray-600 text-lg max-w-3xl mx-auto">
-              Rocket's commitment to serving those who served goes beyond just
+              Ratebeat's commitment to serving those who served goes beyond just
               providing home loans.
             </p>
           </div>
@@ -285,10 +285,10 @@ const VAMilitaryRefinancePage: React.FC = () => {
           {/* CTA Banner */}
           <div className="mt-12 bg-black text-white rounded-2xl p-8 lg:p-12 text-center">
             <h3 className="text-2xl lg:text-3xl font-bold mb-4">
-              Interested in restarting your refinance with Rocket?
+              Interested in restarting your refinance with Ratebeat?
             </h3>
             <p className="text-gray-300 text-lg mb-6 max-w-2xl mx-auto">
-              Our Rocket guidance and broker advice from streamlined the
+              Our Ratebeat guidance and broker advice from streamlined the
               refinance has to market method refinance option.
             </p>
             <button className="bg-white text-black px-8 py-3 rounded-full font-medium hover:bg-gray-100 transition-colors">
@@ -457,11 +457,11 @@ const VAMilitaryRefinancePage: React.FC = () => {
 
       {/* Legal Disclaimer */}
       <LegalDisclaimer
-        content={`Equal Housing Opportunity. Rocket Mortgage, LLC; NMLS #3030; www.nmlsconsumeraccess.org. Licensed in 50 states.
+        content={`Equal Housing Opportunity. Ratebeat, LLC; NMLS #3030; www.nmlsconsumeraccess.org. Licensed in 50 states.
 
-Savings, if any, vary based on consumer credit profile, interest rate availability and other factors. Rocket Mortgage is not acting on behalf of or at the direction of HUD/FHA or any other government agency.
+Savings, if any, vary based on consumer credit profile, interest rate availability and other factors. Ratebeat is not acting on behalf of or at the direction of HUD/FHA or any other government agency.
 
-Veterans United Home Loans and Rocket Mortgage are independent entities. Neither party is acting as an agent of the other. Information provided by you is shared with both Veterans United Home Loans and Rocket Mortgage.
+Veterans United Home Loans and Ratebeat are independent entities. Neither party is acting as an agent of the other. Information provided by you is shared with both Veterans United Home Loans and Ratebeat.
 
 Refinancing your mortgage may include consolidating debt. This may result in a longer term on your loan and higher interest paid over time. By refinancing your existing loan, the total finance charges may be higher over the life of the loan.
 

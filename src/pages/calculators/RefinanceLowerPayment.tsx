@@ -1215,7 +1215,7 @@ export const RefinanceCalculator: React.FC<RefinanceCalculatorProps> = ({
                         </button>
                         {/* Footer Links */}
                         <div className="text-center text-xs text-gray-600">
-                            <span className="text-red-600">Rocket Mortgage</span> |{' '}
+                            <span className="text-red-600">Ratebeat</span> |{' '}
                             <a href="#" className="underline hover:text-black">
                                 Legal disclosures
                             </a>
@@ -1296,7 +1296,7 @@ export const RefinanceCalculator: React.FC<RefinanceCalculatorProps> = ({
                         fixed-rate mortgage. Additional costs such as closing costs, points,
                         and fees are not included in this calculation. For accurate rates
                         and terms, please complete a full application. Lending services
-                        provided by Rocket Mortgage, LLC. NMLS #3030. Equal Housing Lender.
+                        provided by Ratebeat, LLC. NMLS #3030. Equal Housing Lender.
                     </p>
                 </div>
             </div>

@@ -22,6 +22,7 @@ export const Header: React.FC<NavigationProps> = ({
     Refinance: 'Refinance a home',
     Rates: 'Purchase rates',
     'Loan options': 'All home loans',
+    About: 'About'
   })
 
   // Helper function to check if a link is active
@@ -381,6 +382,37 @@ export const Header: React.FC<NavigationProps> = ({
       },
     },
     {
+      label: 'About',
+      href: '#',
+      dropdown: {
+        tabs: ['Ratebeat'],
+        content: {
+          'Ratebeat': {
+            mainLink: {
+              label: 'Why Choose Us',
+              href: '/why-choose-us',
+            },
+            links: [
+              {
+                label: 'About Us',
+                href: '/about',
+              },
+              {
+                label: 'Contact Us',
+                href: '/contact',
+              },
+              {
+                label: 'Awards and Certifications',
+                href: '/awards-and-certifications',
+              },
+
+            ],
+
+          },
+        },
+      },
+    },
+    {
       label: 'Blog',
       href: '/blog',
     },
@@ -427,11 +459,11 @@ export const Header: React.FC<NavigationProps> = ({
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center">
-              <img 
-                src={`${import.meta.env.BASE_URL}ratebeat-logo.png`} 
+              <img
+                src={`${import.meta.env.BASE_URL}ratebeat-logo.png`}
                 alt="RateBeat Logo"
                 width={80}
-                className="h-auto lg:w-[100px]" 
+                className="h-auto lg:w-[100px]"
               />
             </Link>
           </div>
@@ -451,115 +483,114 @@ export const Header: React.FC<NavigationProps> = ({
                   >
                     {item.label}
                   </Link>
-                {/* Dropdown */}
-                {item.dropdown && activeDropdown === item.label && (
-                  // added hidden to the div below for production deploy
-                  <div className="absolute top-full left-0 pt-0 bg-white rounded-3xl shadow-xl border min-w-[800px] z-50">
-                    <div className="flex">
-                      {/* Tabs */}
-                      <div className="p-6">
-                        <div className="space-y-2">
-                          {item.dropdown.tabs.map((tab: any) => (
-                            <button
-                              key={tab}
-                              onClick={() => handleTabClick(item.label, tab)}
-                              className={`w-48 text-left px-6 py-4 rounded-lg font-medium transition-colors ${activeTab[item.label] === tab ? 'bg-orange-50 text-orange-700 border-l-4 border-orange-500' : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600'}`}
-                            >
-                              {tab}
-                            </button>
-                          ))}
+                  {/* Dropdown */}
+                  {item.dropdown && activeDropdown === item.label && (
+                    // added hidden to the div below for production deploy
+                    <div className="absolute top-full left-0 pt-0 bg-white rounded-3xl shadow-xl border min-w-[800px] z-50">
+                      <div className="flex">
+                        {/* Tabs */}
+                        <div className="p-6">
+                          <div className="space-y-2">
+                            {item.dropdown.tabs.map((tab: any) => (
+                              <button
+                                key={tab}
+                                onClick={() => handleTabClick(item.label, tab)}
+                                className={`w-48 text-left px-6 py-4 rounded-lg font-medium transition-colors ${activeTab[item.label] === tab ? 'bg-orange-50 text-orange-700 border-l-4 border-orange-500' : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600'}`}
+                              >
+                                {tab}
+                              </button>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                      {/* Content */}
-                      <div className="flex-1 p-6 border-l border-gray-100">
+                        {/* Content */}
+                        <div className="flex-1 p-6 border-l border-gray-100">
 
-                        {item.dropdown.content[activeTab[item.label]] && (
-                          <div className="min-w-80">
-                            <Link
-                              to={
-                                item.dropdown.content[activeTab[item.label]]
-                                  .mainLink.href
-                              }
-                              className="inline-flex items-center text-gray-900 font-medium hover:text-orange-600 py-4 group"
-                            >
-                              {
-                                item.dropdown.content[activeTab[item.label]]
-                                  .mainLink.label
-                              }
-                              <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
-                            </Link>
-                            <p className="text-xs text-gray-500 uppercase tracking-wide mt-4 mb-4">
-                              Popular
-                            </p>
-                            <ul className="space-y-2">
-                              {item.dropdown.content[
-                                activeTab[item.label]
-                              ].links.map((link: any) => {
-                                const linkActive = isLinkActive(link.href)
-                                return (
-                                  <li key={link.label} className="py-1">
-                                    <Link
-                                      to={link.href}
-                                      className={`font-medium block px-3 py-2 rounded-lg transition-colors ${
-                                        linkActive
+                          {item.dropdown.content[activeTab[item.label]] && (
+                            <div className="min-w-80">
+                              <Link
+                                to={
+                                  item.dropdown.content[activeTab[item.label]]
+                                    .mainLink.href
+                                }
+                                className="inline-flex items-center text-gray-900 font-medium hover:text-orange-600 py-4 group"
+                              >
+                                {
+                                  item.dropdown.content[activeTab[item.label]]
+                                    .mainLink.label
+                                }
+                                <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+                              </Link>
+                              <p className="text-xs text-gray-500 uppercase tracking-wide mt-4 mb-4">
+                                Popular
+                              </p>
+                              <ul className="space-y-2">
+                                {item.dropdown.content[
+                                  activeTab[item.label]
+                                ].links.map((link: any) => {
+                                  const linkActive = isLinkActive(link.href)
+                                  return (
+                                    <li key={link.label} className="py-1">
+                                      <Link
+                                        to={link.href}
+                                        className={`font-medium block px-3 py-2 rounded-lg transition-colors ${linkActive
                                           ? 'text-orange-600 bg-orange-50 border-l-4 border-orange-500'
                                           : 'text-gray-700 hover:text-orange-600 hover:bg-orange-50'
-                                      }`}
-                                    >
-                                      {link.label}
-                                    </Link>
-                                  </li>
-                                )
-                              })}
-                            </ul>
-                          </div>
-                        )}
-                      </div>
-                      {/* Promo section */}
-                      <div className="min-w-[385px] p-8 bg-gray-50 rounded-r-3xl">
-                        {item.label === 'Buy' || item.label === 'Rates' ? (
-                          <>
-                            <img
-                              src="https://prod.rockmedialibrary.com/api/public/content/R4M-NavPromoMenu-RentRewards?v=1f5ee45c"
-                              alt="RentRewards promotion"
-                              className="w-full mb-4 rounded-lg"
-                            />
-                            <p className="text-gray-900 text-lg font-medium mb-2">
-                              Turn your monthly rent into a head start on a home
-                              of your own
-                            </p>
-                            {/* <Link
+                                          }`}
+                                      >
+                                        {link.label}
+                                      </Link>
+                                    </li>
+                                  )
+                                })}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                        {/* Promo section */}
+                        <div className="min-w-[385px] p-8 bg-gray-50 rounded-r-3xl">
+                          {item.label === 'Buy' || item.label === 'Rates' ? (
+                            <>
+                              <img
+                                src="https://prod.rockmedialibrary.com/api/public/content/R4M-NavPromoMenu-RentRewards?v=1f5ee45c"
+                                alt="RentRewards promotion"
+                                className="w-full mb-4 rounded-lg"
+                              />
+                              <p className="text-gray-900 text-lg font-medium mb-2">
+                                Turn your monthly rent into a head start on a home
+                                of your own
+                              </p>
+                              {/* <Link
                               to="/"
                               className="text-gray-900 font-medium underline hover:no-underline"
                             >
                               Learn about RentRewards
                             </Link> */}
-                          </>
-                        ) : (
-                          <>
-                            <img
-                              src="https://prod.rockmedialibrary.com/api/public/content/HELNavPromo?v=1887ccee"
-                              alt="Home Equity Loan promotion"
-                              className="w-full mb-4 rounded-lg"
-                            />
-                            <p className="text-gray-900 text-lg font-medium mb-2">
-                              Get cash from your home's equity while keeping
-                              your mortgage rate
-                            </p>
-                            <Link
-                              to="/home-equity-loan"
-                              className="text-gray-900 font-medium underline hover:no-underline"
-                            >
-                              Learn about Home Equity Loans
-                            </Link>
-                          </>
-                        )}
+                            </>
+                          ) : (
+                            <>
+                              <img
+                                src="https://prod.rockmedialibrary.com/api/public/content/HELNavPromo?v=1887ccee"
+                                alt="Home Equity Loan promotion"
+                                className="w-full mb-4 rounded-lg"
+                              />
+                              <p className="text-gray-900 text-lg font-medium mb-2">
+                                Get cash from your home's equity while keeping
+                                your mortgage rate
+                              </p>
+                              <Link
+                                to="/home-equity-loan"
+                                className="text-gray-900 font-medium underline hover:no-underline"
+                              >
+                                Learn about Home Equity Loans
+                              </Link>
+                            </>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
-              </div>
-            )
+                  )}
+                </div>
+              )
             })}
           </nav>
           {/* Right side actions */}
@@ -608,103 +639,98 @@ export const Header: React.FC<NavigationProps> = ({
                             setActiveMobileSection(activeMobileSection === item.label ? null : item.label);
                             setActiveMobileTab(null);
                           }}
-                          className={`w-full flex items-center justify-between px-6 py-4 font-semibold transition-colors ${
-                            activeMobileSection === item.label
-                              ? 'text-orange-700 bg-orange-50' 
-                              : 'text-gray-900 hover:bg-orange-50 hover:text-orange-600'
-                          }`}
+                          className={`w-full flex items-center justify-between px-6 py-4 font-semibold transition-colors ${activeMobileSection === item.label
+                            ? 'text-orange-700 bg-orange-50'
+                            : 'text-gray-900 hover:bg-orange-50 hover:text-orange-600'
+                            }`}
                         >
                           {item.label}
                           <ChevronDown
                             size={20}
-                            className={`transform transition-transform ${
-                              activeMobileSection === item.label ? 'rotate-180 text-orange-600' : ''
-                            }`}
+                            className={`transform transition-transform ${activeMobileSection === item.label ? 'rotate-180 text-orange-600' : ''
+                              }`}
                           />
                         </button>
 
-                      {/* Subcategories/Tabs */}
-                      {activeMobileSection === item.label && (
-                        <div className="bg-gray-50 py-2">
-                          {item.dropdown.tabs.map((tab: string) => (
-                            <div key={tab} className="border-b border-gray-200 last:border-b-0">
-                              <button
-                                onClick={() => setActiveMobileTab(activeMobileTab === tab ? null : tab)}
-                                className={`w-full text-left px-6 py-3 font-medium transition-colors flex items-center justify-between ${
-                                  activeMobileTab === tab
+                        {/* Subcategories/Tabs */}
+                        {activeMobileSection === item.label && (
+                          <div className="bg-gray-50 py-2">
+                            {item.dropdown.tabs.map((tab: string) => (
+                              <div key={tab} className="border-b border-gray-200 last:border-b-0">
+                                <button
+                                  onClick={() => setActiveMobileTab(activeMobileTab === tab ? null : tab)}
+                                  className={`w-full text-left px-6 py-3 font-medium transition-colors flex items-center justify-between ${activeMobileTab === tab
                                     ? 'text-orange-700 bg-white border-l-4 border-orange-500'
                                     : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600'
-                                }`}
-                              >
-                                {tab}
-                                <ChevronDown
-                                  size={18}
-                                  className={`transform transition-transform ${
-                                    activeMobileTab === tab ? 'rotate-180 text-orange-600' : ''
-                                  }`}
-                                />
-                              </button>
+                                    }`}
+                                >
+                                  {tab}
+                                  <ChevronDown
+                                    size={18}
+                                    className={`transform transition-transform ${activeMobileTab === tab ? 'rotate-180 text-orange-600' : ''
+                                      }`}
+                                  />
+                                </button>
 
-                              {/* Tab Content/Links */}
-                              {activeMobileTab === tab && (() => {
-                                const content = item.dropdown.content[tab as keyof typeof item.dropdown.content];
-                                if (!content) return null;
+                                {/* Tab Content/Links */}
+                                {activeMobileTab === tab && (() => {
+                                  const content = item.dropdown.content[tab as keyof typeof item.dropdown.content];
+                                  if (!content) return null;
 
-                                return (
-                                  <div className="bg-white px-4 py-3">
-                                    {/* Main Link */}
-                                    <Link
-                                      to={content.mainLink.href}
-                                      onClick={() => setIsMobileMenuOpen(false)}
-                                      className="flex items-center text-orange-700 font-semibold py-2 mb-3 border-b border-orange-200 hover:text-orange-800 group"
-                                    >
-                                      {content.mainLink.label}
-                                      <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
-                                    </Link>
+                                  return (
+                                    <div className="bg-white px-4 py-3">
+                                      {/* Main Link */}
+                                      <Link
+                                        to={content.mainLink.href}
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className="flex items-center text-orange-700 font-semibold py-2 mb-3 border-b border-orange-200 hover:text-orange-800 group"
+                                      >
+                                        {content.mainLink.label}
+                                        <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
+                                      </Link>
 
-                                    {/* Popular Links */}
-                                    <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">
-                                      Popular
-                                    </p>
-                                    <ul className="space-y-1">
-                                      {content.links.map((link: { label: string; href: string }) => {
-                                        const linkActive = isLinkActive(link.href)
-                                        return (
-                                          <li key={link.label}>
-                                            <Link
-                                              to={link.href}
-                                              onClick={() => setIsMobileMenuOpen(false)}
-                                              className={`font-medium block py-2 px-2 rounded text-sm transition-colors ${
-                                                linkActive
+                                      {/* Popular Links */}
+                                      <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">
+                                        Popular
+                                      </p>
+                                      <ul className="space-y-1">
+                                        {content.links.map((link: { label: string; href: string }) => {
+                                          const linkActive = isLinkActive(link.href)
+                                          return (
+                                            <li key={link.label}>
+                                              <Link
+                                                to={link.href}
+                                                onClick={() => setIsMobileMenuOpen(false)}
+                                                className={`font-medium block py-2 px-2 rounded text-sm transition-colors ${linkActive
                                                   ? 'text-orange-600 bg-orange-100 border-l-4 border-orange-500'
                                                   : 'text-gray-700 hover:text-orange-600 hover:bg-orange-50'
-                                              }`}
-                                            >
-                                              {link.label}
-                                            </Link>
-                                          </li>
-                                        )
-                                      })}
-                                    </ul>
-                                  </div>
-                                );
-                              })()}
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    <Link
-                      to={item.href}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="w-full flex items-center justify-between px-6 py-4 font-semibold transition-colors text-gray-900 hover:bg-orange-50 hover:text-orange-600"
-                    >
-                      {item.label}
-                      <ChevronRight size={20} />
-                    </Link>
-                  )}
-                </div>
+                                                  }`}
+                                              >
+                                                {link.label}
+                                              </Link>
+                                            </li>
+                                          )
+                                        })}
+                                      </ul>
+                                    </div>
+                                  );
+                                })()}
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <Link
+                        to={item.href}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="w-full flex items-center justify-between px-6 py-4 font-semibold transition-colors text-gray-900 hover:bg-orange-50 hover:text-orange-600"
+                      >
+                        {item.label}
+                        <ChevronRight size={20} />
+                      </Link>
+                    )}
+                  </div>
                 )
               })}
             </div>

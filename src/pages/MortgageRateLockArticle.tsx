@@ -407,7 +407,7 @@ export const MortgageRateLockArticle: React.FC<
                             Get approved to see what you can afford
                         </h2>
                         <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
-                            Rocket Mortgage® lets you do it all online.
+                            Ratebeat® lets you do it all online.
                         </p>
                         <div className="text-center">
                             <button className="bg-black text-white px-8 py-3 rounded-full font-semibold hover:bg-gray-800 transition-colors">
@@ -488,7 +488,7 @@ export const MortgageRateLockArticle: React.FC<
                                 <h3 className="text-xl font-bold mb-2">Victoria Araj</h3>
                                 <div className="prose max-w-none text-gray-700 leading-relaxed text-sm">
                                     <p>
-                                        Victoria Araj is a Team Leader for Rocket Mortgage and held
+                                        Victoria Araj is a Team Leader for Ratebeat and held
                                         roles in mortgage banking, public relations and more in her
                                         19+ years with the company. She holds a bachelor's degree in
                                         journalism with an emphasis in political science from

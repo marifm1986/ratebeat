@@ -424,13 +424,13 @@ export const FederalFundsArticle: React.FC<FederalFundsArticleProps> = ({
                         <h3 className="text-xl font-bold mb-4">Kevin Graham</h3>
                         <div className="prose max-w-none text-gray-700 leading-relaxed">
                             <p>
-                                Kevin Graham is a Senior Blog Writer for Rocket Companies. He
+                                Kevin Graham is a Senior Blog Writer for Ratebeat Companies. He
                                 specializes in economics, mortgage qualification and personal
                                 finance topics. As someone with cerebral palsy spastic
                                 quadriplegia that requires the use of a wheelchair, he also
                                 takes on articles around modifying your home for physical
                                 challenges and smart home tech. Kevin has a BA in Journalism
-                                from Oakland University. Prior to joining Rocket Mortgage he
+                                from Oakland University. Prior to joining Ratebeat he
                                 freelanced for various newspapers in the Metro Detroit area.
                             </p>
                         </div>
