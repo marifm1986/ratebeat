@@ -21,14 +21,14 @@ const ContactPage = () => {
     message: '',
   })
   // Form handlers
-  const handleChange = (e:any) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }))
   }
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault()
     setLoading(true)
     setNotification({
@@ -39,10 +39,11 @@ const ContactPage = () => {
     try {
       // Note: You need to replace these with your actual EmailJS service ID, template ID, and public key
       const result = await emailjs.send(
-        'YOUR_SERVICE_ID',
-        'YOUR_TEMPLATE_ID',
+        'service_8k02j2q',
+        'template_svn6tuq',
         {
-          from_name: `${formData.firstName} ${formData.lastName}`,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
           to_name: 'Ratebeat Team',
           from_email: formData.email,
           phone: formData.phone,
@@ -52,7 +53,7 @@ const ContactPage = () => {
           subject: formData.subject,
           message: formData.message,
         },
-        'YOUR_PUBLIC_KEY',
+        'M_EM9FwbpjZCPArVR',
       )
       setNotification({
         show: true,
@@ -84,7 +85,7 @@ const ContactPage = () => {
   }
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      
+
       <div className="relative bg-gradient-to-r from-blue-900 to-blue-700 text-white">
         {/* Background decorative elements */}
         <div className="absolute left-0 bottom-0 w-1/4 h-full opacity-20">
@@ -325,7 +326,7 @@ const ContactPage = () => {
           </p>
         </div>
       </div>
-    
+
     </div>
   )
 }
