@@ -57,12 +57,17 @@ import RefinancingGuidePage from "./pages/RefinancingGuidePage";
 import RefinancingLearnPage from "./pages/RefinancingLearnPage";
 import TypesOfRefinancingPage from "./pages/TypesOfRefinancingPage";
 import { MortgageRateUpdates } from "./pages/MortgageRateUpdates";
+import { MortgageRatesPage } from "./pages/MortgageRatesPage";
 import { FederalFundsArticle } from "./pages/FederalFundsArticle";
 import { FedRateDropArticle } from "./pages/FedRateDropArticle";
 import { MortgageRateLockArticle } from "./pages/MortgageRateLockArticle";
 import { RefinanceRatesPage } from "./pages/RefinanceRatesPage";
 import { ThirtyYearRefinanceRates } from "./pages/ThirtyYearRefinanceRates";
 import { FHARefinanceRates } from "./pages/FHARefinanceRates";
+import { ThirtyYearMortgageRatesPage } from "./pages/ThirtyYearMortgageRatesPage";
+import { FHALoanRatesPage } from "./pages/FHALoanRatesPage";
+import { VALoanRatesPage } from "./pages/VALoanRatesPage";
+import { JumboLoanRatesPage } from "./pages/JumboLoanRatesPage";
 
 
 export function AppRouter() {
@@ -149,7 +154,11 @@ export function AppRouter() {
             <Route path="/conventional-loans" element={<ConventionalLoansPage />} />
 
             {/* rates */}
-
+            <Route path="/mortgage-rates" element={<MortgageRatesPage />} />
+            <Route path="/mortgage-rates/30-year-mortgage-rates" element={<ThirtyYearMortgageRatesPage />} />
+            <Route path="/mortgage-rates/fha-loan-rates" element={<FHALoanRatesPage />} />
+            <Route path="/mortgage-rates/va-loan-rates" element={<VALoanRatesPage />} />
+            <Route path="/mortgage-rates/jumbo-loan-rates" element={<JumboLoanRatesPage />} />
             <Route path="/rate-updates" element={<MortgageRateUpdates />} />
             <Route path="/learn/federal-funds-rate" element={<FederalFundsArticle />} />
             <Route path="/learn/fed-rate-drop" element={<FedRateDropArticle />} />
