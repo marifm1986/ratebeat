@@ -8,6 +8,8 @@ import {
   PlayCircle
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
+import { FinalCTA } from '../components/FinalCTA';
+import { LegalDisclaimer } from '../components/LegalDisclaimer';
 
 const VAMilitaryHomebuyerPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState('Overview');
@@ -384,34 +386,20 @@ const VAMilitaryHomebuyerPage: React.FC = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-16 px-4 bg-gray-900 text-white text-center">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-bold mb-4">
-            It's an honor to serve you
-          </h2>
-          <p className="text-xl text-gray-200 mb-8">
-            Whether you're on your next station or it's time to lay down roots, our Home 
-            Loan Experts are ready to help you home.
-          </p>
-<Button className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-3 rounded-lg font-semibold shadow-lg backdrop-blur-sm">
-            Visit our opportunities
-          </Button>
-        </div>
-      </section>
+      <FinalCTA
+        title="It's an honor to serve you"
+        description="Whether you're on your next station or it's time to lay down roots, our Home Loan Experts are ready to help you home."
+        buttonText="Visit our opportunities"
+      />
 
       {/* Legal Disclaimers */}
-      <section className="py-8 px-4 bg-gray-100">
-        <div className="container mx-auto max-w-6xl">
-          <p className="text-xs text-gray-500 leading-relaxed">
-            ® Important legal disclosures<br/>
-        Refinancing may cause finance charges to be higher over the life of the loan.
- <br/><br/>
-Clients who lock their rate between May 19, 2025, and June 2, 2025, by 8:00 am ET, will receive a one-point discount on the rate’s pricing as a lender credit toward closing costs. A point is equal to 1% of the loan amount. Not valid with other discounts or promotions. Valid on first lien, retail fixed VA products. Not valid for loans through Rocket Pro, Partnerships, team member loans, or by an Executive Loan Officer. Acceptance of this offer means acceptance of these terms, which may be cancelled or changed at any time at the discretion of Rocket Mortgage. Non-transferable. Not a commitment to lend. Additional restrictions/conditions may apply.
- <br/><br/>
-Client will be required to pay a 1% down payment, with the ability to pay a maximum of 3%, and Rocket Mortgage will cover an additional 2% of the client’s purchase price as a down payment, or $2,000. Maximum grant amount is $7,000. Offer valid on primary residence, conventional loan products only. Maximum loan amount of $350,000. Cost of mortgage insurance premium passed through to client effective January 2, 2024. Offer valid only for home buyers when qualifying income is less than or equal to 80% area median income based on county where property is located. Not available with any other discounts or promotions and cannot be retroactively applied to previously closed loans or loans that have a locked rate. This is not a commitment to lend. Rocket Mortgage reserves the right to cancel/modify this offer at any time. Additional restrictions/conditions may apply.
-          </p>
-        </div>
-      </section>
+      <LegalDisclaimer
+        content={`Refinancing may cause finance charges to be higher over the life of the loan.
+
+Clients who lock their rate between May 19, 2025, and June 2, 2025, by 8:00 am ET, will receive a one-point discount on the rate's pricing as a lender credit toward closing costs. A point is equal to 1% of the loan amount. Not valid with other discounts or promotions. Valid on first lien, retail fixed VA products. Not valid for loans through Rocket Pro, Partnerships, team member loans, or by an Executive Loan Officer. Acceptance of this offer means acceptance of these terms, which may be cancelled or changed at any time at the discretion of Rocket Mortgage. Non-transferable. Not a commitment to lend. Additional restrictions/conditions may apply.
+
+Client will be required to pay a 1% down payment, with the ability to pay a maximum of 3%, and Rocket Mortgage will cover an additional 2% of the client's purchase price as a down payment, or $2,000. Maximum grant amount is $7,000. Offer valid on primary residence, conventional loan products only. Maximum loan amount of $350,000. Cost of mortgage insurance premium passed through to client effective January 2, 2024. Offer valid only for home buyers when qualifying income is less than or equal to 80% area median income based on county where property is located. Not available with any other discounts or promotions and cannot be retroactively applied to previously closed loans or loans that have a locked rate. This is not a commitment to lend. Rocket Mortgage reserves the right to cancel/modify this offer at any time. Additional restrictions/conditions may apply.`}
+      />
     </div>
   );
 };

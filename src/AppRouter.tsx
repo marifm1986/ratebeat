@@ -31,11 +31,21 @@ import { HelocPage } from "./pages/HelocPage";
 import { OneDayMortgagePage } from "./pages/OneDayMortgagePage";
 import { PurchaseGetStartedPage } from "./pages/PurchaseGetStartedPage";
 import { HomeLoansPage } from "./pages/HomeLoansPage";
-import AffordabilityCalculator from "./pages/calculators/AffordabilityCalculator";
 import HomeAffordabilityCalculator from "./pages/calculators/AffordabilityCalculator";
 import { VAMilitaryHomebuyerPage } from "./pages/VAMilitaryHomebuyerPage";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
+import { LearnPage } from "./pages/LearnPage";
+import { HomeBuyingPage } from "./pages/HomeBuyingPage";
+import { FirstTimeHomeBuyersPage } from "./pages/FirstTimeHomeBuyersPage";
+import MovingTipsPage from "./pages/MovingTipsPage";
+import PreparingToBuyPage from "./pages/PreparingToBuyPage";
+import HomeownershipPage from "./pages/HomeownershipPage";
+import RefinancingLearnPage from "./pages/RefinancingLearnPage";
+import RefinancingGuidePage from "./pages/RefinancingGuidePage";
+import TypesOfRefinancingPage from "./pages/TypesOfRefinancingPage";
+import EquityAndHomeValuePage from "./pages/EquityAndHomeValuePage";
+import DebtConsolidationPage from "./pages/DebtConsolidationPage";
 
 export function AppRouter() {
   return (
@@ -82,6 +92,17 @@ export function AppRouter() {
           <Route path="/purchase/get-started" element={<PurchaseGetStartedPage />} />
           <Route path="/purchase/va-military-homebuyer" element={<VAMilitaryHomebuyerPage />} />
           <Route path="/home-loans" element={<HomeLoansPage />} />
+          <Route path="/learn" element={<LearnPage />} />
+          <Route path="/learn/home-buying" element={<HomeBuyingPage />} />
+          <Route path="/learn/first-time-home-buyers" element={<FirstTimeHomeBuyersPage />} />
+          <Route path="/learn/moving-tips" element={<MovingTipsPage />} />
+          <Route path="/learn/preparing-to-buy" element={<PreparingToBuyPage />} />
+          <Route path="/learn/homeownership" element={<HomeownershipPage />} />
+          <Route path="/learn/refinancing" element={<RefinancingLearnPage />} />
+          <Route path="/learn/refinancing-guide" element={<RefinancingGuidePage />} />
+          <Route path="/learn/types-of-refinancing" element={<TypesOfRefinancingPage />} />
+          <Route path="/learn/equity-and-home-value" element={<EquityAndHomeValuePage />} />
+          <Route path="/learn/debt-consolidation-rising-rates" element={<DebtConsolidationPage />} />
           
            <Route
             path="/admin"

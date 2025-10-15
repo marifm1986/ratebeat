@@ -23,7 +23,7 @@ export const Header: React.FC<NavigationProps> = ({
       label: 'Buy',
       href: 'https://ratebeat.floify.com/apply-now',
       dropdown: {
-        tabs: ['Buy a home', 'Calculators', 'Español', 'Learn'],
+        tabs: ['Buy a home', 'Calculators', 'Learn'],
         content: {
           'Buy a home': {
             mainLink: {
@@ -39,10 +39,10 @@ export const Header: React.FC<NavigationProps> = ({
                 label: 'VA & military purchase resources',
                 href: '/purchase/va-military-homebuyer',
               },
-              {
-                label: 'Chat',
-                href: '/chat',
-              },
+              // {
+              //   label: 'Chat',
+              //   href: '/chat',
+              // },
             ],
           },
           Calculators: {
@@ -131,7 +131,7 @@ export const Header: React.FC<NavigationProps> = ({
       label: 'Refinance',
       href: 'https://nmann-refinance-site-8566-mRX46H3p.itclix.com',
       dropdown: {
-        tabs: ['Refinance a home', 'Calculators', 'Learn', 'Español'],
+        tabs: ['Refinance a home', 'Calculators', 'Learn'],
         content: {
           'Refinance a home': {
             mainLink: {
@@ -147,10 +147,10 @@ export const Header: React.FC<NavigationProps> = ({
                 label: 'VA & military refi resources',
                 href: '/refinance/va-military-refinance',
               },
-              {
-                label: 'Chat',
-                href: '/chat',
-              },
+              // {
+              //   label: 'Chat',
+              //   href: '/chat',
+              // },
             ],
           },
           Calculators: {
