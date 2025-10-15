@@ -159,12 +159,10 @@ export const Header: React.FC<NavigationProps> = ({
                 label: 'VA & military refi resources',
                 href: '/refinance/va-military-refinance',
               },
-              {
-                label: 'Chat',
-                href: '/chat',
-              },
-
-
+              // {
+              //   label: 'Chat',
+              //   href: '/chat',
+              // },
 
               // {
               //   label: 'Chat',
