@@ -1,912 +1,581 @@
-import React, { useEffect, useState, useRef } from 'react'
-import {
-    InfoIcon,
-    ChevronDownIcon,
-    ChevronUpIcon,
-    SettingsIcon,
-} from 'lucide-react'
-import { Link } from 'react-router-dom'
-// Credit tier options
-type CreditTier = '760+' | '720–759' | '680–719' | '640–679' | '≤639'
-// PMI rates by credit tier
-const PMI_RATES: Record<CreditTier, number> = {
-    '760+': 0.35,
-    '720–759': 0.45,
-    '680–719': 0.65,
-    '640–679': 0.95,
-    '≤639': 1.35,
+import React, { useEffect, useState } from 'react'
+import { Info } from 'lucide-react'
+interface RentVsBuyCalculatorProps {
+    'data-id'?: string
 }
-// Interface for form data
-interface FormData {
-    price: number
-    downAmt: number
-    downPct: number
-    downIsPct: boolean
-    creditTier: CreditTier
-    rateAnnual: number
-    rentMonthly: number
-    years: number
-    taxRatePct: number
-    insAnnual: number
-    hoaMonthly: number
-    maintPct: number
-    closingCostPct: number
-    apprecPct: number
-    rentGrowthPct: number
-}
-// Interface for calculation results
-interface CalculationResult {
-    loan: number
-    ltv: number
-    pmiMonthly: number
-    pi: number
-    taxMonthly: number
-    insMonthly: number
-    maintMonthly: number
-    ownerMonthly: number
-    renterMonthly: number
-    futureValue: number
-    equity: number
-    balance: number
-    closingCosts: number
-    buyTotalGross: number
-    buyTotalNet: number
-    rentTotal: number
-}
-// Tab options for cost breakdown
-type CostTab = 'Monthly' | 'Annual' | 'Total cost'
-const RentVsBuyCalculator: React.FC = () => {
-    // Default form values
-    const defaultFormData: FormData = {
-        price: 373360,
-        downAmt: 77359,
-        downPct: 20.7,
-        downIsPct: false,
-        creditTier: '720–759',
-        rateAnnual: 6.75,
-        rentMonthly: 3019,
-        years: 16,
-        taxRatePct: 1.1,
-        insAnnual: 1200,
-        hoaMonthly: 100,
-        maintPct: 1.0,
-        closingCostPct: 2.5,
-        apprecPct: 3.0,
-        rentGrowthPct: 0,
+const creditScoreRanges = [
+    {
+        label: '720 or above',
+        value: '720+',
+        rateAdjustment: 0,
+    },
+    {
+        label: '700 - 719',
+        value: '700-719',
+        rateAdjustment: 0.0025,
+    },
+    {
+        label: '680 - 699',
+        value: '680-699',
+        rateAdjustment: 0.005,
+    },
+    {
+        label: '660 - 679',
+        value: '660-679',
+        rateAdjustment: 0.0075,
+    },
+    {
+        label: '640 - 659',
+        value: '640-659',
+        rateAdjustment: 0.01,
+    },
+    {
+        label: '620 - 639',
+        value: '620-639',
+        rateAdjustment: 0.015,
+    },
+]
+export const RentVsBuyCalculator: React.FC<RentVsBuyCalculatorProps> = ({
+    'data-id': dataId,
+}) => {
+    // Form inputs
+    const [purchasePrice, setPurchasePrice] = useState('377360')
+    const [downPayment, setDownPayment] = useState('77359')
+    const [downPaymentType, setDownPaymentType] = useState<'$' | '%'>('$')
+    const [creditScore, setCreditScore] = useState('720+')
+    const [interestRate, setInterestRate] = useState('6.375')
+    const [monthlyRent, setMonthlyRent] = useState('3019')
+    // Results state
+    const [hasCalculated, setHasCalculated] = useState(false)
+    const [years, setYears] = useState(2)
+    const [viewType, setViewType] = useState<'monthly' | 'annual' | 'total'>(
+        'monthly',
+    )
+    // Calculated values
+    const [buyEquity, setBuyEquity] = useState(0)
+    const [rentCost, setRentCost] = useState(0)
+    const [buyCost, setBuyCost] = useState(0)
+    const [propertyTaxes, setPropertyTaxes] = useState(0)
+    const [closingCosts, setClosingCosts] = useState(0)
+    const [pmi, setPmi] = useState(0)
+    const [homeownersInsurance, setHomeownersInsurance] = useState(0)
+    const [hoaDues, setHoaDues] = useState(0)
+    const [homeMaintenance, setHomeMaintenance] = useState(0)
+    // Format currency
+    const formatCurrency = (value: string): string => {
+        const numbers = value.replace(/[^\d]/g, '')
+        if (!numbers) return ''
+        return parseInt(numbers).toLocaleString()
     }
-    // State for form data
-    const [formData, setFormData] = useState<FormData>(defaultFormData)
-    // State for calculation results
-    const [result, setResult] = useState<CalculationResult | null>(null)
-    // State for UI
-    const [isAdvancedOpen, setIsAdvancedOpen] = useState(false)
-    const [selectedTab, setSelectedTab] = useState<CostTab>('Monthly')
-    const [isCalculated, setIsCalculated] = useState(false)
-    const [isFormValid, setIsFormValid] = useState(false)
-    // Ref for results section (for accessibility)
-    const resultsRef = useRef<HTMLDivElement>(null)
-    // Helper function to format currency
-    const formatCurrency = (value: number): string => {
-        return new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0,
-        }).format(value)
-    }
-    // Helper function to parse currency input
+    // Parse currency
     const parseCurrency = (value: string): number => {
-        return parseFloat(value.replace(/[^0-9.-]+/g, '')) || 0
+        return parseInt(value.replace(/[^\d]/g, '') || '0')
     }
-    // Helper function to format percentage
-    const formatPercent = (value: number): string => {
-        return value.toFixed(2)
+    // Calculate monthly mortgage payment (Principal + Interest only)
+    const calculateMonthlyPayment = (
+        principal: number,
+        annualRate: number,
+        years: number = 30,
+    ): number => {
+        const monthlyRate = annualRate / 100 / 12
+        const numberOfPayments = years * 12
+        if (monthlyRate === 0) return principal / numberOfPayments
+        const payment =
+            (principal * monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) /
+            (Math.pow(1 + monthlyRate, numberOfPayments) - 1)
+        return payment
     }
-    // Validate form data
+    // Calculate remaining balance after N payments
+    const calculateRemainingBalance = (
+        principal: number,
+        annualRate: number,
+        monthlyPayment: number,
+        paymentsMade: number,
+    ): number => {
+        const monthlyRate = annualRate / 100 / 12
+        if (monthlyRate === 0) {
+            return principal - monthlyPayment * paymentsMade
+        }
+        const remainingBalance =
+            principal * Math.pow(1 + monthlyRate, paymentsMade) -
+            monthlyPayment *
+            ((Math.pow(1 + monthlyRate, paymentsMade) - 1) / monthlyRate)
+        return Math.max(0, remainingBalance)
+    }
+    // Calculate all costs and equity
+    const calculateComparison = () => {
+        const price = parseCurrency(purchasePrice)
+        const rent = parseCurrency(monthlyRent)
+        const rate = parseFloat(interestRate)
+        // Validation
+        if (!price || !rent || !rate) {
+            alert('Please fill in all required fields')
+            return
+        }
+        // Calculate down payment
+        let downPaymentAmount = 0
+        if (downPaymentType === '$') {
+            downPaymentAmount = parseCurrency(downPayment)
+        } else {
+            const percentage = parseFloat(downPayment) / 100
+            downPaymentAmount = price * percentage
+        }
+        // Validate down payment
+        if (downPaymentAmount > price) {
+            alert('Down payment cannot exceed purchase price')
+            return
+        }
+        const loanAmount = price - downPaymentAmount
+        const downPaymentPercent = (downPaymentAmount / price) * 100
+        // Calculate estimated costs
+        const annualPropertyTax = price * 0.0115 // 1.15% annually
+        const annualInsurance = price * 0.003 // 0.3% annually
+        const annualMaintenance = price * 0.01 // 1% annually
+        const annualHOA = 1200 // Fixed $100/month
+        const estimatedClosingCosts = price * 0.04 // 4% of purchase price
+        // PMI if down payment < 20%
+        const annualPMI = downPaymentPercent < 20 ? loanAmount * 0.005 : 0 // 0.5% annually
+        // Get rate adjustment based on credit score
+        const scoreData = creditScoreRanges.find((s) => s.value === creditScore)
+        const adjustedRate = rate + (scoreData?.rateAdjustment || 0) * 100
+        // Calculate monthly mortgage payment (P&I only)
+        const monthlyPI = calculateMonthlyPayment(loanAmount, adjustedRate)
+        // Calculate total monthly housing payment
+        const monthlyPropertyTax = annualPropertyTax / 12
+        const monthlyInsurance = annualInsurance / 12
+        const monthlyMaintenance = annualMaintenance / 12
+        const monthlyHOA = annualHOA / 12
+        const monthlyPMI = annualPMI / 12
+        const totalMonthlyPayment =
+            monthlyPI +
+            monthlyPropertyTax +
+            monthlyInsurance +
+            monthlyMaintenance +
+            monthlyHOA +
+            monthlyPMI
+        // Calculate costs over the selected time period
+        const months = years * 12
+        // Calculate equity buildup (principal paid + appreciation - closing costs)
+        const remainingBalance = calculateRemainingBalance(
+            loanAmount,
+            adjustedRate,
+            monthlyPI,
+            months,
+        )
+        const principalPaid = loanAmount - remainingBalance
+        const homeAppreciation = price * Math.pow(1.03, years) - price // 3% annual appreciation
+        const totalEquity =
+            downPaymentAmount +
+            principalPaid +
+            homeAppreciation -
+            estimatedClosingCosts
+        // Calculate rent with 3% annual increase
+        let totalRentPaid = 0
+        let currentMonthlyRent = rent
+        for (let year = 0; year < years; year++) {
+            totalRentPaid += currentMonthlyRent * 12
+            currentMonthlyRent *= 1.03 // 3% annual increase
+        }
+        // Calculate total buy costs
+        const totalBuyCosts = totalMonthlyPayment * months + estimatedClosingCosts
+        // Net cost of buying (total costs - equity gained)
+        const netBuyCost = totalBuyCosts - totalEquity
+        // Set state
+        setBuyEquity(totalEquity)
+        setRentCost(totalRentPaid)
+        setBuyCost(netBuyCost)
+        setPropertyTaxes(annualPropertyTax)
+        setClosingCosts(estimatedClosingCosts)
+        setPmi(annualPMI)
+        setHomeownersInsurance(annualInsurance)
+        setHoaDues(annualHOA)
+        setHomeMaintenance(annualMaintenance)
+        setHasCalculated(true)
+    }
+    // Reset calculation when inputs change
     useEffect(() => {
-        const { price, downAmt, creditTier, rateAnnual, rentMonthly } = formData
-        const isValid =
-            price > 0 &&
-            downAmt >= 0 &&
-            downAmt <= price &&
-            creditTier !== undefined &&
-            rateAnnual >= 0 &&
-            rateAnnual <= 20 &&
-            rentMonthly > 0
-        setIsFormValid(isValid)
-    }, [formData])
-    // Sync down payment amount and percentage
+        if (hasCalculated) {
+            setHasCalculated(false)
+        }
+    }, [
+        purchasePrice,
+        downPayment,
+        downPaymentType,
+        creditScore,
+        interestRate,
+        monthlyRent,
+    ])
+    // Recalculate when years change (if already calculated)
     useEffect(() => {
-        if (formData.downIsPct) {
-            // Update amount based on percentage
-            const newDownAmt = (formData.downPct / 100) * formData.price
-            if (Math.abs(newDownAmt - formData.downAmt) > 1) {
-                // Avoid infinite loop from rounding
-                setFormData((prev) => ({
-                    ...prev,
-                    downAmt: newDownAmt,
-                }))
-            }
-        } else {
-            // Update percentage based on amount
-            const newDownPct =
-                formData.price > 0 ? (formData.downAmt / formData.price) * 100 : 0
-            if (Math.abs(newDownPct - formData.downPct) > 0.1) {
-                // Avoid infinite loop from rounding
-                setFormData((prev) => ({
-                    ...prev,
-                    downPct: newDownPct,
-                }))
-            }
+        if (hasCalculated) {
+            calculateComparison()
         }
-    }, [formData.price, formData.downAmt, formData.downPct, formData.downIsPct])
-    // Handle input changes
-    const handleInputChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-    ) => {
-        const { name, value } = e.target
-        if (name === 'price' || name === 'downAmt' || name === 'rentMonthly') {
-            // Parse currency inputs
-            setFormData((prev) => ({
-                ...prev,
-                [name]: parseCurrency(value),
-            }))
-        } else if (
-            name === 'downPct' ||
-            name === 'rateAnnual' ||
-            name === 'taxRatePct' ||
-            name === 'maintPct' ||
-            name === 'closingCostPct' ||
-            name === 'apprecPct' ||
-            name === 'rentGrowthPct'
-        ) {
-            // Parse percentage inputs
-            const numValue = parseFloat(value)
-            const clampedValue =
-                name === 'rateAnnual'
-                    ? Math.min(Math.max(numValue, 0), 20)
-                    : Math.min(Math.max(numValue, 0), 100)
-            setFormData((prev) => ({
-                ...prev,
-                [name]: clampedValue,
-            }))
-        } else if (name === 'years') {
-            // Parse year input
-            const numValue = parseInt(value)
-            const clampedValue = Math.min(Math.max(numValue, 0), 30)
-            setFormData((prev) => ({
-                ...prev,
-                [name]: clampedValue,
-            }))
-        } else if (name === 'insAnnual' || name === 'hoaMonthly') {
-            // Parse number inputs
-            const numValue = parseCurrency(value)
-            setFormData((prev) => ({
-                ...prev,
-                [name]: Math.max(numValue, 0),
-            }))
-        } else {
-            // Handle other inputs
-            setFormData((prev) => ({
-                ...prev,
-                [name]: value,
-            }))
+    }, [years])
+    // Calculate display values based on view type
+    const getDisplayValues = () => {
+        const monthsInPeriod = years * 12
+        switch (viewType) {
+            case 'monthly':
+                return {
+                    rent: Math.round(rentCost / monthsInPeriod),
+                    buy: Math.round(buyCost / monthsInPeriod),
+                    difference: Math.round((rentCost - buyCost) / monthsInPeriod),
+                }
+            case 'annual':
+                return {
+                    rent: Math.round(rentCost / years),
+                    buy: Math.round(buyCost / years),
+                    difference: Math.round((rentCost - buyCost) / years),
+                }
+            case 'total':
+                return {
+                    rent: Math.round(rentCost),
+                    buy: Math.round(buyCost),
+                    difference: Math.round(rentCost - buyCost),
+                }
         }
     }
-    // Handle down payment type toggle
-    const handleDownTypeToggle = (isPct: boolean) => {
-        setFormData((prev) => ({
-            ...prev,
-            downIsPct: isPct,
-        }))
-    }
-    // Handle year slider change
-    const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const years = parseInt(e.target.value)
-        setFormData((prev) => ({
-            ...prev,
-            years,
-        }))
-    }
-    // Calculate mortgage and related costs
-    const calculateResults = (): CalculationResult => {
-        const {
-            price,
-            downAmt,
-            creditTier,
-            rateAnnual,
-            rentMonthly,
-            years,
-            taxRatePct,
-            insAnnual,
-            hoaMonthly,
-            maintPct,
-            closingCostPct,
-            apprecPct,
-            rentGrowthPct,
-        } = formData
-        // Calculate loan amount and LTV
-        const loan = Math.max(price - downAmt, 0)
-        const ltv = price > 0 ? loan / price : 0
-        // Calculate monthly mortgage payment (P&I)
-        const r = rateAnnual / 100 / 12
-        const n = 30 * 12 // 30-year fixed
-        let pi = 0
-        if (r === 0) {
-            pi = loan / n
-        } else {
-            pi = (loan * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1)
-        }
-        // Calculate recurring monthly owner costs
-        const taxMonthly = ((taxRatePct / 100) * price) / 12
-        const insMonthly = insAnnual / 12
-        const maintMonthly = ((maintPct / 100) * price) / 12
-        // Calculate PMI if LTV > 80%
-        const pmiRate = PMI_RATES[creditTier]
-        const pmiMonthly = ltv > 0.8 ? ((pmiRate / 100) * loan) / 12 : 0
-        // Calculate total monthly costs
-        const ownerMonthly =
-            pi + taxMonthly + insMonthly + hoaMonthly + pmiMonthly + maintMonthly
-        const renterMonthly = rentMonthly
-        // Calculate future home value
-        const futureValue = price * Math.pow(1 + apprecPct / 100, years)
-        // Calculate loan balance after N years
-        let balance = loan
-        for (let i = 0; i < years * 12; i++) {
-            const interest = balance * r
-            const principal = pi - interest
-            balance = Math.max(balance - principal, 0)
-        }
-        // Calculate equity after N years
-        const equity = Math.max(futureValue - balance, 0)
-        // Calculate closing costs
-        const closingCosts = (closingCostPct / 100) * loan
-        // Calculate total costs over N years
-        // For rent, we use a simplified formula for average rent growth
-        const rentGrowthFactor = Math.pow(1 + rentGrowthPct / 100, years / 2)
-        const rentTotal = rentMonthly * 12 * years * rentGrowthFactor
-        // For buy, we calculate the gross outlay and net cost
-        const buyTotalGross = ownerMonthly * 12 * years + closingCosts
-        const buyTotalNet = Math.max(buyTotalGross - equity, 0)
-        return {
-            loan,
-            ltv,
-            pmiMonthly,
-            pi,
-            taxMonthly,
-            insMonthly,
-            maintMonthly,
-            ownerMonthly,
-            renterMonthly,
-            futureValue,
-            equity,
-            balance,
-            closingCosts,
-            buyTotalGross,
-            buyTotalNet,
-            rentTotal,
-        }
-    }
-    // Handle calculate button click
-    const handleCalculate = () => {
-        const calculationResult = calculateResults()
-        setResult(calculationResult)
-        setIsCalculated(true)
-        // Scroll to results for accessibility
-        if (resultsRef.current) {
-            resultsRef.current.scrollIntoView({
-                behavior: 'smooth',
-            })
-        }
-    }
-    // Get cost values based on selected tab
-    const getCostValues = () => {
-        if (!result)
-            return {
-                rent: 0,
-                buy: 0,
-                difference: 0,
-            }
-        let rent = 0
-        let buy = 0
-        switch (selectedTab) {
-            case 'Monthly':
-                rent = result.renterMonthly
-                buy = result.ownerMonthly
-                break
-            case 'Annual':
-                rent = result.renterMonthly * 12
-                buy = result.ownerMonthly * 12
-                break
-            case 'Total cost':
-                rent = result.rentTotal
-                buy = result.buyTotalNet
-                break
-        }
-        const difference = Math.abs(rent - buy)
-        return {
-            rent,
-            buy,
-            difference,
-        }
-    }
-    // Get bar chart values for equity visualization
-    const getBarChartValues = () => {
-        if (!result)
-            return {
-                rentEquity: 0,
-                buyEquity: 0,
-                maxEquity: 100000,
-            }
-        const rentEquity = 0 // Rent always has zero equity
-        const buyEquity = result.equity
-        const maxEquity = Math.max(buyEquity, 100000) // Ensure minimum scale
-        return {
-            rentEquity,
-            buyEquity,
-            maxEquity,
-        }
-    }
+    const displayValues = getDisplayValues()
     return (
-        <div className="max-w-[1200px] mx-auto p-6 md:p-10 grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Left column - Input form */}
-            <div className="rounded-3xl border border-slate-200 bg-white p-6 md:p-8">
-                <h1 className="text-3xl md:text-4xl font-semibold tracking-tight mb-6">
-                    Rent vs. Buy Calculator
-                </h1>
-                {/* Purchase price input */}
-                <div className="mb-6">
-                    <label
-                        htmlFor="price"
-                        className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                        Purchase price
-                    </label>
-                    <div className="relative">
-                        <span className="absolute inset-y-0 left-3 flex items-center text-gray-500">
-                            $
-                        </span>
-                        <input
-                            type="text"
-                            id="price"
-                            name="price"
-                            value={
-                                formData.price === 0 ? '' : formData.price.toLocaleString()
-                            }
-                            onChange={handleInputChange}
-                            className="w-full h-12 pl-8 pr-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black/70"
-                            aria-describedby="price-desc"
-                        />
-                    </div>
-                    <div id="price-desc" className="sr-only">
-                        Enter the home purchase price
-                    </div>
-                </div>
-                {/* Down payment input */}
-                <div className="mb-6">
-                    <label
-                        htmlFor="downAmt"
-                        className="flex items-center gap-1 text-sm font-medium text-gray-700 mb-1"
-                    >
-                        Down payment
-                        <button
-                            type="button"
-                            aria-label="Down payment information"
-                            className="text-gray-400 hover:text-gray-600"
-                        >
-                            <InfoIcon size={16} />
-                        </button>
-                    </label>
-                    <div className="relative">
-                        <span className="absolute inset-y-0 left-3 flex items-center text-gray-500">
-                            $
-                        </span>
-                        <input
-                            type="text"
-                            id="downAmt"
-                            name={formData.downIsPct ? 'downPct' : 'downAmt'}
-                            value={
-                                formData.downIsPct
-                                    ? formatPercent(formData.downPct)
-                                    : formData.downAmt === 0
-                                        ? ''
-                                        : formData.downAmt.toLocaleString()
-                            }
-                            onChange={handleInputChange}
-                            className="w-full h-12 pl-8 pr-24 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black/70"
-                            aria-describedby="down-amt-desc"
-                        />
-                        <div className="absolute inset-y-0 right-2 flex items-center">
-                            <div className="flex rounded-full bg-gray-200 p-1">
-                                <button
-                                    type="button"
-                                    className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${!formData.downIsPct ? 'bg-indigo-600 text-white' : 'text-gray-700'}`}
-                                    onClick={() => handleDownTypeToggle(false)}
-                                    aria-pressed={!formData.downIsPct}
-                                >
+        <div data-id={dataId} className="w-full bg-white min-h-screen">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    {/* Calculator Form */}
+                    <div className="bg-gray-50 rounded-3xl p-8">
+                        <h1 className="text-3xl sm:text-4xl font-bold mb-8">
+                            Rent vs. buy
+                            <br />
+                            calculator
+                        </h1>
+                        {/* Purchase Price */}
+                        <div className="mb-6">
+                            <label className="flex items-center gap-2 text-sm font-semibold mb-2">
+                                Purchase price
+                            </label>
+                            <div className="relative">
+                                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
                                     $
+                                </span>
+                                <input
+                                    type="text"
+                                    value={formatCurrency(purchasePrice)}
+                                    onChange={(e) =>
+                                        setPurchasePrice(e.target.value.replace(/[^\d]/g, ''))
+                                    }
+                                    className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                                />
+                            </div>
+                        </div>
+                        {/* Down Payment */}
+                        <div className="mb-6">
+                            <label className="flex items-center gap-2 text-sm font-semibold mb-2">
+                                Down payment
+                                <button className="text-gray-400 hover:text-gray-600">
+                                    <Info className="w-4 h-4" />
+                                </button>
+                            </label>
+                            <div className="relative">
+                                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
+                                    {downPaymentType}
+                                </span>
+                                <input
+                                    type="text"
+                                    value={
+                                        downPaymentType === '$'
+                                            ? formatCurrency(downPayment)
+                                            : downPayment
+                                    }
+                                    onChange={(e) => {
+                                        const value = e.target.value.replace(/[^\d.]/g, '')
+                                        setDownPayment(value)
+                                    }}
+                                    className="w-full pl-8 pr-20 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                                />
+                                <div className="absolute right-2 top-1/2 -translate-y-1/2 flex gap-1 bg-gray-200 rounded-full p-1">
+                                    <button
+                                        onClick={() => {
+                                            setDownPaymentType('$')
+                                            if (downPaymentType === '%') {
+                                                const percentage = parseFloat(downPayment) / 100
+                                                const amount = parseCurrency(purchasePrice) * percentage
+                                                setDownPayment(Math.round(amount).toString())
+                                            }
+                                        }}
+                                        className={`px-3 py-1 rounded-full text-sm font-semibold transition-colors ${downPaymentType === '$' ? 'bg-gray-800 text-white' : 'text-gray-600 hover:text-black'}`}
+                                    >
+                                        $
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            setDownPaymentType('%')
+                                            if (downPaymentType === '$') {
+                                                const amount = parseCurrency(downPayment)
+                                                const price = parseCurrency(purchasePrice)
+                                                const percentage = (amount / price) * 100
+                                                setDownPayment(percentage.toFixed(2))
+                                            }
+                                        }}
+                                        className={`px-3 py-1 rounded-full text-sm font-semibold transition-colors ${downPaymentType === '%' ? 'bg-gray-800 text-white' : 'text-gray-600 hover:text-black'}`}
+                                    >
+                                        %
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        {/* Credit Score */}
+                        <div className="mb-6">
+                            <label className="block text-sm font-semibold mb-2">
+                                Credit Score
+                            </label>
+                            <select
+                                value={creditScore}
+                                onChange={(e) => setCreditScore(e.target.value)}
+                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black appearance-none bg-white"
+                            >
+                                {creditScoreRanges.map((range) => (
+                                    <option key={range.value} value={range.value}>
+                                        {range.label}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        {/* Interest Rate */}
+                        <div className="mb-6">
+                            <label className="flex items-center gap-2 text-sm font-semibold mb-2">
+                                Interest rate
+                                <sup className="text-xs">1</sup>
+                            </label>
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    value={interestRate}
+                                    onChange={(e) => {
+                                        const value = e.target.value.replace(/[^\d.]/g, '')
+                                        setInterestRate(value)
+                                    }}
+                                    className="w-full px-4 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                                />
+                                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">
+                                    %
+                                </span>
+                            </div>
+                        </div>
+                        {/* Monthly Rent */}
+                        <div className="mb-8">
+                            <label className="block text-sm font-semibold mb-2">
+                                Monthly rent
+                            </label>
+                            <div className="relative">
+                                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
+                                    $
+                                </span>
+                                <input
+                                    type="text"
+                                    value={formatCurrency(monthlyRent)}
+                                    onChange={(e) =>
+                                        setMonthlyRent(e.target.value.replace(/[^\d]/g, ''))
+                                    }
+                                    className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                                />
+                            </div>
+                        </div>
+                        {/* Calculate Button */}
+                        <button
+                            onClick={calculateComparison}
+                            className="w-full bg-black text-white py-4 rounded-full font-semibold hover:bg-gray-800 transition-colors mb-4"
+                        >
+                            Calculate
+                        </button>
+                        {/* Footer Links */}
+                        <div className="text-center text-xs text-gray-600">
+                            <span className="text-red-600">Rocket Mortgage</span> •{' '}
+                            <a href="#" className="underline hover:text-black">
+                                Legal disclosures
+                            </a>
+                        </div>
+                    </div>
+                    {/* Results Panel */}
+                    <div className="space-y-6">
+                        {/* Equity Chart */}
+                        <div className="bg-gray-50 rounded-3xl p-8">
+                            <h2 className="text-xl font-bold mb-6">
+                                Your home equity after {years} {years === 1 ? 'year' : 'years'}
+                            </h2>
+                            <div className="space-y-4 mb-6">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-sm text-gray-600">
+                                        Buy<sup className="text-xs">2</sup>
+                                    </span>
+                                    <span className="text-lg font-bold">
+                                        ${Math.round(buyEquity / 1000)}k
+                                    </span>
+                                </div>
+                                <div className="h-16 bg-gray-200 rounded-lg overflow-hidden">
+                                    <div
+                                        className="h-full bg-gray-800 rounded-lg transition-all duration-500"
+                                        style={{
+                                            width: hasCalculated ? '100%' : '0%',
+                                        }}
+                                    />
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <span className="text-sm text-gray-600">Rent</span>
+                                    <span className="text-lg font-bold">$0</span>
+                                </div>
+                                <div className="h-16 bg-gray-200 rounded-lg" />
+                            </div>
+                            {/* Years Slider */}
+                            <div className="mb-2">
+                                <input
+                                    type="range"
+                                    min="1"
+                                    max="30"
+                                    value={years}
+                                    onChange={(e) => setYears(parseInt(e.target.value))}
+                                    className="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                                />
+                            </div>
+                            <div className="flex justify-between text-xs text-gray-500">
+                                <span>0</span>
+                                <span>5</span>
+                                <span>10</span>
+                                <span>15</span>
+                                <span>20</span>
+                                <span>25</span>
+                                <span>30</span>
+                            </div>
+                        </div>
+                        {/* Cost Breakdown */}
+                        <div className="bg-gray-50 rounded-3xl p-8">
+                            <h2 className="text-xl font-bold mb-6">
+                                Your cost breakdown after {years}{' '}
+                                {years === 1 ? 'year' : 'years'}
+                            </h2>
+                            {/* View Type Toggles */}
+                            <div className="flex gap-2 mb-6">
+                                <button
+                                    onClick={() => setViewType('monthly')}
+                                    className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${viewType === 'monthly' ? 'bg-gray-800 text-white' : 'bg-white text-gray-600 hover:text-black'}`}
+                                >
+                                    Monthly
                                 </button>
                                 <button
-                                    type="button"
-                                    className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${formData.downIsPct ? 'bg-indigo-600 text-white' : 'text-gray-700'}`}
-                                    onClick={() => handleDownTypeToggle(true)}
-                                    aria-pressed={formData.downIsPct}
+                                    onClick={() => setViewType('annual')}
+                                    className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${viewType === 'annual' ? 'bg-gray-800 text-white' : 'bg-white text-gray-600 hover:text-black'}`}
                                 >
-                                    %
+                                    Annual
+                                </button>
+                                <button
+                                    onClick={() => setViewType('total')}
+                                    className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${viewType === 'total' ? 'bg-gray-800 text-white' : 'bg-white text-gray-600 hover:text-black'}`}
+                                >
+                                    Total cost<sup className="text-xs">3</sup>
                                 </button>
                             </div>
-                        </div>
-                    </div>
-                    <div id="down-amt-desc" className="sr-only">
-                        Enter the down payment amount
-                    </div>
-                </div>
-                {/* Credit score select */}
-                <div className="mb-6">
-                    <label
-                        htmlFor="creditTier"
-                        className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                        Credit score
-                    </label>
-                    <div className="relative">
-                        <select
-                            id="creditTier"
-                            name="creditTier"
-                            value={formData.creditTier}
-                            onChange={handleInputChange}
-                            className="w-full h-12 px-4 rounded-xl border border-gray-300 appearance-none focus:outline-none focus:ring-2 focus:ring-black/70"
-                            aria-describedby="credit-tier-desc"
-                        >
-                            <option value="760+">760 or above</option>
-                            <option value="720–759">720–759</option>
-                            <option value="680–719">680–719</option>
-                            <option value="640–679">640–679</option>
-                            <option value="≤639">≤639</option>
-                        </select>
-                        <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                            <ChevronDownIcon size={20} className="text-gray-500" />
-                        </div>
-                    </div>
-                    <div id="credit-tier-desc" className="sr-only">
-                        Select your credit score range
-                    </div>
-                </div>
-                {/* Interest rate input */}
-                <div className="mb-6">
-                    <label
-                        htmlFor="rateAnnual"
-                        className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                        Interest rate
-                    </label>
-                    <div className="relative">
-                        <input
-                            type="text"
-                            id="rateAnnual"
-                            name="rateAnnual"
-                            value={formatPercent(formData.rateAnnual)}
-                            onChange={handleInputChange}
-                            className="w-full h-12 px-4 pr-8 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black/70"
-                            aria-describedby="rate-desc"
-                        />
-                        <span className="absolute inset-y-0 right-3 flex items-center text-gray-500">
-                            %
-                        </span>
-                    </div>
-                    <div id="rate-desc" className="sr-only">
-                        Enter the annual interest rate
-                    </div>
-                </div>
-                {/* Monthly rent input */}
-                <div className="mb-8">
-                    <label
-                        htmlFor="rentMonthly"
-                        className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                        Monthly rent
-                    </label>
-                    <div className="relative">
-                        <span className="absolute inset-y-0 left-3 flex items-center text-gray-500">
-                            $
-                        </span>
-                        <input
-                            type="text"
-                            id="rentMonthly"
-                            name="rentMonthly"
-                            value={
-                                formData.rentMonthly === 0
-                                    ? ''
-                                    : formData.rentMonthly.toLocaleString()
-                            }
-                            onChange={handleInputChange}
-                            className="w-full h-12 pl-8 pr-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black/70"
-                            aria-describedby="rent-desc"
-                        />
-                    </div>
-                    <div id="rent-desc" className="sr-only">
-                        Enter your current or comparable monthly rent
-                    </div>
-                </div>
-                {/* Calculate button */}
-                <button
-                    type="button"
-                    onClick={handleCalculate}
-                    disabled={!isFormValid}
-                    className={`w-full h-12 rounded-full font-medium text-white transition-colors ${isFormValid ? 'bg-black hover:bg-gray-800' : 'bg-gray-300 cursor-not-allowed'}`}
-                >
-                    Calculate
-                </button>
-                {/* Advanced settings accordion */}
-                <div className="mt-6">
-                    <button
-                        type="button"
-                        onClick={() => setIsAdvancedOpen(!isAdvancedOpen)}
-                        className="flex items-center gap-1 text-sm text-gray-600 hover:text-gray-800"
-                        aria-expanded={isAdvancedOpen}
-                    >
-                        <SettingsIcon size={16} />
-                        <span>Advanced</span>
-                        {isAdvancedOpen ? (
-                            <ChevronUpIcon size={16} />
-                        ) : (
-                            <ChevronDownIcon size={16} />
-                        )}
-                    </button>
-                    {isAdvancedOpen && (
-                        <div className="mt-4 pt-4 border-t border-gray-200 grid gap-4">
-                            {/* Property tax rate */}
-                            <div>
-                                <label
-                                    htmlFor="taxRatePct"
-                                    className="block text-sm font-medium text-gray-700 mb-1"
-                                >
-                                    Property tax rate (%)
-                                </label>
-                                <div className="relative">
-                                    <input
-                                        type="text"
-                                        id="taxRatePct"
-                                        name="taxRatePct"
-                                        value={formatPercent(formData.taxRatePct)}
-                                        onChange={handleInputChange}
-                                        className="w-full h-10 px-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-black/70"
-                                    />
-                                    <span className="absolute inset-y-0 right-3 flex items-center text-gray-500">
-                                        %
+                            {/* Cost Comparison */}
+                            <div className="space-y-4 mb-6">
+                                <div className="flex justify-between items-center">
+                                    <span className="font-semibold">Rent</span>
+                                    <span className="text-lg font-bold">
+                                        ${displayValues.rent.toLocaleString()}
+                                    </span>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <span className="font-semibold">
+                                        Buy<sup className="text-xs">2</sup>
+                                    </span>
+                                    <span className="text-lg font-bold">
+                                        ${displayValues.buy.toLocaleString()}
+                                    </span>
+                                </div>
+                                <div className="flex justify-between items-center pt-4 border-t">
+                                    <span className="font-bold">Difference</span>
+                                    <span
+                                        className={`text-lg font-bold ${displayValues.difference > 0 ? 'text-green-600' : 'text-red-600'}`}
+                                    >
+                                        ${Math.abs(displayValues.difference).toLocaleString()}
                                     </span>
                                 </div>
                             </div>
-                            {/* Annual insurance */}
-                            <div>
-                                <label
-                                    htmlFor="insAnnual"
-                                    className="block text-sm font-medium text-gray-700 mb-1"
-                                >
-                                    Annual homeowners insurance ($)
-                                </label>
-                                <div className="relative">
-                                    <span className="absolute inset-y-0 left-3 flex items-center text-gray-500">
-                                        $
-                                    </span>
-                                    <input
-                                        type="text"
-                                        id="insAnnual"
-                                        name="insAnnual"
-                                        value={
-                                            formData.insAnnual === 0
-                                                ? ''
-                                                : formData.insAnnual.toLocaleString()
-                                        }
-                                        onChange={handleInputChange}
-                                        className="w-full h-10 pl-8 px-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-black/70"
-                                    />
-                                </div>
-                            </div>
-                            {/* Monthly HOA */}
-                            <div>
-                                <label
-                                    htmlFor="hoaMonthly"
-                                    className="block text-sm font-medium text-gray-700 mb-1"
-                                >
-                                    Monthly HOA dues ($)
-                                </label>
-                                <div className="relative">
-                                    <span className="absolute inset-y-0 left-3 flex items-center text-gray-500">
-                                        $
-                                    </span>
-                                    <input
-                                        type="text"
-                                        id="hoaMonthly"
-                                        name="hoaMonthly"
-                                        value={
-                                            formData.hoaMonthly === 0
-                                                ? ''
-                                                : formData.hoaMonthly.toLocaleString()
-                                        }
-                                        onChange={handleInputChange}
-                                        className="w-full h-10 pl-8 px-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-black/70"
-                                    />
-                                </div>
-                            </div>
-                            {/* Maintenance percentage */}
-                            <div>
-                                <label
-                                    htmlFor="maintPct"
-                                    className="block text-sm font-medium text-gray-700 mb-1"
-                                >
-                                    Annual maintenance (% of home price)
-                                </label>
-                                <div className="relative">
-                                    <input
-                                        type="text"
-                                        id="maintPct"
-                                        name="maintPct"
-                                        value={formatPercent(formData.maintPct)}
-                                        onChange={handleInputChange}
-                                        className="w-full h-10 px-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-black/70"
-                                    />
-                                    <span className="absolute inset-y-0 right-3 flex items-center text-gray-500">
-                                        %
-                                    </span>
-                                </div>
-                            </div>
-                            {/* Closing cost percentage */}
-                            <div>
-                                <label
-                                    htmlFor="closingCostPct"
-                                    className="block text-sm font-medium text-gray-700 mb-1"
-                                >
-                                    Closing costs (% of loan)
-                                </label>
-                                <div className="relative">
-                                    <input
-                                        type="text"
-                                        id="closingCostPct"
-                                        name="closingCostPct"
-                                        value={formatPercent(formData.closingCostPct)}
-                                        onChange={handleInputChange}
-                                        className="w-full h-10 px-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-black/70"
-                                    />
-                                    <span className="absolute inset-y-0 right-3 flex items-center text-gray-500">
-                                        %
-                                    </span>
-                                </div>
-                            </div>
-                            {/* Home appreciation rate */}
-                            <div>
-                                <label
-                                    htmlFor="apprecPct"
-                                    className="block text-sm font-medium text-gray-700 mb-1"
-                                >
-                                    Annual home appreciation (%)
-                                </label>
-                                <div className="relative">
-                                    <input
-                                        type="text"
-                                        id="apprecPct"
-                                        name="apprecPct"
-                                        value={formatPercent(formData.apprecPct)}
-                                        onChange={handleInputChange}
-                                        className="w-full h-10 px-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-black/70"
-                                    />
-                                    <span className="absolute inset-y-0 right-3 flex items-center text-gray-500">
-                                        %
-                                    </span>
-                                </div>
-                            </div>
-                            {/* Rent growth rate */}
-                            <div>
-                                <label
-                                    htmlFor="rentGrowthPct"
-                                    className="block text-sm font-medium text-gray-700 mb-1"
-                                >
-                                    Annual rent growth (%)
-                                </label>
-                                <div className="relative">
-                                    <input
-                                        type="text"
-                                        id="rentGrowthPct"
-                                        name="rentGrowthPct"
-                                        value={formatPercent(formData.rentGrowthPct)}
-                                        onChange={handleInputChange}
-                                        className="w-full h-10 px-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-black/70"
-                                    />
-                                    <span className="absolute inset-y-0 right-3 flex items-center text-gray-500">
-                                        %
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </div>
-                {/* Footer */}
-                <div className="mt-6 text-xs text-center text-gray-500 flex items-center justify-center gap-2">
-                    <span className="text-red-600 font-medium">RateBeat</span>
-                    <span>•</span>
-                    <Link to="#" className="underline hover:text-gray-700">
-                        Legal disclosures
-                    </Link>
-                </div>
-            </div>
-            {/* Right column - Results */}
-            <div className="space-y-8">
-                {/* Results card */}
-                <div
-                    ref={resultsRef}
-                    className="rounded-3xl bg-gray-100 p-6 md:p-8"
-                    aria-live="polite"
-                >
-                    {/* Equity section */}
-                    <h2 className="text-lg font-medium text-gray-700 mb-4">
-                        Your home equity after {formData.years} years
-                    </h2>
-                    {/* Equity bar chart */}
-                    <div className="bg-gray-200 rounded-xl p-6 mb-6">
-                        {result && (
-                            <>
-                                <div className="flex justify-between mb-2">
-                                    <div>
-                                        <div className="text-sm text-gray-600">Rent</div>
-                                        <div className="font-semibold tabular-nums">$0</div>
-                                    </div>
-                                    <div className="text-right">
-                                        <div className="text-sm text-gray-600">
-                                            Buy<sup>2</sup>
-                                        </div>
-                                        <div className="font-semibold tabular-nums">
-                                            {formatCurrency(result.equity)}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="relative h-16 mt-4">
-                                    {/* Rent bar (always $0) */}
-                                    <div className="absolute left-0 bottom-0 h-1 w-full bg-indigo-100 rounded"></div>
-                                    {/* Buy bar */}
-                                    <div
-                                        className="absolute left-0 bottom-0 h-16 bg-indigo-900 rounded"
-                                        style={{
-                                            width: `${(result.equity / getBarChartValues().maxEquity) * 100}%`,
-                                            maxWidth: '100%',
-                                        }}
-                                    ></div>
-                                </div>
-                            </>
-                        )}
-                    </div>
-                    {/* Year slider */}
-                    <div className="mb-8">
-                        <input
-                            type="range"
-                            min="0"
-                            max="30"
-                            step="1"
-                            value={formData.years}
-                            onChange={handleYearChange}
-                            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                        />
-                        <div className="flex justify-between text-xs text-gray-500 mt-2">
-                            <span>0</span>
-                            <span>5</span>
-                            <span>10</span>
-                            <span>15</span>
-                            <span>20</span>
-                            <span>25</span>
-                            <span>30</span>
-                        </div>
-                    </div>
-                    {/* Cost breakdown */}
-                    <h2 className="text-lg font-medium text-gray-700 mb-4">
-                        Your cost breakdown after {formData.years} years
-                    </h2>
-                    {/* Cost tabs */}
-                    <div className="flex gap-2 mb-6">
-                        {(['Monthly', 'Annual', 'Total cost'] as CostTab[]).map((tab) => (
-                            <button
-                                key={tab}
-                                onClick={() => setSelectedTab(tab)}
-                                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${selectedTab === tab ? 'bg-indigo-900 text-white' : 'bg-white text-gray-700 hover:bg-gray-50'}`}
-                            >
-                                {tab}
+                            <button className="w-full border-2 border-black text-black px-6 py-3 rounded-full font-semibold hover:bg-black hover:text-white transition-colors">
+                                Apply now
                             </button>
-                        ))}
-                    </div>
-                    {/* Cost comparison table */}
-                    <div className="space-y-4">
-                        {result && (
-                            <>
-                                {/* Rent row */}
-                                <div className="flex justify-between items-center">
-                                    <div className="font-medium">Rent</div>
-                                    <div className="font-bold tabular-nums text-lg">
-                                        {formatCurrency(getCostValues().rent)}
-                                    </div>
-                                </div>
-                                {/* Buy row */}
-                                <div className="flex justify-between items-center">
-                                    <div className="font-medium">
-                                        Buy<sup>2</sup>
-                                    </div>
-                                    <div className="font-bold tabular-nums text-lg">
-                                        {formatCurrency(getCostValues().buy)}
-                                    </div>
-                                </div>
-                                {/* Difference row */}
-                                <div className="flex justify-between items-center pt-2 border-t border-gray-200">
-                                    <div className="font-medium">Difference</div>
-                                    <div className="font-bold tabular-nums text-lg">
-                                        {formatCurrency(getCostValues().difference)}
-                                    </div>
-                                </div>
-                            </>
-                        )}
-                    </div>
-                    {/* Apply button */}
-                    <div className="mt-8">
-                        <button
-                            type="button"
-                            className="inline-flex items-center px-6 py-2 rounded-full text-sm font-medium bg-white text-gray-800 hover:bg-gray-50 border border-gray-300"
-                        >
-                            Apply now
-                        </button>
+                        </div>
                     </div>
                 </div>
-                {/* Estimated costs card */}
-                <div className="rounded-3xl border border-slate-200 bg-white p-6 md:p-8">
-                    <h2 className="text-xl font-semibold mb-6">Estimated costs</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {/* Property taxes */}
-                        <div className="rounded-2xl border p-5 grid gap-1">
-                            <div className="text-gray-600 text-sm">Property taxes</div>
-                            <div className="text-xl font-semibold tabular-nums">
-                                {result
-                                    ? formatCurrency((formData.taxRatePct / 100) * formData.price)
-                                    : '$0'}
-                            </div>
+                {/* Estimated Costs Section */}
+                <div className="mt-16">
+                    <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12">
+                        Estimated costs
+                    </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="bg-gray-50 rounded-2xl p-8">
+                            <h3 className="text-lg font-bold mb-2">Property taxes</h3>
+                            <p className="text-3xl font-bold">
+                                ${Math.round(propertyTaxes).toLocaleString()}
+                            </p>
                         </div>
-                        {/* Closing costs */}
-                        <div className="rounded-2xl border p-5 grid gap-1">
-                            <div className="text-gray-600 text-sm">Closing costs</div>
-                            <div className="text-xl font-semibold tabular-nums">
-                                {result ? formatCurrency(result.closingCosts) : '$0'}
-                            </div>
+                        <div className="bg-gray-50 rounded-2xl p-8">
+                            <h3 className="text-lg font-bold mb-2">Closing costs</h3>
+                            <p className="text-3xl font-bold">
+                                ${Math.round(closingCosts).toLocaleString()}
+                            </p>
                         </div>
-                        {/* Private mortgage insurance */}
-                        <div className="rounded-2xl border p-5 grid gap-1">
-                            <div className="text-gray-600 text-sm">
+                        <div className="bg-gray-50 rounded-2xl p-8">
+                            <h3 className="text-lg font-bold mb-2">
                                 Private mortgage insurance
-                            </div>
-                            <div className="text-xl font-semibold tabular-nums">
-                                {result ? formatCurrency(result.pmiMonthly * 12) : '$0'}
-                            </div>
+                            </h3>
+                            <p className="text-3xl font-bold">
+                                ${Math.round(pmi).toLocaleString()}
+                            </p>
                         </div>
-                        {/* Homeowners insurance */}
-                        <div className="rounded-2xl border p-5 grid gap-1">
-                            <div className="text-gray-600 text-sm">Homeowners insurance</div>
-                            <div className="text-xl font-semibold tabular-nums">
-                                {formatCurrency(formData.insAnnual)}
-                            </div>
+                        <div className="bg-gray-50 rounded-2xl p-8">
+                            <h3 className="text-lg font-bold mb-2">Homeowners insurance</h3>
+                            <p className="text-3xl font-bold">
+                                ${Math.round(homeownersInsurance).toLocaleString()}
+                            </p>
                         </div>
-                        {/* HOA dues */}
-                        <div className="rounded-2xl border p-5 grid gap-1">
-                            <div className="text-gray-600 text-sm">
+                        <div className="bg-gray-50 rounded-2xl p-8">
+                            <h3 className="text-lg font-bold mb-2">
                                 Homeowners association dues
-                            </div>
-                            <div className="text-xl font-semibold tabular-nums">
-                                {formatCurrency(formData.hoaMonthly * 12)}
-                            </div>
+                            </h3>
+                            <p className="text-3xl font-bold">
+                                ${Math.round(hoaDues).toLocaleString()}
+                            </p>
                         </div>
-                        {/* Home maintenance */}
-                        <div className="rounded-2xl border p-5 grid gap-1">
-                            <div className="text-gray-600 text-sm">Home maintenance</div>
-                            <div className="text-xl font-semibold tabular-nums">
-                                {formatCurrency((formData.maintPct / 100) * formData.price)}
-                            </div>
+                        <div className="bg-gray-50 rounded-2xl p-8">
+                            <h3 className="text-lg font-bold mb-2">Home maintenance</h3>
+                            <p className="text-3xl font-bold">
+                                ${Math.round(homeMaintenance).toLocaleString()}
+                            </p>
                         </div>
                     </div>
+                </div>
+                {/* Disclaimer */}
+                <div className="mt-12 text-xs text-gray-500 max-w-4xl mx-auto">
+                    <p className="mb-2">
+                        <sup>1</sup> Interest rate is adjustable based on credit score.
+                    </p>
+                    <p className="mb-2">
+                        <sup>2</sup> Buy calculations include mortgage payment (principal +
+                        interest), property taxes, insurance, HOA dues, maintenance, and
+                        closing costs, minus equity gained through principal paydown and
+                        home appreciation.
+                    </p>
+                    <p className="mb-4">
+                        <sup>3</sup> Total cost represents the net cost over the selected
+                        time period.
+                    </p>
+                    <p>
+                        * This calculator provides estimates only. Actual costs will vary
+                        based on your specific situation, location, and market conditions.
+                        Assumptions include 3% annual home appreciation, 3% annual rent
+                        increase, 1.15% property tax rate, 0.3% insurance rate, 1%
+                        maintenance rate, and 30-year fixed mortgage. Lending services
+                        provided by Rocket Mortgage, LLC. NMLS #3030. Equal Housing Lender.
+                    </p>
                 </div>
             </div>
         </div>
     )
 }
-export default RentVsBuyCalculator

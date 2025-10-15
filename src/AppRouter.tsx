@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { App } from "./App";
 import { AccessDeniedPage } from "./components/AccessDeniedPage";
@@ -13,21 +14,48 @@ import { SettingsPage } from "./components/SettingsPage";
 import { TagsPage } from "./components/TagsPage";
 import { Login } from "./components/auth/Login";
 import { AuthProvider } from "./context/AuthContext";
+import { AdjustableRateMortgage } from "./pages/AdjustableRateMortgage";
 import { AllBlogsPage } from "./pages/AllBlogsPage";
+import { BridgeLoan } from "./pages/BridgeLoan";
+import { CashOutRefinance } from "./pages/CashOutRefinance";
 import { ConventionalLoansPage } from "./pages/ConventionalLoansPage";
+import DebtConsolidationPage from "./pages/DebtConsolidationPage";
+import EquityAndHomeValuePage from "./pages/EquityAndHomeValuePage";
+import { FHALoan } from "./pages/FHALoan";
+import { FHARefinanceRates } from "./pages/FHARefinanceRates";
+import { FedRateDropArticle } from "./pages/FedRateDropArticle";
+import { FederalFundsArticle } from "./pages/FederalFundsArticle";
 import { FifteenYearFixedPage } from "./pages/FifteenYearFixedPage";
+import { FirstTimeHomeBuyersPage } from "./pages/FirstTimeHomeBuyersPage";
 import { HelocPage } from "./pages/HelocPage";
+import { HomeBuyingPage } from "./pages/HomeBuyingPage";
+import { HomeEquityLoan } from "./pages/HomeEquityLoan";
 import { HomeLoansPage } from "./pages/HomeLoansPage";
+import { HomeReadyHomePossible } from "./pages/HomeReadyHomePossible";
+import HomeownershipPage from "./pages/HomeownershipPage";
 import { JumboLoansPage } from "./pages/JumboLoansPage";
+import { JumboRefinanceRates } from "./pages/JumboRefinanceRates";
+import { LearnPage } from "./pages/LearnPage";
+import { MortgageRateLockArticle } from "./pages/MortgageRateLockArticle";
+import { MortgageRateUpdates } from "./pages/MortgageRateUpdates";
+import MovingTipsPage from "./pages/MovingTipsPage";
 import { OneDayMortgagePage } from "./pages/OneDayMortgagePage";
+import { OnePlus } from "./pages/OnePlus";
+import PreparingToBuyPage from "./pages/PreparingToBuyPage";
 import { PurchaseGetStartedPage } from "./pages/PurchaseGetStartedPage";
-import { RefinancePage } from "./pages/RefinancePage";
 import RefinanceGetStartedPage from "./pages/RefinanceGetStartedPage";
+import { RefinancePage } from "./pages/RefinancePage";
+import { RefinanceRatesPage } from "./pages/RefinanceRatesPage";
+import RefinancingGuidePage from "./pages/RefinancingGuidePage";
+import RefinancingLearnPage from "./pages/RefinancingLearnPage";
 import { SingleBlogPage } from "./pages/SingleBlogPage";
 import { ThirtyYearFixedPage } from "./pages/ThirtyYearFixedPage";
+import { ThirtyYearRefinanceRates } from "./pages/ThirtyYearRefinanceRates";
+import TypesOfRefinancingPage from "./pages/TypesOfRefinancingPage";
 import { VALoansPage } from "./pages/VALoansPage";
 import { VAMilitaryHomebuyerPage } from "./pages/VAMilitaryHomebuyerPage";
 import VAMilitaryRefinancePage from "./pages/VAMilitaryRefinancePage";
+import { VARefinanceRates } from "./pages/VARefinanceRates";
 import { AdminPanel } from "./pages/admin/AdminPanel";
 import HomeAffordabilityCalculator from "./pages/calculators/AffordabilityCalculator";
 import AmortizationCalculator from "./pages/calculators/AmortizationCalculator";
@@ -35,34 +63,9 @@ import DownPaymentCalculator from "./pages/calculators/DownPaymentCalculator";
 import HomeEquityCalculator from "./pages/calculators/HomeEquityCalculator";
 import MortgageCalculator from "./pages/calculators/MortgageCalculator";
 import MortgagePayoffCalculator from "./pages/calculators/MortgagePayoffCalculator";
-import RefinanceLowerPayment from "./pages/calculators/RefinanceLowerPayment";
-import RentVsBuyCalculator from "./pages/calculators/RentVsBuyCalculator";
-import { useEffect, useState } from "react";
-import { AdjustableRateMortgage } from "./pages/AdjustableRateMortgage";
-import { BridgeLoan } from "./pages/BridgeLoan";
-import { CashOutRefinance } from "./pages/CashOutRefinance";
-import { FHALoan } from "./pages/FHALoan";
-import { HomeEquityLoan } from "./pages/HomeEquityLoan";
-import { HomeReadyHomePossible } from "./pages/HomeReadyHomePossible";
-import { OnePlus } from "./pages/OnePlus";
-import DebtConsolidationPage from "./pages/DebtConsolidationPage";
-import EquityAndHomeValuePage from "./pages/EquityAndHomeValuePage";
-import { FirstTimeHomeBuyersPage } from "./pages/FirstTimeHomeBuyersPage";
-import { HomeBuyingPage } from "./pages/HomeBuyingPage";
-import HomeownershipPage from "./pages/HomeownershipPage";
-import { LearnPage } from "./pages/LearnPage";
-import MovingTipsPage from "./pages/MovingTipsPage";
-import PreparingToBuyPage from "./pages/PreparingToBuyPage";
-import RefinancingGuidePage from "./pages/RefinancingGuidePage";
-import RefinancingLearnPage from "./pages/RefinancingLearnPage";
-import TypesOfRefinancingPage from "./pages/TypesOfRefinancingPage";
-import { MortgageRateUpdates } from "./pages/MortgageRateUpdates";
-import { FederalFundsArticle } from "./pages/FederalFundsArticle";
-import { FedRateDropArticle } from "./pages/FedRateDropArticle";
-import { MortgageRateLockArticle } from "./pages/MortgageRateLockArticle";
-import { RefinanceRatesPage } from "./pages/RefinanceRatesPage";
-import { ThirtyYearRefinanceRates } from "./pages/ThirtyYearRefinanceRates";
-import { FHARefinanceRates } from "./pages/FHARefinanceRates";
+
+import { RefinanceCalculator } from "./pages/calculators/RefinanceLowerPayment";
+import { RentVsBuyCalculator } from "./pages/calculators/RentVsBuyCalculator";
 
 
 export function AppRouter() {
@@ -90,14 +93,6 @@ export function AppRouter() {
 
           <Routes>
             <Route path="/" element={<App headerEventData={headerEventData} />}></Route>
-            <Route path="/affordability-calculator" element={<HomeAffordabilityCalculator />} />
-            <Route path="/mortgage-Calculator" element={<MortgageCalculator />} />
-            <Route path="/refinance-calculator" element={<RefinanceLowerPayment />} />
-            <Route path="/rent-vs-buy-calculator" element={<RentVsBuyCalculator />} />
-            <Route path="/amortization-calculator" element={<AmortizationCalculator />} />
-            <Route path="/home-equity-calculator" element={<HomeEquityCalculator />} />
-            <Route path="/mortgage-payoff-calculator" element={<MortgagePayoffCalculator />} />
-            <Route path="/down-payment-calculator" element={<DownPaymentCalculator />} />
             <Route path="/rate" element={<Buying />} />
             <Route path="/blog" element={<AllBlogsPage />} />
             <Route path="/blog/:slug" element={<SingleBlogPage />} />
@@ -126,9 +121,11 @@ export function AppRouter() {
             <Route path="/refinance/va-military-refinance" element={<VAMilitaryRefinancePage />} />
             <Route path="/home-loans" element={<HomeLoansPage />} />
 
+            {/* calculators */}
+
             <Route path="/affordability-calculator" element={<HomeAffordabilityCalculator />} />
             <Route path="/mortgage-Calculator" element={<MortgageCalculator />} />
-            <Route path="/refinance-calculator" element={<RefinanceLowerPayment />} />
+            <Route path="/refinance-calculator" element={<RefinanceCalculator />} />
             <Route path="/rent-vs-buy-calculator" element={<RentVsBuyCalculator />} />
             <Route path="/amortization-calculator" element={<AmortizationCalculator />} />
             <Route path="/home-equity-calculator" element={<HomeEquityCalculator />} />
@@ -157,6 +154,8 @@ export function AppRouter() {
             <Route path="/refinance-rates" element={<RefinanceRatesPage />} />
             <Route path="/refinance-rates/30-year-refinance-rates" element={<ThirtyYearRefinanceRates />} />
             <Route path="/refinance-rates/fha-refinance-rates" element={<FHARefinanceRates />} />
+            <Route path="/refinance-rates/va-refinance-rates" element={<VARefinanceRates />} />
+            <Route path="/refinance-rates/jumbo-refinance-rates" element={<JumboRefinanceRates />} />
 
             <Route path="/heloc" element={<HelocPage />} />
             <Route path="/one-day-mortgage" element={<OneDayMortgagePage />} />
