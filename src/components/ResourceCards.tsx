@@ -8,13 +8,13 @@ export const ResourceCards = () => {
       title: 'Home buying',
       description: 'Everything to know about buying a home',
       icon: Home,
-      bgColor: 'bg-red-700/80',
-      hoverColor: 'hover:bg-red-700',
-      textColor: 'text-white',
-      iconColor: 'text-white',
-      descriptionColor: 'text-white/80',
-      arrowBg: 'bg-white/20',
-      arrowColor: 'text-white/70',
+      bgColor: 'bg-gradient-to-r from-yellow-200 to-yellow-400',
+      hoverColor: 'bg-gradient-to-l from-yellow-500 to-red-400',
+      textColor: 'text-black',
+      iconColor: 'text-black',
+      descriptionColor: 'text-black/80',
+      arrowBg: 'bg-yellow-400',
+      arrowColor: 'text-black/70',
       shadow: 'shadow-xl',
     },
     {
@@ -70,7 +70,7 @@ export const ResourceCards = () => {
         </h2>
 
         {/* Full-width grid (no max-width limiter) with sane container padding */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {cardData.map((card) => {
             const Icon = card.icon;
             return (

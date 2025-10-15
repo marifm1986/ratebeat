@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import 'react-quill/dist/quill.snow.css';
+
 import {
     ArrowLeftIcon,
     ClockIcon,
@@ -242,9 +244,13 @@ export const PostPreview = ({ post, onClose }: PostPreviewProps) => {
                         <div className="text-gray-700 leading-relaxed">
                             {post.content.split('\n').map((paragraph: any, index: number) =>
                                 paragraph ? (
-                                    <p key={index} className="mb-4">
-                                        {paragraph}
-                                    </p>
+                                    // <p key={index} className="mb-4 ql-editor" dangerouslySetInnerHTML={{ __html: paragraph }} >
+
+                                    // </p>
+                                    <div className="ql-snow" key={index}>
+                                        <div className="ql-editor" dangerouslySetInnerHTML={{ __html: paragraph }} />
+                                    </div>
+
                                 ) : (
                                     <br key={index} />
                                 ),

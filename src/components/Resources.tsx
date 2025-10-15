@@ -1,5 +1,6 @@
 import React from 'react';
 import { BookOpenIcon, CalculatorIcon, FileTextIcon } from 'lucide-react';
+import { Link } from 'react-router-dom';
 export const Resources = () => {
   const resources = [{
     icon: <CalculatorIcon className="h-8 w-8 text-gray-700" />,
@@ -18,7 +19,7 @@ export const Resources = () => {
     link: '#'
   }];
   return <div className="bg-gray-100 py-16 md:py-24">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
+      <div className="container mx-auto px-6 sm:px-8 lg:px-10">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="text-3xl font-extrabold text-gray-800 sm:text-4xl">
             Resources & Tools
@@ -54,9 +55,9 @@ export const Resources = () => {
               </p>
             </div>
             <div className="mt-6 md:mt-0">
-              <a href="#" className="inline-flex items-center px-8 py-4 border border-gray-300 text-base font-medium rounded-xl shadow-sm text-gray-700 bg-white hover:bg-gray-50">
+              <Link to="#" className="inline-flex items-center px-8 py-4 border border-gray-300 text-base font-medium rounded-xl shadow-sm text-gray-700 bg-white hover:bg-gray-50">
                 Apply Now
-              </a>
+              </Link>
             </div>
           </div>
         </div>

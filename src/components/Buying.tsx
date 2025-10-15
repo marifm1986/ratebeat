@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Header } from '../components/Header'
 export function Buying() {
     const [currentStep, setCurrentStep] = useState(0)
     const [showHomeFoundQuestion, setShowHomeFoundQuestion] = useState(false)
@@ -617,7 +616,6 @@ export function Buying() {
         homeFoundStep < homeFoundSteps.length
     return (
         <div className="w-full h-full min-h-screen bg-white">
-            <Header />
             <iframe src="https://nmann-rates-site-8566-3cl5t4e2.itclix.com/" className='w-full h-[800px]'></iframe>
         </div>
     )

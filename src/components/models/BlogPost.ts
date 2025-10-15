@@ -22,7 +22,7 @@ export interface BlogPost {
     };
     publishedDate: string;
     readingTime: number;
-    tags: Tag
+    tags: Tag[]
     category: Category;
     isFeatured?: boolean;
     status: 'Published' | 'Draft',

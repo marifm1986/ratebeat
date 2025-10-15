@@ -1,5 +1,20 @@
 import { FacebookIcon, MailIcon, MapPinIcon, PhoneIcon } from 'lucide-react';
+import { useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+
 export const Footer = () => {
+
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      const el = document.querySelector(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [hash]);
+
   return <footer className="bg-gray-800 text-gray-300">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -9,91 +24,91 @@ export const Footer = () => {
             Ratebeat is an independent mortgage lender based in California and originates a range of mortgage products in California, New Jersey, Texas and Connecticut.
           </p>
           <div className="flex space-x-4">
-            <a href="https://www.facebook.com/RatebeatM/" target='_blank' className="text-gray-400 hover:text-white">
+            <Link to="https://www.facebook.com/RatebeatM/" target='_blank' className="text-gray-400 hover:text-white">
               <FacebookIcon className="h-5 w-5" />
-            </a>
-            <a href="https://twitter.com/ratebeatm" target='_blank' className="text-gray-400 hover:text-white">
+            </Link>
+            <Link to="https://twitter.com/ratebeatm" target='_blank' className="text-gray-400 hover:text-white">
               <svg width={18} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill='#fff' className='fill-gray-400 hover:fill-white'>
                 <path d="M357.2 48L427.8 48 273.6 224.2 455 464 313 464 201.7 318.6 74.5 464 3.8 464 168.7 275.5-5.2 48 140.4 48 240.9 180.9 357.2 48zM332.4 421.8l39.1 0-252.4-333.8-42 0 255.3 333.8z" /></svg>
-            </a>
-            {/* <a href="#" className="text-gray-400 hover:text-white">
+            </Link>
+            {/* <Link to="#" className="text-gray-400 hover:text-white">
               <InstagramIcon className="h-5 w-5" />
-            </a>
-            <a href="#" className="text-gray-400 hover:text-white">
+            </Link>
+            <Link to="#" className="text-gray-400 hover:text-white">
               <LinkedinIcon className="h-5 w-5" />
-            </a> */}
+            </Link> */}
           </div>
         </div>
         <div>
           <h3 className="text-lg font-semibold text-white mb-4">Products</h3>
           <ul className="space-y-2 flex flex-col gap-2">
             <li>
-              <a href="https://ratebeat.floify.com/apply-now" className="hover:text-white">
+              <Link to="https://ratebeat.floify.com/apply-now" className="hover:text-white">
                 Buy
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="https://nmann-refinance-site-8566-mRX46H3p.itclix.com" className="hover:text-white">
+              <Link to="https://nmann-refinance-site-8566-mRX46H3p.itclix.com" className="hover:text-white">
                 Refinance
-              </a>
+              </Link>
             </li>
-            {/*  <li>
-              <a href="#" className="hover:text-white">
+            <li>
+              <Link to="/refinance-cash-out" className="hover:text-white">
                 Cash-Out Refinance
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-white">
+              <Link to="/fha-loan" className="hover:text-white">
                 FHA Loans
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-white">
+              <Link to="/va-loans" className="hover:text-white">
                 VA Loans
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-white">
+              <Link to="#" className="hover:text-white">
                 USDA Loans
-              </a>
-            </li> */}
+              </Link>
+            </li>
           </ul>
         </div>
-        {/* <div>
+        <div>
           <h3 className="text-lg font-semibold text-white mb-4">Resources</h3>
           <ul className="space-y-2">
             <li>
-              <a href="#" className="hover:text-white">
+              <Link  to="/#mortgage-calculator" className="hover:text-white">
                 Mortgage Calculator
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-white">
+              <Link to="#" className="hover:text-white">
                 First-Time Homebuyer Guide
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-white">
+              <Link to="#" className="hover:text-white">
                 Refinancing Guide
-              </a>
+              </Link>
             </li>
-            <li>
-              <a href="#" className="hover:text-white">
+            {/* <li>
+              <Link to="#" className="hover:text-white">
                 Mortgage Glossary
-              </a>
-            </li>
+              </Link>
+            </li> */}
             <li>
-              <a href="#" className="hover:text-white">
+              <Link to="/blog" className="hover:text-white">
                 Blog
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-white">
+              <Link to="#" className="hover:text-white">
                 FAQ
-              </a>
+              </Link>
             </li>
           </ul>
-        </div> */}
+        </div>
         <div>
           <h3 className="text-lg font-semibold text-white mb-4">
             Contact Us
@@ -126,25 +141,25 @@ export const Footer = () => {
           <div className="mt-4 md:mt-0">
             <ul className="flex space-x-6 text-sm">
               <li>
-                <a href="https://ratebeat.com/pdf/privacy-policy.pdf" target='_blank' className="hover:text-white">
+                <Link to="https://ratebeat.com/pdf/privacy-policy.pdf" target='_blank' className="hover:text-white">
                   Privacy Policy
-                </a>
+                </Link>
               </li>
-              {/* <li>
-                <a href="#" className="hover:text-white">
+              <li>
+                <Link to="#" className="hover:text-white">
                   Terms of Service
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white">
+                <Link to="#" className="hover:text-white">
                   Licensing Info
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white">
+                <Link to="#" className="hover:text-white">
                   Sitemap
-                </a>
-              </li> */}
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
