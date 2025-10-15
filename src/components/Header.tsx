@@ -25,7 +25,7 @@ export const Header: React.FC<NavigationProps> = ({
       label: 'Buy',
       href: '#',
       dropdown: {
-        tabs: ['Buy a home', 'Calculators'],
+        tabs: ['Buy a home', 'Calculators', 'Learn'],
         content: {
           'Buy a home': {
             mainLink: {
@@ -41,10 +41,10 @@ export const Header: React.FC<NavigationProps> = ({
                 label: 'VA & military purchase resources',
                 href: '/purchase/va-military-homebuyer',
               },
-              {
-                label: 'Chat',
-                href: '/chat',
-              },
+              // {
+              //   label: 'Chat',
+              //   href: '/chat',
+              // },
             ],
           },
           Calculators: {
@@ -99,34 +99,34 @@ export const Header: React.FC<NavigationProps> = ({
           //     },
           //   ],
           // },
-          // Learn: {
-          //   mainLink: {
-          //     label: 'All articles',
-          //     href: '/learn',
-          //   },
-          //   links: [
-          //     {
-          //       label: 'Home buying process',
-          //       href: '/learn/home-buying',
-          //     },
-          //     {
-          //       label: 'First-time home buyers',
-          //       href: '/learn/first-time-home-buyers',
-          //     },
-          //     {
-          //       label: 'Moving tips',
-          //       href: '/learn/moving-tips',
-          //     },
-          //     {
-          //       label: 'Preparing to buy',
-          //       href: '/learn/preparing-to-buy',
-          //     },
-          //     {
-          //       label: 'Homeownership',
-          //       href: '/learn/homeownership',
-          //     },
-          //   ],
-          // },
+          Learn: {
+            mainLink: {
+              label: 'All articles',
+              href: '/learn',
+            },
+            links: [
+              {
+                label: 'Home buying process',
+                href: '/learn/home-buying',
+              },
+              {
+                label: 'First-time home buyers',
+                href: '/learn/first-time-home-buyers',
+              },
+              {
+                label: 'Moving tips',
+                href: '/learn/moving-tips',
+              },
+              {
+                label: 'Preparing to buy',
+                href: '/learn/preparing-to-buy',
+              },
+              {
+                label: 'Homeownership',
+                href: '/learn/homeownership',
+              },
+            ],
+          },
         },
       },
     },
@@ -134,7 +134,7 @@ export const Header: React.FC<NavigationProps> = ({
       label: 'Refinance',
       href: '#',
       dropdown: {
-        tabs: ['Refinance a home', 'Calculators', 'Learn', 'Español'],
+        tabs: ['Refinance a home', 'Calculators', 'Learn'],
         content: {
           'Refinance a home': {
             mainLink: {
@@ -157,6 +157,10 @@ export const Header: React.FC<NavigationProps> = ({
 
 
 
+              // {
+              //   label: 'Chat',
+              //   href: '/chat',
+              // },
             ],
           },
           Calculators: {

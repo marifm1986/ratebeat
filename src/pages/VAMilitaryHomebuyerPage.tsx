@@ -8,6 +8,8 @@ import {
   PlayCircle
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
+import { FinalCTA } from '../components/FinalCTA';
+import { LegalDisclaimer } from '../components/LegalDisclaimer';
 
 const VAMilitaryHomebuyerPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState('Overview');
@@ -47,7 +49,7 @@ const VAMilitaryHomebuyerPage: React.FC = () => {
           />
           <div className="absolute inset-0 bg-black opacity-50"></div>
         </div>
-        
+
         <div className="relative z-10 container mx-auto max-w-6xl">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -55,8 +57,8 @@ const VAMilitaryHomebuyerPage: React.FC = () => {
                 You fought for our home. We'll fight for yours.
               </h1>
               <p className="text-xl mb-8 text-gray-200 leading-relaxed">
-                We're so proud you served and equally sorry your service is done. It's 
-                time to get the home you deserve. From VA loans to military-friendly 
+                We're so proud you served and equally sorry your service is done. It's
+                time to get the home you deserve. From VA loans to military-friendly
                 home buying resources, we're here to serve you.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -77,11 +79,10 @@ const VAMilitaryHomebuyerPage: React.FC = () => {
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`py-4 px-2 border-b-2 font-medium text-sm transition-colors ${
-                  activeTab === tab
-                    ? 'border-blue-600 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700'
-                }`}
+                className={`py-4 px-2 border-b-2 font-medium text-sm transition-colors ${activeTab === tab
+                  ? 'border-blue-600 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+                  }`}
               >
                 {tab}
               </button>
@@ -98,7 +99,7 @@ const VAMilitaryHomebuyerPage: React.FC = () => {
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-8">
                 Our team can support you through the entire journey
               </h2>
-              
+
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center flex-shrink-0 mt-1">
@@ -109,7 +110,7 @@ const VAMilitaryHomebuyerPage: React.FC = () => {
                       Knowing your VA benefits with certainty
                     </h3>
                     <p className="text-gray-600">
-                      We'll help you understand all the VA benefits you have earned and how 
+                      We'll help you understand all the VA benefits you have earned and how
                       to use them on your home-buying journey.
                     </p>
                   </div>
@@ -124,7 +125,7 @@ const VAMilitaryHomebuyerPage: React.FC = () => {
                       Getting preapproved
                     </h3>
                     <p className="text-gray-600">
-                      We'll guide you through the entire process so you're feeling confident you can 
+                      We'll guide you through the entire process so you're feeling confident you can
                       make a strong offer when you find the perfect home.
                     </p>
                   </div>
@@ -207,7 +208,7 @@ const VAMilitaryHomebuyerPage: React.FC = () => {
             </div>
           </div>
 
-<Button className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-3 rounded-lg font-semibold shadow-lg backdrop-blur-sm">
+          <Button className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-3 rounded-lg font-semibold shadow-lg backdrop-blur-sm">
             Our commitment to veterans
           </Button>
         </div>
@@ -255,11 +256,11 @@ const VAMilitaryHomebuyerPage: React.FC = () => {
                 "You've got military time that counts, let's use it."
               </blockquote>
               <p className="text-lg text-gray-600 mb-8">
-                That's what our loan Robert K. told Navy sailor John when told his 
-                service qualified, But we showed him it and he could get his home 
+                That's what our loan Robert K. told Navy sailor John when told his
+                service qualified, But we showed him it and he could get his home
                 the needed ... and more.
               </p>
-            <Button className="bg-gray-900 text-white hover:bg-gray-800 px-6 py-3 rounded-lg font-semibold">
+              <Button className="bg-gray-900 text-white hover:bg-gray-800 px-6 py-3 rounded-lg font-semibold">
                 Check my eligibility
               </Button>
             </div>
@@ -298,10 +299,9 @@ const VAMilitaryHomebuyerPage: React.FC = () => {
                   className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50"
                 >
                   <span className="font-medium text-gray-900">{faq.question}</span>
-                  <ChevronRight 
-                    className={`w-5 h-5 text-gray-400 transition-transform ${
-                      expandedFaq === index ? 'rotate-90' : ''
-                    }`}
+                  <ChevronRight
+                    className={`w-5 h-5 text-gray-400 transition-transform ${expandedFaq === index ? 'rotate-90' : ''
+                      }`}
                   />
                 </button>
                 {expandedFaq === index && (
@@ -314,7 +314,7 @@ const VAMilitaryHomebuyerPage: React.FC = () => {
           </div>
 
           <div className="flex justify-center gap-4 mt-8">
-                      <Button className="bg-gray-900 text-white hover:bg-gray-800 px-6 py-3 rounded-lg font-semibold">
+            <Button className="bg-gray-900 text-white hover:bg-gray-800 px-6 py-3 rounded-lg font-semibold">
               Visit our FAQs
             </Button>
             <Button className="bg-gray-900 text-white hover:bg-gray-800 px-6 py-3 rounded-lg font-semibold">
@@ -376,7 +376,7 @@ const VAMilitaryHomebuyerPage: React.FC = () => {
           </div>
 
           <div className="text-center mt-8">
-                        <Button className="bg-gray-900 text-white hover:bg-gray-800 px-6 py-3 rounded-lg font-semibold">
+            <Button className="bg-gray-900 text-white hover:bg-gray-800 px-6 py-3 rounded-lg font-semibold">
               Visit our learning center
             </Button>
           </div>
@@ -384,34 +384,32 @@ const VAMilitaryHomebuyerPage: React.FC = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-16 px-4 bg-gray-900 text-white text-center">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-bold mb-4">
-            It's an honor to serve you
-          </h2>
-          <p className="text-xl text-gray-200 mb-8">
-            Whether you're on your next station or it's time to lay down roots, our Home 
-            Loan Experts are ready to help you home.
-          </p>
-<Button className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-3 rounded-lg font-semibold shadow-lg backdrop-blur-sm">
-            Visit our opportunities
-          </Button>
-        </div>
-      </section>
+      <FinalCTA
+        title="It's an honor to serve you"
+        description="Whether you're on your next station or it's time to lay down roots, our Home Loan Experts are ready to help you home."
+        buttonText="Visit our opportunities"
+      />
 
       {/* Legal Disclaimers */}
       <section className="py-8 px-4 bg-gray-100">
         <div className="container mx-auto max-w-6xl">
           <p className="text-xs text-gray-500 leading-relaxed">
-            ® Important legal disclosures<br/>
-        Refinancing may cause finance charges to be higher over the life of the loan.
- <br/><br/>
-Clients who lock their rate between May 19, 2025, and June 2, 2025, by 8:00 am ET, will receive a one-point discount on the rate’s pricing as a lender credit toward closing costs. A point is equal to 1% of the loan amount. Not valid with other discounts or promotions. Valid on first lien, retail fixed VA products. Not valid for loans through Ratebeat Pro, Partnerships, team member loans, or by an Executive Loan Officer. Acceptance of this offer means acceptance of these terms, which may be cancelled or changed at any time at the discretion of Ratebeat. Non-transferable. Not a commitment to lend. Additional restrictions/conditions may apply.
- <br/><br/>
-Client will be required to pay a 1% down payment, with the ability to pay a maximum of 3%, and Ratebeat will cover an additional 2% of the client’s purchase price as a down payment, or $2,000. Maximum grant amount is $7,000. Offer valid on primary residence, conventional loan products only. Maximum loan amount of $350,000. Cost of mortgage insurance premium passed through to client effective January 2, 2024. Offer valid only for home buyers when qualifying income is less than or equal to 80% area median income based on county where property is located. Not available with any other discounts or promotions and cannot be retroactively applied to previously closed loans or loans that have a locked rate. This is not a commitment to lend. Ratebeat reserves the right to cancel/modify this offer at any time. Additional restrictions/conditions may apply.
+            ® Important legal disclosures<br />
+            Refinancing may cause finance charges to be higher over the life of the loan.
+            <br /><br />
+            Clients who lock their rate between May 19, 2025, and June 2, 2025, by 8:00 am ET, will receive a one-point discount on the rate’s pricing as a lender credit toward closing costs. A point is equal to 1% of the loan amount. Not valid with other discounts or promotions. Valid on first lien, retail fixed VA products. Not valid for loans through Ratebeat Pro, Partnerships, team member loans, or by an Executive Loan Officer. Acceptance of this offer means acceptance of these terms, which may be cancelled or changed at any time at the discretion of Ratebeat. Non-transferable. Not a commitment to lend. Additional restrictions/conditions may apply.
+            <br /><br />
+            Client will be required to pay a 1% down payment, with the ability to pay a maximum of 3%, and Ratebeat will cover an additional 2% of the client’s purchase price as a down payment, or $2,000. Maximum grant amount is $7,000. Offer valid on primary residence, conventional loan products only. Maximum loan amount of $350,000. Cost of mortgage insurance premium passed through to client effective January 2, 2024. Offer valid only for home buyers when qualifying income is less than or equal to 80% area median income based on county where property is located. Not available with any other discounts or promotions and cannot be retroactively applied to previously closed loans or loans that have a locked rate. This is not a commitment to lend. Ratebeat reserves the right to cancel/modify this offer at any time. Additional restrictions/conditions may apply.
           </p>
         </div>
       </section>
+      <LegalDisclaimer
+        content={`Refinancing may cause finance charges to be higher over the life of the loan.
+
+Clients who lock their rate between May 19, 2025, and June 2, 2025, by 8:00 am ET, will receive a one-point discount on the rate's pricing as a lender credit toward closing costs. A point is equal to 1% of the loan amount. Not valid with other discounts or promotions. Valid on first lien, retail fixed VA products. Not valid for loans through Rocket Pro, Partnerships, team member loans, or by an Executive Loan Officer. Acceptance of this offer means acceptance of these terms, which may be cancelled or changed at any time at the discretion of Rocket Mortgage. Non-transferable. Not a commitment to lend. Additional restrictions/conditions may apply.
+
+Client will be required to pay a 1% down payment, with the ability to pay a maximum of 3%, and Rocket Mortgage will cover an additional 2% of the client's purchase price as a down payment, or $2,000. Maximum grant amount is $7,000. Offer valid on primary residence, conventional loan products only. Maximum loan amount of $350,000. Cost of mortgage insurance premium passed through to client effective January 2, 2024. Offer valid only for home buyers when qualifying income is less than or equal to 80% area median income based on county where property is located. Not available with any other discounts or promotions and cannot be retroactively applied to previously closed loans or loans that have a locked rate. This is not a commitment to lend. Rocket Mortgage reserves the right to cancel/modify this offer at any time. Additional restrictions/conditions may apply.`}
+      />
     </div>
   );
 };
