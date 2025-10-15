@@ -11,7 +11,7 @@ import {
 const AmortizationCalculator: React.FC = () => {
     // Form state
     const [loanAmount, setLoanAmount] = useState<number>(0)
-    const [interestRate, setInterestRate] = useState<number>(6.5)
+    const [interestRate, setInterestRate] = useState<number>(6.375)
     const [loanTerm, setLoanTerm] = useState<number>(30)
     const [startDate, setStartDate] = useState<Date>(getFirstDayOfNextMonth())
     const [extraMonthlyPayment, setExtraMonthlyPayment] = useState<number>(0)
